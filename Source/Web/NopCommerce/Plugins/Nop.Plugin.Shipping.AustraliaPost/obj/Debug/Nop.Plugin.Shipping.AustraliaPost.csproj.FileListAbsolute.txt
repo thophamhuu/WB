@@ -1,0 +1,12 @@
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\Views\Configure.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\Description.txt
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\logo.jpg
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\Nop.Plugin.Shipping.AustraliaPost.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\Nop.Plugin.Shipping.AustraliaPost.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.AustraliaPost\Nop.Plugin.Shipping.AustraliaPost.pdb
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.AustraliaPost\obj\Debug\Nop.Plugin.Shipping.AustraliaPost.csproj.App.config
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.AustraliaPost\obj\Debug\Nop.Plugin.Shipping.AustraliaPost.csprojResolveAssemblyReference.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.AustraliaPost\obj\Debug\Nop.Plugin.Shipping.AustraliaPost.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.AustraliaPost\obj\Debug\Nop.Plugin.Shipping.AustraliaPost.dll
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.AustraliaPost\obj\Debug\Nop.Plugin.Shipping.AustraliaPost.pdb

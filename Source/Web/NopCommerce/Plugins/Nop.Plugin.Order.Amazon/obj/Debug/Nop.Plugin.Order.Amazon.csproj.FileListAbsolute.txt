@@ -1,0 +1,17 @@
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Description.txt
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\List.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\Order.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\_OrderDetails.Billing.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\_OrderDetails.Info.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\_OrderDetails.Products.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\_OrderDetails.Shipping.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Views\Configure.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Nop.Plugin.Order.Amazon.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Nop.Plugin.Order.Amazon.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Order.Amazon\Nop.Plugin.Order.Amazon.pdb
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Order.Amazon\obj\Debug\Nop.Plugin.Order.Amazon.csprojResolveAssemblyReference.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Order.Amazon\obj\Debug\Nop.Plugin.Order.Amazon.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Order.Amazon\obj\Debug\Nop.Plugin.Order.Amazon.dll
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Order.Amazon\obj\Debug\Nop.Plugin.Order.Amazon.pdb

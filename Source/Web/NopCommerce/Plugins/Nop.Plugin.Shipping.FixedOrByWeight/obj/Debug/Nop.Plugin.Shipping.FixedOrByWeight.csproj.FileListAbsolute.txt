@@ -1,0 +1,17 @@
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Description.txt
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\Configure.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_CreateOrUpdateRateByWeight.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\AddRateByWeightPopup.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\EditRateByWeightPopup.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_ByWeight.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_FixedRate.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\logo.jpg
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.pdb
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csproj.App.config
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csprojResolveAssemblyReference.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.dll
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.pdb
