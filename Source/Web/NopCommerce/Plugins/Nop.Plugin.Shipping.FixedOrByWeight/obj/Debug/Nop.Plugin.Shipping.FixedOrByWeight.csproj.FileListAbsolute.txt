@@ -15,3 +15,20 @@ D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\o
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csproj.CoreCompileInputs.cache
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.dll
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Description.txt
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\Configure.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_CreateOrUpdateRateByWeight.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\AddRateByWeightPopup.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\EditRateByWeightPopup.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_ByWeight.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Views\_FixedRate.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\logo.jpg
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Shipping.FixedOrByWeight\Nop.Plugin.Shipping.FixedOrByWeight.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csproj.App.config
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.dll
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Shipping.FixedOrByWeight\obj\Debug\Nop.Plugin.Shipping.FixedOrByWeight.pdb

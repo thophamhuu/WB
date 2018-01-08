@@ -22,18 +22,18 @@ namespace Nop.Services
         private HttpClient _client;
         private string _clientId = "58aeb213-3887-40dd-928c-40a36b2d5ea3";
         private string _clientSecret = "c8dfe65e0ed657b49844f775dcd17341";
+        private APISettings apiSettings = APISettings.Load();
         private APIHelper()
         {
-            var nopConfig = EngineContext.Current.Resolve<NopConfig>();
+            //var nopConfig = EngineContext.Current.Resolve<NopConfig>();
 
             _client = new HttpClient();
-            _client.BaseAddress = new Uri(nopConfig.BaseAddress);
+            _client.BaseAddress = new Uri("http://localhost:49647/");
             _client.Timeout = TimeSpan.FromSeconds(20000);
 
             try
             {
-                var _settingService = EngineContext.Current.Resolve<ISettingService>();
-                APISettings apiSettings = APISettings.Load();
+                //APISettings apiSettings = APISettings.Load();
                 if (apiSettings != null)
                 {
                     apiSettings.ClientId = _clientId;
@@ -77,7 +77,6 @@ namespace Nop.Services
         }
         private void AccessToken(APISettings apiSettings = null)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
             _client.DefaultRequestHeaders.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "token");
@@ -106,7 +105,6 @@ namespace Nop.Services
         }
         private void RefreshToken(APISettings apiSettings)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
             _client.DefaultRequestHeaders.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "token");
@@ -139,8 +137,7 @@ namespace Nop.Services
         }
         private string GetAsync(string serviceName, string methodName, IDictionary<string, dynamic> parameters)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
-            APISettings apiSettings = APISettings.Load();
+            //APISettings apiSettings = APISettings.Load();
             if (apiSettings.ExpireAccessToken <= DateTime.Now)
             {
                 RefreshToken(apiSettings);
@@ -153,19 +150,19 @@ namespace Nop.Services
                 parameters.Select(kvp =>
                 string.Format("{0}={1}", kvp.Key, kvp.Value))));
             }
-            try
-            {
+            //try
+            //{
                 var getAsync = _client.GetStringAsync(url);
                 while (!getAsync.IsCompleted) { }
                 var getResult = getAsync.Result;
                 return getResult;
-            }
-            catch (Exception ex)
-            {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
-                return ex.Message;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            //    logger.Error(ex.Message, ex);
+            //    return ex.Message;
+            //}
         }
         public T GetAsync<T>(string serviceName, string methodName, IDictionary<string, dynamic> parameters)
         {
@@ -176,8 +173,8 @@ namespace Nop.Services
             }
             catch (Exception ex)
             {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
+                //ILogger logger = EngineContext.Current.Resolve<ILogger>();
+                //logger.Error(ex.Message, ex);
             }
             return default(T);
         }
@@ -190,8 +187,8 @@ namespace Nop.Services
             }
             catch (Exception ex)
             {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
+                //ILogger logger = EngineContext.Current.Resolve<ILogger>();
+                //logger.Error(ex.Message, ex);
             }
             return default(List<T>);
         }
@@ -206,16 +203,15 @@ namespace Nop.Services
             }
             catch (Exception ex)
             {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
+                //ILogger logger = EngineContext.Current.Resolve<ILogger>();
+                //logger.Error(ex.Message, ex);
             }
             return default(IPagedList<T>);
         }
 
         public bool PostAsync(string serviceName, string methodName, object body, IDictionary<string, dynamic> parameters = null)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
-            APISettings apiSettings = APISettings.Load();
+            //APISettings apiSettings = APISettings.Load();
             if (apiSettings.ExpireAccessToken <= DateTime.Now)
             {
                 RefreshToken(apiSettings);
@@ -228,22 +224,21 @@ namespace Nop.Services
                 parameters.Select(kvp =>
                 string.Format("{0}={1}", kvp.Key, kvp.Value))));
             }
-            try
-            {
+            //try
+            //{
                 var getResult = _client.PostAsJsonAsync(url, body).Result;
                 return getResult.IsSuccessStatusCode;
-            }
-            catch (Exception ex)
-            {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
-                return false;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            //    logger.Error(ex.Message, ex);
+            //    return false;
+            //}
         }
         public T PostAsync<T>(string serviceName, string methodName, object body, IDictionary<string, dynamic> parameters = null)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
-            APISettings apiSettings = APISettings.Load();
+            //APISettings apiSettings = APISettings.Load();
             if (apiSettings.ExpireAccessToken <= DateTime.Now)
             {
                 RefreshToken(apiSettings);
@@ -256,22 +251,21 @@ namespace Nop.Services
                 parameters.Select(kvp =>
                 string.Format("{0}={1}", kvp.Key, kvp.Value))));
             }
-            try
-            {
+            //try
+            //{
                 var getResult = _client.PostAsJsonAsync(url, body).Result;
                 return JsonConvert.DeserializeObject<T>(getResult.Content.ReadAsStringAsync().Result);
-            }
-            catch (Exception ex)
-            {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
-                return default(T);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            //    logger.Error(ex.Message, ex);
+            //    return default(T);
+            //}
         }
         public IList<T> PostListAsync<T>(string serviceName, string methodName, object body, IDictionary<string, dynamic> parameters = null)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
-            APISettings apiSettings = APISettings.Load();
+            //APISettings apiSettings = APISettings.Load();
             if (apiSettings.ExpireAccessToken <= DateTime.Now)
             {
                 RefreshToken(apiSettings);
@@ -284,23 +278,22 @@ namespace Nop.Services
                 parameters.Select(kvp =>
                 string.Format("{0}={1}", kvp.Key, kvp.Value))));
             }
-            try
-            {
+            //try
+            //{
                 var getResult = _client.PostAsJsonAsync(url, body).Result;
                 return JsonConvert.DeserializeObject<List<T>>(getResult.Content.ReadAsStringAsync().Result);
-            }
-            catch (Exception ex)
-            {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
-                return default(List<T>);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            //    logger.Error(ex.Message, ex);
+            //    return default(List<T>);
+            //}
         }
 
         public bool PutAsync(string serviceName, string methodName, object body, IDictionary<string, dynamic> parameters = null)
         {
-            var _settingService = EngineContext.Current.Resolve<ISettingService>();
-            APISettings apiSettings = APISettings.Load();
+            //APISettings apiSettings = APISettings.Load();
             if (apiSettings.ExpireAccessToken <= DateTime.Now)
             {
                 RefreshToken(apiSettings);
@@ -313,17 +306,17 @@ namespace Nop.Services
                 parameters.Select(kvp =>
                 string.Format("{0}={1}", kvp.Key, kvp.Value))));
             }
-            try
-            {
+            //try
+            //{
                 var getResult = _client.PutAsJsonAsync(url, body).Result;
                 return getResult.IsSuccessStatusCode;
-            }
-            catch (Exception ex)
-            {
-                ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                logger.Error(ex.Message, ex);
-                return false;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            //    logger.Error(ex.Message, ex);
+            //    return false;
+            //}
         }
     }
 

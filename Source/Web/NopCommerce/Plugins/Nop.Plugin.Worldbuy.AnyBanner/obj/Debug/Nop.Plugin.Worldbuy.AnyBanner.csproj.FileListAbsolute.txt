@@ -18,3 +18,23 @@ D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Deb
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.csproj.CoreCompileInputs.cache
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.dll
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Content\css\Anybanner.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Description.txt
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\SupportedWidgetZones.xml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\_CreateOrUpdate.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\_CreateOrUpdate.Item.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\_CreateOrUpdate.Items.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\_CreateOrUpdate.Settings.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\Create.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\Edit.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\List.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\PublicInfo.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Views\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Nop.Plugin.Worldbuy.AnyBanner.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Nop.Plugin.Worldbuy.AnyBanner.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.AnyBanner\Nop.Plugin.Worldbuy.AnyBanner.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.dll
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy.AnyBanner\obj\Debug\Nop.Plugin.Worldbuy.AnyBanner.pdb

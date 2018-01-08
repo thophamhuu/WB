@@ -29,3 +29,34 @@ D:\Phare_1_Service\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.csprojR
 D:\Phare_1_Service\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.csproj.CoreCompileInputs.cache
 D:\Phare_1_Service\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.dll
 D:\Phare_1_Service\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Nop.Core.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Nop.Core.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Nop.Core.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Autofac.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Autofac.Integration.Mvc.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\AutoMapper.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\RedLock.StrongName.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\StackExchange.Redis.StrongName.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Helpers.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Mvc.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Razor.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Autofac.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Autofac.Integration.Mvc.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\AutoMapper.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\StackExchange.Redis.StrongName.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Helpers.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Mvc.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.Razor.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.dll
+D:\Api git\WB\Source\Web\NopCommerce\Libraries\Nop.Core\obj\Debug\Nop.Core.pdb

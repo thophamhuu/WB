@@ -23,3 +23,28 @@ D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plu
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.csproj.CoreCompileInputs.cache
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.dll
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\1000.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\1280.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\480.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\768.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\mobile-only.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\worldbuy-icon.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\css\styles.css
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\flag-us.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\flag-vn.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\logo.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-account.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-cart.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-category.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-search.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-tag.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-application.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Description.txt
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Nop.Plugin.Worldbuy.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Nop.Plugin.Worldbuy.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Nop.Plugin.Worldbuy.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.dll
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.pdb

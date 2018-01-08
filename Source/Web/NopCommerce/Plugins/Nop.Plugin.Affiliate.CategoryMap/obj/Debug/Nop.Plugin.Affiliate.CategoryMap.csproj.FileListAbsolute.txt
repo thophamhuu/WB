@@ -10,3 +10,15 @@ D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.csproj.CoreCompileInputs.cache
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.dll
 D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Description.txt
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\logo.png
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Views\Configure.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Views\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Nop.Plugin.Affiliate.CategoryMap.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Nop.Plugin.Affiliate.CategoryMap.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Nop.Plugin.Affiliate.CategoryMap.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.dll
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.pdb

@@ -310,19 +310,19 @@ namespace Nop.Web.Framework
                     .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                     .InstancePerLifetimeScope();
 
-                bool databaseInstalled = DataSettingsHelper.DatabaseIsInstalled();
-                if (!databaseInstalled)
-                {
-                    //installation service
-                    if (config.UseFastInstallationService)
-                    {
-                        builder.RegisterType<SqlFileInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
-                    }
-                    else
-                    {
-                        builder.RegisterType<CodeFirstInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
-                    }
-                }
+                //bool databaseInstalled = DataSettingsHelper.DatabaseIsInstalled();
+                //if (!databaseInstalled)
+                //{
+                //    //installation service
+                //    if (config.UseFastInstallationService)
+                //    {
+                //        builder.RegisterType<SqlFileInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
+                //    }
+                //    else
+                //    {
+                //        builder.RegisterType<CodeFirstInstallationService>().As<IInstallationService>().InstancePerLifetimeScope();
+                //    }
+                //}
 
                 builder.RegisterType<ForumApiService>().As<IForumService>().InstancePerLifetimeScope();
 
