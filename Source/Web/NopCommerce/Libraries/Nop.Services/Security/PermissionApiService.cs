@@ -1,4 +1,6 @@
-﻿using Nop.Core.Domain.Customers;
+﻿using Nop.Core;
+using Nop.Core.Caching;
+using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Security;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,68 @@ namespace Nop.Services.Security
 {
     public partial class PermissionApiService : IPermissionService
     {
+        #region Constants
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : customer role ID
+        /// {1} : permission system name
+        /// </remarks>
+        private const string PERMISSIONS_ALLOWED_KEY = "Nop.permission.allowed-{0}-{1}";
+        /// <summary>
+        /// Key pattern to clear cache
+        /// </summary>
+        private const string PERMISSIONS_PATTERN_KEY = "Nop.permission.";
+        #endregion
+
+        #region Fields
+
+        private readonly ICacheManager _cacheManager;
+        private readonly IWorkContext _workContext;
+
+        #endregion
+
+        #region Ctor
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="cacheManager">Cache manager</param>
+        public PermissionApiService(ICacheManager cacheManager, IWorkContext workContext)
+        {
+            this._cacheManager = cacheManager;
+            this._workContext = workContext;
+        }
+
+        #endregion
+
+        #region Utilities
+
+        /// <summary>
+        /// Authorize permission
+        /// </summary>
+        /// <param name="permissionRecordSystemName">Permission record system name</param>
+        /// <param name="customerRole">Customer role</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        protected virtual bool Authorize(string permissionRecordSystemName, CustomerRole customerRole)
+        {
+            if (String.IsNullOrEmpty(permissionRecordSystemName))
+                return false;
+
+            string key = string.Format(PERMISSIONS_ALLOWED_KEY, customerRole.Id, permissionRecordSystemName);
+            return _cacheManager.Get(key, () =>
+            {
+                foreach (var permission1 in customerRole.PermissionRecords)
+                    if (permission1.SystemName.Equals(permissionRecordSystemName, StringComparison.InvariantCultureIgnoreCase))
+                        return true;
+
+                return false;
+            });
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -97,7 +161,7 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize(PermissionRecord permission)
         {
-           return APIHelper.Instance.PostAsync<bool>("Security", "Authorize", permission);
+            return Authorize(permission, _workContext.CurrentCustomer);
         }
 
         /// <summary>
@@ -108,10 +172,22 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize(PermissionRecord permission, Customer customer)
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("permission", permission);
-            parameters.Add("customer", customer);
-            return APIHelper.Instance.PostAsync<bool>("Security", "Authorize", parameters);
+            if (permission == null)
+                return false;
+
+            if (customer == null)
+                return false;
+
+            //old implementation of Authorize method
+            //var customerRoles = customer.CustomerRoles.Where(cr => cr.Active);
+            //foreach (var role in customerRoles)
+            //    foreach (var permission1 in role.PermissionRecords)
+            //        if (permission1.SystemName.Equals(permission.SystemName, StringComparison.InvariantCultureIgnoreCase))
+            //            return true;
+
+            //return false;
+
+            return Authorize(permission.SystemName, customer);
         }
 
         /// <summary>
@@ -121,9 +197,7 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize(string permissionRecordSystemName)
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("permissionRecordSystemName", permissionRecordSystemName);
-            return APIHelper.Instance.PostAsync<bool>("Security", "Authorize", parameters);
+            return Authorize(permissionRecordSystemName, _workContext.CurrentCustomer);
         }
 
         /// <summary>
@@ -134,9 +208,17 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize(string permissionRecordSystemName, Customer customer)
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("permissionRecordSystemName", permissionRecordSystemName);
-            return APIHelper.Instance.PostAsync<bool>("Security", "Authorize", customer, parameters);
+            if (String.IsNullOrEmpty(permissionRecordSystemName))
+                return false;
+
+            var customerRoles = customer.CustomerRoles.Where(cr => cr.Active);
+            foreach (var role in customerRoles)
+                if (Authorize(permissionRecordSystemName, role))
+                    //yes, we have such permission
+                    return true;
+
+            //no permission found
+            return false;
         }
 
         #endregion

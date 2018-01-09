@@ -1,4 +1,5 @@
 ﻿using Nop.Core;
+using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Security;
 using System;
@@ -11,6 +12,48 @@ namespace Nop.Services.Security
 {
     public partial class AclApiService : IAclService
     {
+        #region Constants
+
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : entity ID
+        /// {1} : entity name
+        /// </remarks>
+        private const string ACLRECORD_BY_ENTITYID_NAME_KEY = "Nop.aclrecord.entityid-name-{0}-{1}";
+        /// <summary>
+        /// Key pattern to clear cache
+        /// </summary>
+        private const string ACLRECORD_PATTERN_KEY = "Nop.aclrecord.";
+
+        #endregion
+
+        #region Fields
+
+        private readonly IWorkContext _workContext;
+        private readonly CatalogSettings _catalogSettings;
+
+        #endregion
+
+        #region Ctor
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="cacheManager">Cache manager</param>
+        /// <param name="workContext">Work context</param>
+        /// <param name="aclRecordRepository">ACL record repository</param>
+        /// <param name="catalogSettings">Catalog settings</param>
+        /// <param name="eventPublisher">Event publisher</param>
+        public AclApiService(IWorkContext workContext, CatalogSettings catalogSettings)
+        {
+            this._workContext = workContext;
+            this._catalogSettings = catalogSettings;
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -100,9 +143,7 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize<T>(T entity) where T : BaseEntity, IAclSupported
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("entity", entity);
-            return APIHelper.Instance.GetAsync<bool>("Security", "Authorize", parameters);
+            return Authorize(entity, _workContext.CurrentCustomer);
         }
 
         /// <summary>
@@ -114,10 +155,26 @@ namespace Nop.Services.Security
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize<T>(T entity, Customer customer) where T : BaseEntity, IAclSupported
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("entity", entity);
-            parameters.Add("customer", customer);
-            return APIHelper.Instance.GetAsync<bool>("Security", "Authorize", parameters);
+            if (entity == null)
+                return false;
+
+            if (customer == null)
+                return false;
+
+            if (_catalogSettings.IgnoreAcl)
+                return true;
+
+            if (!entity.SubjectToAcl)
+                return true;
+
+            foreach (var role1 in customer.CustomerRoles.Where(cr => cr.Active))
+                foreach (var role2Id in GetCustomerRoleIdsWithAccess(entity))
+                    if (role1.Id == role2Id)
+                        //yes, we have such permission
+                        return true;
+
+            //no permission found
+            return false;
         }
         #endregion
     }

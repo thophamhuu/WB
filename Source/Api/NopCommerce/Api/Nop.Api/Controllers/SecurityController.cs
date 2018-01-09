@@ -107,29 +107,6 @@ namespace Nop.Api.Controllers
             return _aclService.GetCustomerRoleIdsWithAccess(entity);
         }
 
-        /// <summary>
-        /// Authorize ACL permission
-        /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <param name="entity">Wntity</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize<T>(T entity) where T : BaseEntity, IAclSupported
-        {
-            return _aclService.Authorize(entity);
-        }
-
-        /// <summary>
-        /// Authorize ACL permission
-        /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <param name="entity">Wntity</param>
-        /// <param name="customer">Customer</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize<T>(T entity, Customer customer) where T : BaseEntity, IAclSupported
-        {
-            return _aclService.Authorize(entity, customer);
-        }
-
         #endregion
 
         #region Encryption
@@ -265,48 +242,6 @@ namespace Nop.Api.Controllers
         public void UninstallPermissions([FromBody]IPermissionProvider permissionProvider)
         {
             _permissionService.UninstallPermissions(permissionProvider);
-        }
-
-        /// <summary>
-        /// Authorize permission
-        /// </summary>
-        /// <param name="permission">Permission record</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize([FromBody]PermissionRecord permission)
-        {
-            return _permissionService.Authorize(permission);
-        }
-
-        /// <summary>
-        /// Authorize permission
-        /// </summary>
-        /// <param name="permission">Permission record</param>
-        /// <param name="customer">Customer</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize(PermissionRecord permission, Customer customer)
-        {
-            return _permissionService.Authorize(permission, customer);
-        }
-
-        /// <summary>
-        /// Authorize permission
-        /// </summary>
-        /// <param name="permissionRecordSystemName">Permission record system name</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize(string permissionRecordSystemName)
-        {
-            return _permissionService.Authorize(permissionRecordSystemName);
-        }
-
-        /// <summary>
-        /// Authorize permission
-        /// </summary>
-        /// <param name="permissionRecordSystemName">Permission record system name</param>
-        /// <param name="customer">Customer</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize(string permissionRecordSystemName, Customer customer)
-        {
-            return _permissionService.Authorize(permissionRecordSystemName, customer);
         }
 
         #endregion

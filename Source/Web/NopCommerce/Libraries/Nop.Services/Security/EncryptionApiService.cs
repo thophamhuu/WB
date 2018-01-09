@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Nop.Core.Domain.Security;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +11,12 @@ namespace Nop.Services.Security
 {
     public partial class EncryptionApiService : IEncryptionService
     {
+        private readonly SecuritySettings _securitySettings;
+        public EncryptionApiService(SecuritySettings securitySettings)
+        {
+            this._securitySettings = securitySettings;
+        }
+
         /// <summary>
         /// Create salt key
         /// </summary>
@@ -15,9 +24,15 @@ namespace Nop.Services.Security
         /// <returns>Salt key</returns>
         public virtual string CreateSaltKey(int size)
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("size", size);
-            return APIHelper.Instance.GetAsync<string>("Security", "CreateSaltKey", parameters);
+            //generate a cryptographic random number
+            using (var provider = new RNGCryptoServiceProvider())
+            {
+                var buff = new byte[size];
+                provider.GetBytes(buff);
+
+                // Return a Base64 string representation of the random number
+                return Convert.ToBase64String(buff);
+            }
         }
 
         /// <summary>
@@ -29,14 +44,7 @@ namespace Nop.Services.Security
         /// <returns>Password hash</returns>
         public virtual string CreatePasswordHash(string password, string saltkey, string passwordFormat = "SHA1")
         {
-            var body = new
-            {
-                password,
-                saltkey,
-                passwordFormat
-            };
-            
-            return APIHelper.Instance.PostAsync<string>("Security", "CreatePasswordHash",body, null);
+            return CreateHash(Encoding.UTF8.GetBytes(String.Concat(password, saltkey)), passwordFormat);
         }
 
         /// <summary>
@@ -47,10 +55,16 @@ namespace Nop.Services.Security
         /// <returns>Data hash</returns>
         public virtual string CreateHash(byte[] data, string hashAlgorithm = "SHA1")
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("data", data);
-            parameters.Add("hashAlgorithm", hashAlgorithm);
-            return APIHelper.Instance.GetAsync<string>("Security", "CreateHash", parameters);
+            if (String.IsNullOrEmpty(hashAlgorithm))
+                hashAlgorithm = "SHA1";
+
+            //return FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPassword, passwordFormat);
+            var algorithm = HashAlgorithm.Create(hashAlgorithm);
+            if (algorithm == null)
+                throw new ArgumentException("Unrecognized hash name");
+
+            var hashByteArray = algorithm.ComputeHash(data);
+            return BitConverter.ToString(hashByteArray).Replace("-", "");
         }
 
         /// <summary>
@@ -61,10 +75,20 @@ namespace Nop.Services.Security
         /// <returns>Encrypted text</returns>
         public virtual string EncryptText(string plainText, string encryptionPrivateKey = "")
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("plainText", plainText);
-            parameters.Add("encryptionPrivateKey", encryptionPrivateKey);
-            return APIHelper.Instance.GetAsync<string>("Security", "EncryptText", parameters);
+            if (string.IsNullOrEmpty(plainText))
+                return plainText;
+
+            if (String.IsNullOrEmpty(encryptionPrivateKey))
+                encryptionPrivateKey = _securitySettings.EncryptionKey;
+
+            using (var provider = new TripleDESCryptoServiceProvider())
+            {
+                provider.Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16));
+                provider.IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8));
+
+                byte[] encryptedBinary = EncryptTextToMemory(plainText, provider.Key, provider.IV);
+                return Convert.ToBase64String(encryptedBinary);
+            }
         }
 
         /// <summary>
@@ -75,10 +99,53 @@ namespace Nop.Services.Security
         /// <returns>Decrypted text</returns>
         public virtual string DecryptText(string cipherText, string encryptionPrivateKey = "")
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("cipherText", cipherText);
-            parameters.Add("encryptionPrivateKey", encryptionPrivateKey);
-            return APIHelper.Instance.GetAsync<string>("Security", "DecryptText", parameters);
+            if (String.IsNullOrEmpty(cipherText))
+                return cipherText;
+
+            if (String.IsNullOrEmpty(encryptionPrivateKey))
+                encryptionPrivateKey = _securitySettings.EncryptionKey;
+
+            using (var provider = new TripleDESCryptoServiceProvider())
+            {
+                provider.Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16));
+                provider.IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8));
+
+                byte[] buffer = Convert.FromBase64String(cipherText);
+                return DecryptTextFromMemory(buffer, provider.Key, provider.IV);
+            }
         }
+
+        #region Utilities
+
+        private byte[] EncryptTextToMemory(string data, byte[] key, byte[] iv)
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateEncryptor(key, iv), CryptoStreamMode.Write))
+                {
+                    byte[] toEncrypt = Encoding.Unicode.GetBytes(data);
+                    cs.Write(toEncrypt, 0, toEncrypt.Length);
+                    cs.FlushFinalBlock();
+                }
+
+                return ms.ToArray();
+            }
+        }
+
+        private string DecryptTextFromMemory(byte[] data, byte[] key, byte[] iv)
+        {
+            using (var ms = new MemoryStream(data))
+            {
+                using (var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateDecryptor(key, iv), CryptoStreamMode.Read))
+                {
+                    using (var sr = new StreamReader(cs, Encoding.Unicode))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }
