@@ -1,5 +1,5 @@
 .vs/
 
-/[Bb]in
-/[Oo]bj
+*/[Bb]in
+*/[Oo]bj
 !Source/Web/NopCommerce/Presentation/Nop.Web/Plugins/bin
