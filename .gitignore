@@ -1,8 +1,5 @@
 .vs/
 
-**/bin/Debug/
-**/bin/Release/
-**/Bin/Debug/
-**/Bin/Release/
-**/obj/
-**/Obj/
+Source/**/bin/
+Source/**/obj/
+Source/Web/NopCommerce/Presentation/Nop.Web/Plugins/bin/
