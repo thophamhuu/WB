@@ -4,7 +4,6 @@
 Source/**/bin/
 
 Source/**/obj/
-
 Source/Web/NopCommerce/Tests/
 Source/Web/NopCommerce/Presentation/Nop.Web/Plugins/*/
 !Source/Web/NopCommerce/Presentation/Nop.Web/Plugins/SevenSpikes.*/
