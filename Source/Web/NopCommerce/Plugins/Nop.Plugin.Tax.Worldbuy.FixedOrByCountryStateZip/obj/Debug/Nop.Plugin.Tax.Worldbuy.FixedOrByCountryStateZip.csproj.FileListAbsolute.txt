@@ -1,0 +1,28 @@
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Description.txt
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_CountryStateZip.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_FixedRate.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\Configure.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_TaxCategoryMapping.cshtml
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\web.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\logo.jpg
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.pdb
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll
+D:\Phare_1_Service\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Description.txt
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_CountryStateZip.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_FixedRate.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\Configure.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\_TaxCategoryMapping.cshtml
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Views\web.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\logo.jpg
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Tax.Worldbuy.FixedOrByCountryStateZip\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.dll
+D:\Api git\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip\obj\Debug\Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.pdb

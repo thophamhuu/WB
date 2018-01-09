@@ -1,0 +1,80 @@
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.pdb
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Tests.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\nunit.framework.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Rhino.Mocks.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Helpers.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Mvc.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Razor.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\AutoMapper.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\StackExchange.Redis.StrongName.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\RedLock.StrongName.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.Integration.Mvc.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Newtonsoft.Json.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.pdb
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Tests.pdb
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\nunit.framework.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Rhino.Mocks.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Helpers.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Mvc.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Razor.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\AutoMapper.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\StackExchange.Redis.StrongName.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.Integration.Mvc.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Newtonsoft.Json.xml
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.csprojResolveAssemblyReference.cache
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.dll
+D:\Phare_1_Service\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Razor.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.Tests.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Tests.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\nunit.framework.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Rhino.Mocks.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Helpers.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Mvc.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\AutoMapper.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\StackExchange.Redis.StrongName.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\RedLock.StrongName.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.Integration.Mvc.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Newtonsoft.Json.dll
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Core.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Nop.Tests.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\nunit.framework.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Rhino.Mocks.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Helpers.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Mvc.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.Razor.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\AutoMapper.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\StackExchange.Redis.StrongName.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Autofac.Integration.Mvc.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\bin\Debug\Newtonsoft.Json.xml
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Tests\Nop.Core.Tests\obj\Debug\Nop.Core.Tests.csproj.CoreCompileInputs.cache

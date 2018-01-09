@@ -1,0 +1,14 @@
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.dll.config
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.pdb
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.csprojResolveAssemblyReference.cache
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.csproj.CoreCompileInputs.cache
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.dll
+D:\Phare_1_Service\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.dll.config
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\bin\Nop.Admin.pdb
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.csprojResolveAssemblyReference.cache
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.csproj.CoreCompileInputs.cache
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.dll
+D:\Api git\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Administration\obj\Debug\Nop.Admin.pdb
