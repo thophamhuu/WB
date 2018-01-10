@@ -90,15 +90,20 @@
             <option @optionAttributes data-option-ids="@productVariantAttributeIds" data-valueId="@attributeFilterItem.ValueId" value="@attributeFilterItem.Name">
                 @attributeFilterItem.Name
             </option>
-        }
     }
+}
+
+if(uiMode == FiltersUIMode.UseCheckboxes && attributeFilterGroup.FilterItems.Count > 5)
+{
+        <li class="worldbuy-collapse-button"><span data-normal-title="@T("worldbuy.normal.title")" data-collapse-title="@T("worldbuy.collapse.title")"></span></li>
+}
 }
 
 @helper GetListWithOptions(AttributeFilterGroup attributeFilterGroup, FiltersUIMode uiMode)
 {
     if (uiMode == FiltersUIMode.UseCheckboxes)
     {
-        <ul class="checkbox-list">
+        <ul class="checkbox-list worldbuy-checkbox-list">
             @GetListOfOptions(attributeFilterGroup, uiMode)
         </ul>
     }

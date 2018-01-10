@@ -1,4 +1,5 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
@@ -71,14 +72,19 @@ namespace Nop.Api.Controllers
         /// <returns>Customers</returns>
         public IAPIPagedList<Customer> GetAllCustomers(DateTime? createdFromUtc = null,
             DateTime? createdToUtc = null, int affiliateId = 0, int vendorId = 0,
-            int[] customerRoleIds = null, string email = null, string username = null,
+            string customerRoleIds = null, string email = null, string username = null,
             string firstName = null, string lastName = null,
             int dayOfBirth = 0, int monthOfBirth = 0,
             string company = null, string phone = null, string zipPostalCode = null,
             string ipAddress = null, bool loadOnlyWithShoppingCart = false, ShoppingCartType? sct = null,
             int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            return _customerService.GetAllCustomers(createdFromUtc, createdToUtc, affiliateId, vendorId, customerRoleIds, email, username, firstName, lastName, dayOfBirth, monthOfBirth, company, phone, zipPostalCode, ipAddress, loadOnlyWithShoppingCart, sct, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
+            int[] arrCustomerRoleIds = null;
+            if (customerRoleIds != null)
+            {
+                arrCustomerRoleIds = customerRoleIds.Split(',').Select(x => Int32.Parse(x)).ToArray();
+            }
+            return _customerService.GetAllCustomers(createdFromUtc, createdToUtc, affiliateId, vendorId, arrCustomerRoleIds, email, username, firstName, lastName, dayOfBirth, monthOfBirth, company, phone, zipPostalCode, ipAddress, loadOnlyWithShoppingCart, sct, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
         }
 
         /// <summary>
@@ -372,11 +378,11 @@ namespace Nop.Api.Controllers
         /// <param name="usernameOrEmail">Username or email</param>
         /// <param name="password">Password</param>
         /// <returns>Result</returns>
-        public CustomerLoginResults ValidateCustomer(string usernameOrEmail, string password)
+        [HttpPost]
+        public HttpResponseMessage ValidateCustomer([FromBody]ValidateCustomerModel model)
         {
-            return _customerRegistrationService.ValidateCustomer(usernameOrEmail, password);
+            return Request.CreateResponse(HttpStatusCode.OK, _customerRegistrationService.ValidateCustomer(model.usernameOrEmail, model.password));
         }
-
         /// <summary>
         /// Register customer
         /// </summary>

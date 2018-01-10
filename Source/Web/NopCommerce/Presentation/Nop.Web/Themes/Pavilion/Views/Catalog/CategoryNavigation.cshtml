@@ -26,15 +26,15 @@
 
 @helper RenderCategoryLineOnCategoryPage(CategorySimpleModel category, bool isInCurrentCategory = false)
 {
-    if (category.Id == Model.CurrentCategoryId)
+if (category.Id == Model.CurrentCategoryId)
+{
+    foreach (var subCategory in category.SubCategories)
     {
-        foreach (var subCategory in category.SubCategories)
-        {
             @RenderCategoryLineOnCategoryPage(subCategory, true)
-        }
     }
-    else if (isInCurrentCategory)
-    {
+}
+else if (isInCurrentCategory)
+{
         <li>
             <a href="@Url.RouteUrl("Category", new {SeName = category.SeName})">
                 @category.Name
@@ -47,6 +47,10 @@
 
             @if (category.SubCategories.Count > 0)
             {
+                <span class="worldbuy-category-collapse-button">
+                    <i class="normal">+</i>
+                    <i class="collapse">-</i>
+                </span>
                 <ul class="sublist">
                     @foreach (var subCategory in category.SubCategories)
                     {
@@ -55,14 +59,14 @@
                 </ul>
             }
         </li>
-    }
-    else
+}
+else
+{
+    foreach (var subCategory in category.SubCategories)
     {
-        foreach (var subCategory in category.SubCategories)
-        {
             @RenderCategoryLineOnCategoryPage(subCategory)
-        }
     }
+}
 }
 
 @if (Model.Categories.Count > 0)

@@ -166,7 +166,7 @@ namespace Nop.Services.Customers
 
             if (customerRoleIds != null)
             {
-                parameters.Add("customerRoleId", string.Join(",", customerRoleIds));
+                parameters.Add("customerRoleIds", string.Join(",", customerRoleIds));
             }
             if (email != null)
                 parameters.Add("email", email);

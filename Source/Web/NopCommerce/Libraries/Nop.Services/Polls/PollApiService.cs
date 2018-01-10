@@ -44,7 +44,7 @@ namespace Nop.Services.Polls
             parameters.Add("pageIndex", pageIndex);
             parameters.Add("pageSize", pageSize);
             parameters.Add("showHidden", showHidden);
-            return APIHelper.Instance.GetPagedListAsync<Poll>("Polls", "GetAllVendors", parameters);
+            return APIHelper.Instance.GetPagedListAsync<Poll>("Polls", "GetPolls", parameters);
         }
 
         /// <summary>

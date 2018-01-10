@@ -1647,6 +1647,7 @@
     <Content Include="Themes\Pavilion\Content\css\tables.css" />
     <Content Include="Themes\Pavilion\Content\css\tables.rtl.css" />
     <Content Include="Themes\Pavilion\Content\css\theme.custom-1.css" />
+    <Content Include="Themes\Pavilion\Content\css\theme.custom-2.css" />
     <Content Include="Themes\Pavilion\Content\img\account-nav-sprite.png" />
     <Content Include="Themes\Pavilion\Content\img\account-sprite.png" />
     <Content Include="Themes\Pavilion\Content\img\arrow-next.png" />
@@ -1689,6 +1690,7 @@
     <Content Include="Themes\Pavilion\Content\img\product-sprite-2.png" />
     <Content Include="Themes\Pavilion\Content\img\product-sprite-2.rtl.png" />
     <Content Include="Themes\Pavilion\Content\img\rating-sprite.png" />
+    <Content Include="Themes\Pavilion\Content\img\rolling.png" />
     <Content Include="Themes\Pavilion\Content\img\rss-icon.png" />
     <Content Include="Themes\Pavilion\Content\img\scroll-page.png" />
     <Content Include="Themes\Pavilion\Content\img\search-button.png" />
@@ -1701,6 +1703,24 @@
     <Content Include="Themes\Pavilion\Content\img\viewmode-sprite.png" />
     <Content Include="Themes\Pavilion\Content\scripts\owl.carousel.min.js" />
     <Content Include="Themes\Pavilion\Content\scripts\pavilion.js" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\1000.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\1280.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\480.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\768.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\mobile-only.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\styles.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\css\worldbuy-icon.css" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\flag-us.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\flag-vn.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\icons\worldbuy-icon-application.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\icons\worldbuy-icon-category.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\icons\worldbuy-icon-tag.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\logo.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\photo_2017-11-07_10-05-59.jpg" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\worldbuy-icon-account.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\worldbuy-icon-cart.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\img\worldbuy\worldbuy-icon-search.png" />
+    <Content Include="Themes\Pavilion\Content\worldbuy\scripts\worldbuy.js" />
     <Content Include="Themes\Pavilion\preview.png" />
     <Content Include="Themes\Pavilion\Scripts\public.onepagecheckout.js" />
     <Content Include="Themes\Pavilion\Views\Common\LanguageSelector.cshtml" />
@@ -2050,7 +2070,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15536</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44303/</IISUrl>
+          <IISUrl>http://localhost:15536/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
