@@ -2050,7 +2050,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15536</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44303/</IISUrl>
+          <IISUrl>http://localhost:15536/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

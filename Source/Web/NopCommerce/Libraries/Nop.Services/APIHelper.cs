@@ -39,7 +39,11 @@ namespace Nop.Services
                     apiSettings.ClientId = _clientId;
                     apiSettings.ClientSecret = _clientSecret;
                 }
-                AccessToken(apiSettings);
+                if (DateTime.Now > apiSettings.ExpireAccessToken)
+                {
+                    AccessToken(apiSettings);
+                }
+
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiSettings.Access_Token);
 
             }
@@ -152,10 +156,10 @@ namespace Nop.Services
             }
             //try
             //{
-                var getAsync = _client.GetStringAsync(url);
-                while (!getAsync.IsCompleted) { }
-                var getResult = getAsync.Result;
-                return getResult;
+            var getAsync = _client.GetStringAsync(url);
+            while (!getAsync.IsCompleted) { }
+            var getResult = getAsync.Result;
+            return getResult;
             //}
             //catch (Exception ex)
             //{
@@ -226,8 +230,8 @@ namespace Nop.Services
             }
             //try
             //{
-                var getResult = _client.PostAsJsonAsync(url, body).Result;
-                return getResult.IsSuccessStatusCode;
+            var getResult = _client.PostAsJsonAsync(url, body).Result;
+            return getResult.IsSuccessStatusCode;
             //}
             //catch (Exception ex)
             //{
@@ -253,8 +257,8 @@ namespace Nop.Services
             }
             //try
             //{
-                var getResult = _client.PostAsJsonAsync(url, body).Result;
-                return JsonConvert.DeserializeObject<T>(getResult.Content.ReadAsStringAsync().Result);
+            var getResult = _client.PostAsJsonAsync(url, body).Result;
+            return JsonConvert.DeserializeObject<T>(getResult.Content.ReadAsStringAsync().Result);
             //}
             //catch (Exception ex)
             //{
@@ -280,8 +284,8 @@ namespace Nop.Services
             }
             //try
             //{
-                var getResult = _client.PostAsJsonAsync(url, body).Result;
-                return JsonConvert.DeserializeObject<List<T>>(getResult.Content.ReadAsStringAsync().Result);
+            var getResult = _client.PostAsJsonAsync(url, body).Result;
+            return JsonConvert.DeserializeObject<List<T>>(getResult.Content.ReadAsStringAsync().Result);
             //}
             //catch (Exception ex)
             //{
@@ -308,8 +312,8 @@ namespace Nop.Services
             }
             //try
             //{
-                var getResult = _client.PutAsJsonAsync(url, body).Result;
-                return getResult.IsSuccessStatusCode;
+            var getResult = _client.PutAsJsonAsync(url, body).Result;
+            return getResult.IsSuccessStatusCode;
             //}
             //catch (Exception ex)
             //{
