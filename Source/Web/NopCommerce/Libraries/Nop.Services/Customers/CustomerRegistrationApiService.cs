@@ -32,7 +32,8 @@ namespace Nop.Services.Customers
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("usernameOrEmail", usernameOrEmail);
             parameters.Add("password", password);
-            return APIHelper.Instance.GetAsync<CustomerLoginResults>("Customers", "ValidateCustomer", parameters);
+            object obj = new { usernameOrEmail, password };
+            return APIHelper.Instance.PostAsync<CustomerLoginResults>("Customers", "ValidateCustomer", obj);
         }
 
         /// <summary>
