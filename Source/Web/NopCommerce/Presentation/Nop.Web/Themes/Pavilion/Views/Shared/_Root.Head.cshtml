@@ -10,6 +10,9 @@
     var displayMiniProfiler = storeSettings.DisplayMiniProfilerInPublicStore
         && (!storeSettings.DisplayMiniProfilerForAdminOnly || permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel));
 
+    Html.AppendCssFileParts("~/Content/jquery-scroller/jquery.scrollbar.css");
+    Html.AppendScriptParts("~/Content/jquery-scroller/jquery.scrollbar.min.js");
+
     Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
     Html.AppendScriptParts("~/Scripts/public.common.js");
     Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");

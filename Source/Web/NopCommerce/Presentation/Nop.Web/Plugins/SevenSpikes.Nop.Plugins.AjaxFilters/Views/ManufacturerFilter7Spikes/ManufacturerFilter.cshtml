@@ -81,12 +81,14 @@
             </div>        
         }*@
 
-        <ul class="checkbox-list">
-            @GetListOfOptions(manufacturerFilterItems, uiMode)
-        </ul>
-    }
-    else
-    {
+        <div class="scrollbar-inner">
+            <ul class="checkbox-list" style="max-height:300px">
+                @GetListOfOptions(manufacturerFilterItems, uiMode)
+            </ul>
+        </div>
+}
+else
+{
         <select class="attribute-options-select" id="manufacturerFiltersDropDown">
             <option value="0">@T("SevenSpikes.NopAjaxFilters.Client.Common.All")</option>
             @GetListOfOptions(manufacturerFilterItems, uiMode)
