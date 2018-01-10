@@ -83,12 +83,12 @@
                         </div>
                         <!--reviews-->
                         @Html.Partial("_ProductReviewOverview", Model.ProductReviewOverview)
-                        @if (!String.IsNullOrEmpty(Model.ShortDescription))
-                        {
-                            <div class="short-description">
-                                @Html.Raw(Model.ShortDescription)
-                            </div>
-                        }
+                       @if (!String.IsNullOrEmpty(Model.ShortDescription))
+                       {
+                        <div class="short-description">
+                            @Html.Raw(Model.ShortDescription.Replace("\r", "<br/>"))
+                        </div>
+                       }
                         <!--compare, email a friend-->
                         <div class="overview-buttons">
                             @Html.Widget("productdetails_inside_overview_buttons_before", Model.Id)

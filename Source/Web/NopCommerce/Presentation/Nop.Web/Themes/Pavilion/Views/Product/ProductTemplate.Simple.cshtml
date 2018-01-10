@@ -73,7 +73,7 @@
                     @Html.Widget("productdetails_after_pictures", Model.Id)
                     <div class="overview">
                         @Html.Widget("productdetails_overview_top", Model.Id)
-			            @Html.Partial("_Discontinued", Model)
+                        @Html.Partial("_Discontinued", Model)
                         <!--manufacturers-->
                         @Html.Partial("_ProductManufacturers", Model.ProductManufacturers)
                         <div class="product-name">
@@ -98,7 +98,7 @@
                         @if (!String.IsNullOrEmpty(Model.ShortDescription))
                         {
                             <div class="short-description">
-                                @Html.Raw(Model.ShortDescription)
+                                @Html.Raw(Model.ShortDescription.Replace("\r","<br/>"))
                             </div>
                         }
                         <!--SKU, MAN, GTIN, vendor-->
@@ -138,6 +138,8 @@
                             @Html.Widget("productdetails_inside_overview_buttons_after", Model.Id)
                         </div>
                         @Html.Widget("productdetails_overview_bottom", Model.Id)
+
+                        <div id="shippingDescriptions"></div>
                     </div>
                     <div class="overview-bottom">
                         <!--sharing-->
@@ -149,7 +151,7 @@
                         @Html.Partial("_DeliveryInfo", Model)
                     </div>
                 </div>
-                
+
                 @{
                     var nopQuickTabsHtml = Html.Widget("productdetails_before_collateral", Model.Id);
                 }
@@ -162,14 +164,14 @@
                     {
                         carouselQuickTabsWrapperClass = "two-column-wrapper";
                     }
-                    
+
                     <div class="@carouselQuickTabsWrapperClass">
                         @nopQuickTabsHtml @*nop quick tabs*@
 
                         @productsCarouselHtml @*products carousel for related or also purchased with 1 visible item*@
                     </div>
                 }
-                
+
                 <div class="product-collateral">
                     @if (!String.IsNullOrEmpty(Model.FullDescription))
                     {
@@ -184,7 +186,24 @@
                 @Html.Action("ProductsAlsoPurchased", "Product", new { productId = Model.Id })
                 @Html.Action("RelatedProducts", "Product", new { productId = Model.Id })
             </div>
-        }
+                    }
         @Html.Widget("productdetails_bottom", Model.Id)
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        LoadShipping();
+    }); function LoadShipping() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("LoadShippingDescription", "ProductMapping", new {productId = Model.Id})",
+            dataType: "json",
+            success: function (data) {
+                if (data.IsAffiliate) {
+                    $("#shippingDescriptions").html("<div class='content' style='background:#ddd;color:#333;margin-top:15px;padding:15px;'>" + data.ShippingDescriptions + "</div>");
+                }
+
+            }
+        })
+    }
+</script>
