@@ -94,11 +94,13 @@ namespace Nop.Core.Domain.Orders
         /// <summary>
         /// Gets or sets the product
         /// </summary>
+        [DataMember]
         public virtual Product Product { get; set; }
 
         /// <summary>
         /// Gets or sets the customer
         /// </summary>
+        [DataMember]
         public virtual Customer Customer { get; set; }
 
         /// <summary>
@@ -118,7 +120,6 @@ namespace Nop.Core.Domain.Orders
         /// <summary>
         /// Gets a value indicating whether the shopping cart item is ship enabled
         /// </summary>
-        [DataMember]
         public bool IsShipEnabled
         {
             get
@@ -133,7 +134,6 @@ namespace Nop.Core.Domain.Orders
         /// <summary>
         /// Gets the additional shipping charge
         /// </summary> 
-        [DataMember]
         public decimal AdditionalShippingCharge
         {
             get
@@ -149,7 +149,6 @@ namespace Nop.Core.Domain.Orders
         /// <summary>
         /// Gets a value indicating whether the shopping cart item is tax exempt
         /// </summary>
-        [DataMember]
         public bool IsTaxExempt
         {
             get

@@ -121,8 +121,21 @@ namespace Nop.Services.Stores
             var storeMappings = query.ToList();
             return storeMappings;
         }
-
-
+        /// <summary>
+        /// Gets store mapping records
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <returns>Store mapping records</returns>
+        public IList<StoreMapping> GetStoreMappings(string entityName, int entityId)
+        {
+            var query = from sm in _storeMappingRepository.Table
+                        where sm.EntityId == entityId &&
+                        sm.EntityName == entityName
+                        select sm;
+            var storeMappings = query.ToList();
+            return storeMappings;
+        }
         /// <summary>
         /// Inserts a store mapping record
         /// </summary>
@@ -161,6 +174,30 @@ namespace Nop.Services.Stores
             var storeMapping = new StoreMapping
             {
                 EntityId = entityId,
+                EntityName = entityName,
+                StoreId = storeId
+            };
+
+            InsertStoreMapping(storeMapping);
+        }
+        /// <summary>
+        /// Inserts a store mapping record
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="storeId">Store id</param>
+        /// <param name="entity">Entity</param>
+        public void InsertStoreMapping(string entityName, dynamic entity, int storeId)
+        {
+            if (entity == "null")
+                throw new ArgumentNullException("entityId");
+
+            if (storeId == 0)
+                throw new ArgumentOutOfRangeException("storeId");
+
+
+            var storeMapping = new StoreMapping
+            {
+                EntityId = entity.Id,
                 EntityName = entityName,
                 StoreId = storeId
             };
@@ -210,6 +247,28 @@ namespace Nop.Services.Stores
                 return query.ToArray();
             });
         }
+        /// <summary>
+        /// Find store identifiers with granted access (mapped to the entity)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>Store identifiers</returns>
+        public int[] GetStoresIdsWithAccess(string entityName, int entityId)
+        {
+            if (entityId == 0)
+                throw new ArgumentNullException("entityId");
+
+
+            string key = string.Format(STOREMAPPING_BY_ENTITYID_NAME_KEY, entityId, entityName);
+            return _cacheManager.Get(key, () =>
+            {
+                var query = from sm in _storeMappingRepository.Table
+                            where sm.EntityId == entityId &&
+                            sm.EntityName == entityName
+                            select sm.StoreId;
+                return query.ToArray();
+            });
+        }
 
         /// <summary>
         /// Authorize whether entity could be accessed in the current store (mapped to this store)
@@ -221,7 +280,16 @@ namespace Nop.Services.Stores
         {
             return Authorize(entity, _storeContext.CurrentStore.Id);
         }
-
+        /// <summary>
+        /// Authorize whether entity could be accessed in the current store (mapped to this store)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        public bool Authorize(string entityName, dynamic entity)
+        {
+            return Authorize(entityName, entity, _storeContext.CurrentStore.Id);
+        }
         /// <summary>
         /// Authorize whether entity could be accessed in a store (mapped to this store)
         /// </summary>
@@ -252,6 +320,43 @@ namespace Nop.Services.Stores
             //no permission found
             return false;
         }
+
+        /// <summary>
+        /// Authorize whether entity could be accessed in a store (mapped to this store)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <param name="storeId">Store identifier</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        public bool Authorize(string entityName, dynamic entity, int storeId)
+        {
+            if (entity == null)
+                return false;
+
+            if (storeId == 0)
+                //return true if no store specified/found
+                return true;
+
+            if (_catalogSettings.IgnoreStoreLimitations)
+                return true;
+
+            if (!entity.LimitedToStores)
+                return true;
+
+            foreach (var storeIdWithAccess in GetStoresIdsWithAccess(entity))
+                if (storeId == storeIdWithAccess)
+                    //yes, we have such permission
+                    return true;
+
+            //no permission found
+            return false;
+        }
+
+
+        
+        
+
+       
 
         #endregion
     }

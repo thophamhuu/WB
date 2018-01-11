@@ -22,7 +22,15 @@ namespace Nop.Services.Security
         /// <param name="aclRecordId">ACL record identifier</param>
         /// <returns>ACL record</returns>
         AclRecord GetAclRecordById(int aclRecordId);
-        
+
+        /// <summary>
+        /// Gets ACL records
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <returns>ACL records</returns>
+        IList<AclRecord> GetAclRecords(string entityName, int entityId);
+
         /// <summary>
         /// Gets ACL records
         /// </summary>
@@ -36,7 +44,15 @@ namespace Nop.Services.Security
         /// </summary>
         /// <param name="aclRecord">ACL record</param>
         void InsertAclRecord(AclRecord aclRecord);
-        
+
+        /// <summary>
+        /// Inserts an ACL record
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="customerRoleId">Customer role id</param>
+        /// <param name="entity">Entity</param>
+        void InsertAclRecord(string entityName, dynamic entity, int customerRoleId);
+
         /// <summary>
         /// Inserts an ACL record
         /// </summary>
@@ -60,6 +76,21 @@ namespace Nop.Services.Security
         int[] GetCustomerRoleIdsWithAccess<T>(T entity) where T : BaseEntity, IAclSupported;
 
         /// <summary>
+        /// Find customer role identifiers with granted access
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>Customer role identifiers</returns>
+        int[] GetCustomerRoleIdsWithAccess(string entityName, int entityId);
+
+        /// <summary>
+        /// Authorize ACL permission
+        /// </summary>
+        /// param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        bool Authorize(string entityName, dynamic entity);
+        /// <summary>
         /// Authorize ACL permission
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
@@ -75,5 +106,13 @@ namespace Nop.Services.Security
         /// <param name="customer">Customer</param>
         /// <returns>true - authorized; otherwise, false</returns>
         bool Authorize<T>(T entity, Customer customer) where T : BaseEntity, IAclSupported;
+        /// <summary>
+        /// Authorize ACL permission
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <param name="customer">Customer</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        bool Authorize(string entityName, dynamic entity, Customer customer);
     }
 }
