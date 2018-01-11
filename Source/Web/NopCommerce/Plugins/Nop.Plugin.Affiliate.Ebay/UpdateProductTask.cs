@@ -39,6 +39,14 @@ namespace Nop.Plugin.Affiliate.Ebay
             GetProduct().Wait();
         }
 
+        private decimal Round(decimal d, int decimals)
+        {
+            if (decimals >= 0) return decimal.Round(d, decimals);
+
+            decimal n = (decimal)Math.Pow(10, -decimals);
+            return decimal.Round(d / n, 0) * n;
+        }
+
         private async Task<string> GetProduct()
         {
             var mappingSettings = _settingService.LoadSetting<ProductMappingSettings>();
@@ -64,7 +72,7 @@ namespace Nop.Plugin.Affiliate.Ebay
                     if (price != item.Price)
                     {
                         var currencyService = EngineContext.Current.Resolve<ICurrencyService>();
-                        product.Price = currencyService.ConvertToPrimaryStoreCurrency(Math.Round((price * (decimal)(mappingSettings.AdditionalCostPercent / 100)) + price, 2), currencyService.GetCurrencyByCode("USD"));
+                        product.Price = Round(currencyService.ConvertToPrimaryStoreCurrency(price * (1 + mappingSettings.AdditionalCostPercent / 100), currencyService.GetCurrencyByCode("USD")), -3);
                         _productService.UpdateProduct(product);
 
                         item.Price = price;

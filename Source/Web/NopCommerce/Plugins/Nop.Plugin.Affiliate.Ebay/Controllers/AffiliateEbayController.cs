@@ -113,6 +113,15 @@ namespace Nop.Plugin.Affiliate.Ebay.Controllers
                 }
         }
 
+        [NonAction]
+        protected decimal Round(decimal d, int decimals)
+        {
+            if (decimals >= 0) return decimal.Round(d, decimals);
+
+            decimal n = (decimal)Math.Pow(10, -decimals);
+            return decimal.Round(d / n, 0) * n;
+        }
+
         #endregion
 
         #region Methods
@@ -233,7 +242,7 @@ namespace Nop.Plugin.Affiliate.Ebay.Controllers
                                                     var product = new Product();
                                                     product.Name = result.title;
                                                     var currencyService = EngineContext.Current.Resolve<ICurrencyService>();
-                                                    product.Price =currencyService.ConvertToPrimaryStoreCurrency(Math.Round((price * (decimal)(mappingSettings.AdditionalCostPercent / 100)) + price, 2),currencyService.GetCurrencyByCode("USD"));
+                                                    product.Price = Round(currencyService.ConvertToPrimaryStoreCurrency(price * (1 + mappingSettings.AdditionalCostPercent / 100), currencyService.GetCurrencyByCode("USD")), -3);
                                                     //if(result.marketingPrice == null)
                                                     //{
                                                     //    product.OldPrice = 0;

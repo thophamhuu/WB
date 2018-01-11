@@ -21,6 +21,14 @@ namespace Nop.Plugin.Affiliate.CategoryMap
             routes.Remove(routeCategory);
             routes.Insert(0, routeCategory);
 
+            var routeShipping = routes.MapRoute(
+          "Nop.Plugin.Affiliate.ProductMapping.LoadShippingDescription",
+          "ProductMapping/LoadShippingDescription",
+          new { controller = "ProductMapping", action = "LoadShippingDescription" },
+          new[] { "Nop.Plugin.Affiliate.CategoryMap.Controllers" });
+            routes.Remove(routeShipping);
+            routes.Insert(0, routeShipping);
+
             var routeUpdatePrice = routes.MapRoute(
             "Nop.Plugin.Affiliate.ProductMapping.UpdatePrice",
             "admin/ProductMapping/UpdatePrice",

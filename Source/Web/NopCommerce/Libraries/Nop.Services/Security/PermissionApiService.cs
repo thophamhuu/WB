@@ -221,6 +221,13 @@ namespace Nop.Services.Security
             return false;
         }
 
+        public ICollection<CustomerRole> GetCustomerRolesBySystemName(string systemName)
+        {
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("systemName", systemName);
+            return APIHelper.Instance.GetListAsync<CustomerRole>("Security", "GetCustomerRolesBySystemName", parameters);
+        }
+
         #endregion
     }
 }

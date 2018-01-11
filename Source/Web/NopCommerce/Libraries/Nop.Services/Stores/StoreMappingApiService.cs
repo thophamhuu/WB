@@ -92,7 +92,10 @@ namespace Nop.Services.Stores
         /// <returns>Store identifiers</returns>
         public virtual int[] GetStoresIdsWithAccess<T>(T entity) where T : BaseEntity, IStoreMappingSupported
         {
-            return APIHelper.Instance.PostAsync<int[]>("Stores", "GetStoresIdsWithAccess", entity);
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("entityName", typeof(T).Name);
+            parameters.Add("entityId", entity.Id);
+            return APIHelper.Instance.GetListAsync<int>("Stores", "GetStoresIdsWithAccess", parameters).ToArray();
         }
 
         /// <summary>
@@ -103,7 +106,7 @@ namespace Nop.Services.Stores
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize<T>(T entity) where T : BaseEntity, IStoreMappingSupported
         {
-            return APIHelper.Instance.PostAsync<bool>("Stores", "GetStoresIdsWithAccess", entity);
+            return Authorize<T>(entity, 0);
         }
 
         /// <summary>
@@ -115,9 +118,14 @@ namespace Nop.Services.Stores
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("storeId", storeId);
-            return APIHelper.Instance.PostAsync<bool>("Stores", "Authorize", entity, parameters);
+            string entityName = typeof(T).Name;
+            var obj = new
+            {
+                entityName,
+                entity,
+                storeId
+            };
+            return APIHelper.Instance.PostAsync<bool>("Stores", "Authorize", obj);
         }
 
         #endregion

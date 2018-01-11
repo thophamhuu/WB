@@ -19,6 +19,8 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Data
             this.Property(c => c.ProductSourceLink);
             this.Property(c => c.SourceId);
             this.Property(c => c.Price);
+            this.Ignore(c => c.VariationsXML);
+            this.Ignore(c => c.Variations);
         }
     }
 }

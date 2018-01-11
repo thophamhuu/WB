@@ -57,7 +57,7 @@ namespace Nop.Api.Controllers
             return _aclService.GetAclRecordById(aclRecordId);
         }
 
-                /// <summary>
+        /// <summary>
         /// Gets ACL records
         /// </summary>
         /// <param name="entityName">Type</param>
@@ -103,7 +103,7 @@ namespace Nop.Api.Controllers
         /// <param name="entityName">Type</param>
         /// <param name="entity">Wntity</param>
         /// <returns>Customer role identifiers</returns>
-        public int[] GetCustomerRoleIdsWithAccess(string entityName,int entityId)
+        public int[] GetCustomerRoleIdsWithAccess(string entityName, int entityId)
         {
             return _aclService.GetCustomerRoleIdsWithAccess(entityName, entityId);
         }
@@ -245,6 +245,11 @@ namespace Nop.Api.Controllers
             _permissionService.UninstallPermissions(permissionProvider);
         }
 
+
+        public ICollection<CustomerRole> GetCustomerRolesBySystemName(string systemName)
+        {
+            return _permissionService.GetPermissionRecordBySystemName(systemName).CustomerRoles;
+        }
         #endregion
 
         #endregion

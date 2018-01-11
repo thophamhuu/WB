@@ -11,6 +11,9 @@ using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Tax;
 using Nop.Services.Catalog;
+using Nop.Core.Infrastructure;
+using Nop.Plugin.Affiliate.CategoryMap.Domain;
+using Nop.Core.Data;
 
 namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
 {
@@ -55,111 +58,112 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
         /// <returns>Tax</returns>
         public CalculateTaxResult GetTaxRate(CalculateTaxRequest calculateTaxRequest)
         {
+            var _productMappingRepo = EngineContext.Current.Resolve<IRepository<ProductMapping>>();
+            var productMapping = _productMappingRepo.TableNoTracking.FirstOrDefault(x => x.ProductId == calculateTaxRequest.Product.Id);
             var result = new CalculateTaxResult();
-            //choose the tax rate calculation method
-            if (!_countryStateZipSettings.CountryStateZipEnabled)
+            var _taxCategoryMappingService = EngineContext.Current.Resolve<IWB_TaxCategoryMappingService>();
+            if (productMapping != null)
             {
-                if(calculateTaxRequest.Product.TaxCategoryId!=0)
-
-                //the tax rate calculation by fixed rate
-                result = new CalculateTaxResult
+                //choose the tax rate calculation method
+                if (!_countryStateZipSettings.CountryStateZipEnabled)
                 {
-                    TaxRate = _settingService.GetSettingByKey<decimal>(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}", calculateTaxRequest.TaxCategoryId))
-                };
-                else
-                {
-                    var product = calculateTaxRequest.Product;
-                    var cateId = product.ProductCategories.FirstOrDefault();
-                    if (cateId != null)
+                    if (calculateTaxRequest.Product.TaxCategoryId != 0)
                     {
-                        var category = _categoryService.GetCategoryById(cateId.CategoryId);
-                        while (category != null)
+                        result = new CalculateTaxResult
                         {
-                            var taxcategoryMapping = _taxCategoryMappingService.GetAllTaxCategoryMappings().FirstOrDefault(x => x.CategoryId == category.Id);
-                            if (taxcategoryMapping != null)
-                            {
-                                result = new CalculateTaxResult
-                                {
-                                    TaxRate = _settingService.GetSettingByKey<decimal>(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}", taxcategoryMapping.TaxCategoryId))
-                                };
-                                break;
-                            }
-                            else
-                            {
-                                category = _categoryService.GetCategoryById(category.ParentCategoryId);
-                            }
+                            TaxRate = _settingService.GetSettingByKey<decimal>(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}", calculateTaxRequest.TaxCategoryId)),
+                        };
+                    }
+
+                    else
+                    {
+                        var product = calculateTaxRequest.Product;
+                        if (product.ProductCategories.Count == 0)
+                        {
+
                         }
+                        else
+                        {
+                            int taxCategoryId = _taxCategoryMappingService.GetTaxCategoryId(product);
+                            var curRate = _settingService.GetSettingByKey<decimal>(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}", taxCategoryId));
+                            result = new CalculateTaxResult
+                            {
+                                TaxRate = curRate,
+                            };
+                        }
+
                     }
                 }
-            }
-            else
-            {
-                //the tax rate calculation by country & state & zip 
-
-                if (calculateTaxRequest.Address == null)
+                else
                 {
-                    result.Errors.Add("Address is not set");
-                    return result;
+                    //the tax rate calculation by country & state & zip 
+
+                    if (calculateTaxRequest.Address == null)
+                    {
+                        result.Errors.Add("Address is not set");
+                        return result;
+                    }
+
+                    //first, load all tax rate records (cached) - loaded only once
+                    const string cacheKey = WB_ModelCacheEventConsumer.ALL_TAX_RATES_MODEL_KEY;
+                    var allTaxRates = _cacheManager.Get(cacheKey, () =>
+                        _taxRateService
+                            .GetAllTaxRates()
+                            .Select(x => new WB_TaxRateForCaching
+                            {
+                                Id = x.Id,
+                                StoreId = x.StoreId,
+                                TaxCategoryId = x.TaxCategoryId,
+                                CountryId = x.CountryId,
+                                StateProvinceId = x.StateProvinceId,
+                                Zip = x.Zip,
+                                Percentage = x.Percentage,
+                            }).ToList()
+                        );
+
+                    var storeId = _storeContext.CurrentStore.Id;
+                    var taxCategoryId = calculateTaxRequest.TaxCategoryId;
+                    var countryId = calculateTaxRequest.Address.Country != null ? calculateTaxRequest.Address.Country.Id : 0;
+                    var stateProvinceId = calculateTaxRequest.Address.StateProvince != null
+                        ? calculateTaxRequest.Address.StateProvince.Id
+                        : 0;
+                    var zip = calculateTaxRequest.Address.ZipPostalCode;
+
+                    if (zip == null)
+                        zip = string.Empty;
+                    zip = zip.Trim();
+
+                    var existingRates = allTaxRates.Where(taxRate => taxRate.CountryId == countryId && taxRate.TaxCategoryId == taxCategoryId).ToList();
+
+                    //filter by store
+                    //first, find by a store ID
+                    var matchedByStore = existingRates.Where(taxRate => storeId == taxRate.StoreId).ToList();
+
+                    //not found? use the default ones (ID == 0)
+                    if (!matchedByStore.Any())
+                        matchedByStore.AddRange(existingRates.Where(taxRate => taxRate.StoreId == 0));
+
+                    //filter by state/province
+                    //first, find by a state ID
+                    var matchedByStateProvince = matchedByStore.Where(taxRate => stateProvinceId == taxRate.StateProvinceId).ToList();
+
+                    //not found? use the default ones (ID == 0)
+                    if (!matchedByStateProvince.Any())
+                        matchedByStateProvince.AddRange(matchedByStore.Where(taxRate => taxRate.StateProvinceId == 0));
+
+                    //filter by zip
+                    var matchedByZip = matchedByStateProvince.Where(taxRate => (string.IsNullOrEmpty(zip) && string.IsNullOrEmpty(taxRate.Zip)) || zip.Equals(taxRate.Zip, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                    if (!matchedByZip.Any())
+                        matchedByZip.AddRange(matchedByStateProvince.Where(taxRate => string.IsNullOrWhiteSpace(taxRate.Zip)));
+
+                    if (matchedByZip.Any())
+                        result.TaxRate = matchedByZip[0].Percentage;
                 }
-
-                //first, load all tax rate records (cached) - loaded only once
-                const string cacheKey = WB_ModelCacheEventConsumer.ALL_TAX_RATES_MODEL_KEY;
-                var allTaxRates = _cacheManager.Get(cacheKey, () =>
-                    _taxRateService
-                        .GetAllTaxRates()
-                        .Select(x => new WB_TaxRateForCaching
-                        {
-                            Id = x.Id,
-                            StoreId = x.StoreId,
-                            TaxCategoryId = x.TaxCategoryId,
-                            CountryId = x.CountryId,
-                            StateProvinceId = x.StateProvinceId,
-                            Zip = x.Zip,
-                            Percentage = x.Percentage,
-                        }).ToList()
-                    );
-
-                var storeId = _storeContext.CurrentStore.Id;
-                var taxCategoryId = calculateTaxRequest.TaxCategoryId;
-                var countryId = calculateTaxRequest.Address.Country != null ? calculateTaxRequest.Address.Country.Id : 0;
-                var stateProvinceId = calculateTaxRequest.Address.StateProvince != null
-                    ? calculateTaxRequest.Address.StateProvince.Id
-                    : 0;
-                var zip = calculateTaxRequest.Address.ZipPostalCode;
-                
-                if (zip == null)
-                    zip = string.Empty;
-                zip = zip.Trim();
-
-                var existingRates = allTaxRates.Where(taxRate => taxRate.CountryId == countryId && taxRate.TaxCategoryId == taxCategoryId).ToList();
-
-                //filter by store
-                //first, find by a store ID
-                var matchedByStore = existingRates.Where(taxRate => storeId == taxRate.StoreId).ToList();
-                
-                //not found? use the default ones (ID == 0)
-                if (!matchedByStore.Any())
-                    matchedByStore.AddRange(existingRates.Where(taxRate => taxRate.StoreId == 0));
-
-                //filter by state/province
-                //first, find by a state ID
-                var matchedByStateProvince = matchedByStore.Where(taxRate => stateProvinceId == taxRate.StateProvinceId).ToList();
-               
-                //not found? use the default ones (ID == 0)
-                if (!matchedByStateProvince.Any())
-                    matchedByStateProvince.AddRange(matchedByStore.Where(taxRate => taxRate.StateProvinceId == 0));
-
-                //filter by zip
-                var matchedByZip = matchedByStateProvince.Where(taxRate => (string.IsNullOrEmpty(zip) && string.IsNullOrEmpty(taxRate.Zip)) || zip.Equals(taxRate.Zip, StringComparison.InvariantCultureIgnoreCase)).ToList();
-                if (!matchedByZip.Any())
-                    matchedByZip.AddRange(matchedByStateProvince.Where(taxRate => string.IsNullOrWhiteSpace(taxRate.Zip)));
-
-                if (matchedByZip.Any())
-                    result.TaxRate = matchedByZip[0].Percentage;
             }
+
             return result;
         }
-      
+
         /// <summary>
         /// Gets a route for provider configuration
         /// </summary>
@@ -191,6 +195,7 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
             //locales
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fixed", "Fixed rate");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.TaxByCountryStateZip", "By Country");
+            this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.TaxCategoryMapping", "By Category");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.TaxCategoryName", "Tax category");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Rate", "Rate");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Store", "Store");
@@ -209,6 +214,8 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.IsPercent.Hint", "The Is Percent.");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.AddRecord", "Add tax rate");
             this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.AddRecordTitle", "New tax rate");
+            this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Percentage", "Percentage");
+            this.AddOrUpdatePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Category", "Category");
 
             base.Install();
         }
@@ -227,6 +234,7 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
             //locales
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fixed");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.TaxByCountryStateZip");
+            this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.TaxCategoryMapping");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.TaxCategoryName");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Rate");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Store");
@@ -245,6 +253,8 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.IsPercent.Hint");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.AddRecord");
             this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.AddRecordTitle");
+            this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Percentage");
+            this.DeletePluginLocaleResource("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Category");
 
             base.Uninstall();
         }

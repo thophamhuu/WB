@@ -11,5 +11,8 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Models
 
         [NopResourceDisplayName("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Rate")]
         public decimal Rate { get; set; }
+
+        [NopResourceDisplayName("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.IsAbsolute")]
+        public bool IsAbsolute { get; set; }
     }
 }

@@ -86,7 +86,8 @@ namespace Nop.Services.Security
         public virtual IList<AclRecord> GetAclRecords<T>(T entity) where T : BaseEntity, IAclSupported
         {
             var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("entity", entity);
+            parameters.Add("entityName", typeof(T).Name);
+            parameters.Add("entityId", entity.Id);
             return APIHelper.Instance.GetListAsync<AclRecord>("Security", "GetAclRecords", parameters);
         }
 

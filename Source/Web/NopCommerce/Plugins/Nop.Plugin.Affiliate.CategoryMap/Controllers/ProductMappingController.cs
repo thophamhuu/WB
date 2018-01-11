@@ -42,6 +42,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
         private readonly ICacheManager _cacheManager;
+        private readonly ICurrencyService _currencyService;
         private const string PRODUCTS_PATTERN_KEY = "Nop.product.";
         public ProductMappingController(IWorkContext workContext,
             IStoreContext storeContext,
@@ -52,6 +53,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
             IRepository<Product> productRepository,
             IProductService productService,
             ICacheManager cacheManager,
+            ICurrencyService currencyService,
             IPluginFinder pluginFinder)
         {
             this._localizationService = localizationService;
@@ -63,6 +65,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
             this._productRepository = productRepository;
             this._productService = productService;
             this._cacheManager = cacheManager;
+            this._currencyService = currencyService;
         }
         public ActionResult LoadUrl(int productId = 0)
         {
@@ -75,6 +78,23 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
             }
             return Json(url, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult LoadShippingDescription(int productId)
+        {
+            var isAffiliate = false;
+            string shippingDescriptions = "";
+            if (productId > 0)
+            {
+                var productMapping = _productMappingRepository.TableNoTracking.FirstOrDefault(x => x.ProductId == productId);
+                if (productMapping != null)
+                {
+                    ProductMappingSettings productMappingSettings = _settingService.LoadSetting<ProductMappingSettings>();
+                    isAffiliate = true;
+                    shippingDescriptions = productMappingSettings.ShippingDescriptions;
+                }
+            }
+            return Json(new { IsAffiliate = isAffiliate, ShippingDescriptions = shippingDescriptions });
+        }
         [ChildActionOnly]
         public ActionResult Configure()
         {
@@ -83,7 +103,8 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
             var model = new ConfigurationModel()
             {
                 ActiveStoreScopeConfiguration = storeScope,
-                AdditionalCostPercent = mappingSettings.AdditionalCostPercent
+                AdditionalCostPercent = mappingSettings.AdditionalCostPercent,
+                ShippingDescriptions = mappingSettings.ShippingDescriptions
             };
             return View("~/Plugins/Affiliate.CategoryMap/Views/Configure.cshtml", model);
         }
@@ -96,6 +117,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
 
             mappingSettings.AdditionalCostPercent = model.AdditionalCostPercent;
             model.ActiveStoreScopeConfiguration = storeScope;
+            mappingSettings.ShippingDescriptions = model.ShippingDescriptions;
 
             _settingService.SaveSetting(mappingSettings);
 
@@ -107,67 +129,98 @@ namespace Nop.Plugin.Affiliate.CategoryMap.Controllers
         [HttpPost]
         public ActionResult UpdatePrice()
         {
-            int size = 100;
             var storeScope = this.GetActiveStoreScopeConfiguration(_storeService, _workContext);
             var mappingSettings = _settingService.LoadSetting<ProductMappingSettings>(storeScope);
             var query = _productMappingRepository.TableNoTracking.Where(x => x.ProductId > 0).Select(x => new ProductMappingId
             {
                 Id = x.Id,
-                Price = x.Price,
+
                 ProductId = x.ProductId
-            }).OrderByDescending(x => x.Id).ToList();
+            }).OrderByDescending(x => x.Id);
             var count = query.Count();
-            int PageCount = (int)Math.Ceiling((decimal)count / size);
-            foreach (var item in query)
+            var currency = _currencyService.GetCurrencyByCode("USD");
+            var currncePrimary = _workContext.WorkingCurrency;
+
+            decimal rate = currncePrimary.Rate / currency.Rate;
+            var parallel = Parallel.ForEach(query, new ParallelOptions { MaxDegreeOfParallelism = 100 }, productMappingId =>
             {
-                if (item.Price > 0)
+                var _productMappingRepository = EngineContext.Current.Resolve<IRepository<ProductMapping>>();
+                var item = _productMappingRepository.GetById(productMappingId.Id);
+                Thread.Sleep(200);
+                if (item.ProductId > 0)
                 {
-                    var thread = new Thread(new ThreadStart(() =>
+                    try
                     {
                         var _productRepo = EngineContext.Current.Resolve<IRepository<Product>>();
                         var product = _productRepo.GetById(item.ProductId);
                         if (product != null)
                         {
-                            try
+                            var price = product.Price;
+                            var itemPrice = item.Price * rate;
+
+                            var oldPercent = 0M;
+                            if (itemPrice > 0)
                             {
-                                var oldPercent = (product.Price - item.Price) / item.Price;
-                                var oldPrice = product.OldPrice / (1 + oldPercent);
+                                oldPercent = 100 % (price - itemPrice) / itemPrice;
+                                var oldPrice = product.OldPrice / (1 + oldPercent / 100);
 
-                                var _currencyService = EngineContext.Current.Resolve<ICurrencyService>();
+                                product.OldPrice = 0;
+                                product.Price = item.Price * (1 + mappingSettings.AdditionalCostPercent / 100) * rate;
+                                product.OldPrice = oldPrice * (1 + mappingSettings.AdditionalCostPercent / 100) * rate;
+                                if (product.Price == 0)
+                                    product.DisableBuyButton = true;
 
-                                product.OldPrice = _currencyService.ConvertToPrimaryStoreCurrency(oldPrice * (1 + mappingSettings.AdditionalCostPercent / 100), _currencyService.GetCurrencyByCode("USD"));
-                                product.Price = _currencyService.ConvertToPrimaryStoreCurrency(item.Price * (1 + mappingSettings.AdditionalCostPercent / 100), _currencyService.GetCurrencyByCode("USD"));
-                                _productRepo.Update(product);
                                 var attrCombinations = product.ProductAttributeCombinations.ToList();
-                                if (attrCombinations != null)
+                                if (attrCombinations != null && attrCombinations.Count > 0)
                                 {
                                     attrCombinations.ForEach(x =>
                                     {
-                                        decimal oldPriceCombination =x.OverriddenPrice.HasValue ? x.OverriddenPrice.Value / (1 + oldPercent) : 0;
-                                        x.OverriddenPrice = _currencyService.ConvertToPrimaryStoreCurrency(oldPriceCombination * (1 + mappingSettings.AdditionalCostPercent / 100), _currencyService.GetCurrencyByCode("USD"));
+                                        var var = item.Variations.FirstOrDefault(v => v.Sku == x.Sku);
+                                        if (var != null)
+                                        {
+                                            x.OverriddenPrice = var.Price * (1 + mappingSettings.AdditionalCostPercent / 100) * rate;
+                                            var _productCombination = EngineContext.Current.Resolve<IRepository<ProductAttributeCombination>>();
+                                            _productCombination.Update(x);
+                                        }
+                                        //decimal oldPriceCombination = x.OverriddenPrice.HasValue ? x.OverriddenPrice.Value / (1 + oldPercent) : 0;
+                                        //x.OverriddenPrice = oldPriceCombination * (1 + mappingSettings.AdditionalCostPercent / 100) * rate;
+                                        //var _productCombination = EngineContext.Current.Resolve<IRepository<ProductAttributeCombination>>();
+                                        //_productCombination.Update(x);
+                                        //product.DisableBuyButton = false;
                                     });
-                                    var _productCombination = EngineContext.Current.Resolve<IRepository<ProductAttributeCombination>>();
-                                    _productCombination.Update(attrCombinations);
+
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logger = EngineContext.Current.Resolve<ILogger>();
-                                logger.Error(ex.Message, ex);
+                                _productRepo.Update(product);
                             }
                         }
-                    }));
-                    thread.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = EngineContext.Current.Resolve<ILogger>();
+                        logger.Error(ex.Message, ex);
+                    }
                 }
-            };
-            _cacheManager.RemoveByPattern(PRODUCTS_PATTERN_KEY);
+            });
+            if (parallel.IsCompleted)
+            {
+                _cacheManager.RemoveByPattern(PRODUCTS_PATTERN_KEY);
+            }
             return Json(new { Status = true });
         }
+
+        private decimal Round(decimal d, int decimals)
+        {
+            if (decimals >= 0) return decimal.Round(d, decimals);
+
+            decimal n = (decimal)Math.Pow(10, -decimals);
+            return decimal.Round(d / n, 0) * n;
+        }
+
         public class ProductMappingId
         {
             public int Id { get; set; }
             public int ProductId { get; set; }
-            public decimal Price { get; set; }
+            //public decimal Price { get; set; }
         }
     }
 }

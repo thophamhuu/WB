@@ -128,6 +128,12 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Controllers
             return rate;
         }
 
+        [NonAction]
+        protected bool GetIsAbsoluteValue(int taxCategoryId)
+        {
+            var isAbsolute = _settingService.GetSettingByKey<bool>(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}.IsAbsolute", taxCategoryId));
+            return isAbsolute;
+        }
         [HttpPost]
         public ActionResult FixedRatesList(DataSourceRequest command)
         {
@@ -138,7 +144,8 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Controllers
             {
                 TaxCategoryId = taxCategory.Id,
                 TaxCategoryName = taxCategory.Name,
-                Rate = GetFixedTaxRateValue(taxCategory.Id)
+                Rate = GetFixedTaxRateValue(taxCategory.Id),
+                IsAbsolute=GetIsAbsoluteValue(taxCategory.Id)
             }).ToList();
 
             var gridModel = new DataSourceResult
@@ -158,9 +165,9 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Controllers
 
             var taxCategoryId = model.TaxCategoryId;
             var rate = model.Rate;
-
+            var isAbsolute = model.IsAbsolute;
             _settingService.SetSetting(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}", taxCategoryId), rate);
-
+            _settingService.SetSetting(string.Format("Tax.Worldbuy.TaxProvider.FixedOrByCountryStateZip.TaxCategoryId{0}.IsAbsolute", taxCategoryId), isAbsolute);
             return new NullJsonResult();
         }
 

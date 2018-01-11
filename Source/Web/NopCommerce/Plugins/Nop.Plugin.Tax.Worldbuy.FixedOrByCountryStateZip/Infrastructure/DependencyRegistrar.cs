@@ -9,6 +9,7 @@ using Nop.Data;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Data;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Domain;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Services;
+using Nop.Services.Tax;
 using Nop.Web.Framework.Mvc;
 
 namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Infrastructure
@@ -45,6 +46,9 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Infrastructure
                .As<IRepository<WB_TaxCategoryMapping>>()
                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_context_tax_worldbuy_country_state_zip"))
                .InstancePerLifetimeScope();
+            builder.RegisterType<WB_TaxService>()
+                .As<ITaxService>()
+                .InstancePerLifetimeScope();
         }
 
         /// <summary>

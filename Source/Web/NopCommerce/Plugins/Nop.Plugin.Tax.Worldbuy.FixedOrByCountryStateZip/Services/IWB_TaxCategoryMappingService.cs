@@ -1,4 +1,5 @@
 using Nop.Core;
+using Nop.Core.Domain.Catalog;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Domain;
 
 namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Services
@@ -38,5 +39,6 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Services
         /// </summary>
         /// <param name="taxCategoryMapping">Tax Category Mappipng</param>
         void UpdateTaxCategoryMapping(WB_TaxCategoryMapping taxCategoryMapping);
+        int GetTaxCategoryId(Product product);
     }
 }

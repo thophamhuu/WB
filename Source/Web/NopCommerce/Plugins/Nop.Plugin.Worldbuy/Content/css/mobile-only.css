@@ -50,9 +50,6 @@
             margin-top: 10px;
         }
 
-    .responsive-nav-wrapper-parent {
-        z-index: 1070;
-    }
 
     .item-box {
         width: 48%;
@@ -61,5 +58,13 @@
     }
     .item-box:nth-child(5n+5){
         display:none;
+    }
+
+    #language-selector-opener{
+        background:none;
+    }
+
+    #language-selector-opener a{
+        margin: 13px 0;
     }
 }

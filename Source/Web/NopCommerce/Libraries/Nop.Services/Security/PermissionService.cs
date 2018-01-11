@@ -334,6 +334,11 @@ namespace Nop.Services.Security
             return false;
         }
 
+        public ICollection<CustomerRole> GetCustomerRolesBySystemName(string systemName)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

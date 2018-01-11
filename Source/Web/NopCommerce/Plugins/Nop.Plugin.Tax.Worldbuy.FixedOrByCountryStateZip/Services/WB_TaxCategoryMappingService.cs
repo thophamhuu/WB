@@ -6,6 +6,9 @@ using Nop.Core.Data;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Domain;
 using Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Infrastructure.Cache;
 using Nop.Services.Events;
+using Nop.Core.Domain.Catalog;
+using Nop.Core.Infrastructure;
+using Nop.Services.Catalog;
 
 namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Services
 {
@@ -117,7 +120,34 @@ namespace Nop.Plugin.Tax.Worldbuy.FixedOrByCountryStateZip.Services
             //event notification
             _eventPublisher.EntityUpdated(taxCategoryMapping);
         }
-
+        public int GetTaxCategoryId(Product product)
+        {
+            var _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            int taxCategoryId = 0;
+            var cateIds = product.ProductCategories;
+            var taxcategoryMappings = this.GetAllTaxCategoryMappings();
+            if (cateIds != null)
+            {
+                foreach (var cateId in cateIds)
+                {
+                    var category = _categoryService.GetCategoryById(cateId.CategoryId);
+                    while (category != null)
+                    {
+                        var taxcategoryMapping = taxcategoryMappings.FirstOrDefault(x => x.CategoryId == category.Id);
+                        if (taxcategoryMapping != null)
+                        {
+                            taxCategoryId = taxcategoryMapping.TaxCategoryId;
+                            break;
+                        }
+                        else
+                        {
+                            category = _categoryService.GetCategoryById(category.ParentCategoryId);
+                        }
+                    }
+                }
+            }
+            return taxCategoryId;
+        }
         #endregion
     }
 }

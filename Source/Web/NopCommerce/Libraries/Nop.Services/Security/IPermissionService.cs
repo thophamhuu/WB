@@ -88,5 +88,9 @@ namespace Nop.Services.Security
         /// <param name="customer">Customer</param>
         /// <returns>true - authorized; otherwise, false</returns>
         bool Authorize(string permissionRecordSystemName, Customer customer);
+
+        #region Worldbuy Custom
+        ICollection<CustomerRole> GetCustomerRolesBySystemName(string systemName);
+        #endregion
     }
 }

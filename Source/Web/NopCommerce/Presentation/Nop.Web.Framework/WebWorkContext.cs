@@ -66,7 +66,7 @@ namespace Nop.Web.Framework
             ILanguageService languageService,
             ICurrencyService currencyService,
             IGenericAttributeService genericAttributeService,
-            TaxSettings taxSettings, 
+            TaxSettings taxSettings,
             CurrencySettings currencySettings,
             LocalizationSettings localizationSettings,
             IUserAgentHelper userAgentHelper,
@@ -112,7 +112,7 @@ namespace Nop.Web.Framework
                 }
                 else
                 {
-                    int cookieExpires = 24*365; //TODO make configurable
+                    int cookieExpires = 24 * 365; //TODO make configurable
                     cookie.Expires = DateTime.Now.AddHours(cookieExpires);
                 }
 
@@ -179,8 +179,12 @@ namespace Nop.Web.Framework
         {
             get
             {
+
                 if (_cachedCustomer != null)
+                {
+
                     return _cachedCustomer;
+                }
 
                 Customer customer = null;
                 if (_httpContext == null || _httpContext is FakeHttpContext)
@@ -223,6 +227,7 @@ namespace Nop.Web.Framework
                     }
                 }
 
+
                 //load guest customer
                 if (customer == null || customer.Deleted || !customer.Active || customer.RequireReLogin)
                 {
@@ -240,14 +245,20 @@ namespace Nop.Web.Framework
                         }
                     }
                 }
-
                 //create guest if not exists
                 if (customer == null || customer.Deleted || !customer.Active || customer.RequireReLogin)
                 {
                     customer = _customerService.InsertGuestCustomer();
                 }
-
-
+                if (customer != null)
+                {
+                    if (customer.CustomerRoles == null || customer.CustomerRoles.Count == 0)
+                    {
+                        var customerRoles = _customerService.GetCustomerRolesByCustomerId(customer.Id).ToList();
+                        if (customerRoles != null)
+                            customer.SetCustomerRoles(customerRoles);
+                    }
+                }
                 //validation
                 if (!customer.Deleted && customer.Active && !customer.RequireReLogin)
                 {
@@ -259,6 +270,15 @@ namespace Nop.Web.Framework
             }
             set
             {
+                if (value != null)
+                {
+                    if (value.CustomerRoles == null || value.CustomerRoles.Count == 0)
+                    {
+                        var customerRoles = _customerService.GetCustomerRolesByCustomerId(value.Id).ToList();
+                        if (customerRoles != null)
+                            value.SetCustomerRoles(customerRoles);
+                    }
+                }
                 SetCustomerCookie(value.CustomerGuid);
                 _cachedCustomer = value;
             }
@@ -308,7 +328,7 @@ namespace Nop.Web.Framework
             {
                 if (_cachedLanguage != null)
                     return _cachedLanguage;
-                
+
                 Language detectedLanguage = null;
                 if (_localizationSettings.SeoFriendlyUrlsForLanguagesEnabled)
                 {
@@ -319,7 +339,7 @@ namespace Nop.Web.Framework
                 {
                     //get language from browser settings
                     //but we do it only once
-                    if (!this.CurrentCustomer.GetAttribute<bool>(SystemCustomerAttributeNames.LanguageAutomaticallyDetected, 
+                    if (!this.CurrentCustomer.GetAttribute<bool>(SystemCustomerAttributeNames.LanguageAutomaticallyDetected,
                         _genericAttributeService, _storeContext.CurrentStore.Id))
                     {
                         detectedLanguage = GetLanguageFromBrowserSettings();
@@ -388,12 +408,12 @@ namespace Nop.Web.Framework
             {
                 if (_cachedCurrency != null)
                     return _cachedCurrency;
-                
+
                 //return primary store currency when we're in admin area/mode
                 if (this.IsAdmin)
                 {
-                    var primaryStoreCurrency =  _currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId);
-                    
+                    var primaryStoreCurrency = _currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId);
+
                     if (primaryStoreCurrency != null)
                     {
                         //cache
@@ -454,7 +474,7 @@ namespace Nop.Web.Framework
                 TaxDisplayType taxDisplayType;
                 if (_taxSettings.AllowCustomersToSelectTaxDisplayType && this.CurrentCustomer != null)
                 {
-                    taxDisplayType = (TaxDisplayType) this.CurrentCustomer.GetAttribute<int>(
+                    taxDisplayType = (TaxDisplayType)this.CurrentCustomer.GetAttribute<int>(
                         SystemCustomerAttributeNames.TaxDisplayTypeId,
                         _genericAttributeService,
                         _storeContext.CurrentStore.Id);
@@ -474,7 +494,7 @@ namespace Nop.Web.Framework
                 if (!_taxSettings.AllowCustomersToSelectTaxDisplayType)
                     return;
 
-                _genericAttributeService.SaveAttribute(this.CurrentCustomer, 
+                _genericAttributeService.SaveAttribute(this.CurrentCustomer,
                     SystemCustomerAttributeNames.TaxDisplayTypeId,
                     (int)value, _storeContext.CurrentStore.Id);
 

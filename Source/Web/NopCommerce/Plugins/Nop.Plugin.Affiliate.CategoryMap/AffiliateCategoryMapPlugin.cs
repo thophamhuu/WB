@@ -43,7 +43,6 @@ namespace Nop.Plugin.Affiliate.CategoryMap
         {
             _context.Install();
             this.AddOrUpdatePluginLocaleResource("Nop.Plugin.Affiliate", "Affiliates");
-            this.AddOrUpdatePluginLocaleResource("Admin.Common.Source", "Affiliate Link");
 
             var categorySettings = new ProductMappingSettings
             {
@@ -76,7 +75,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap
                 pluginNode = new SiteMapNode()
                 {
                     SystemName = "Affiliate.Plugin.CategoryMap",
-                    Title = _localizationService.GetResource("Nop.Plugin.Affiliate.CategoryMap"),
+                    Title = "Danh mục liên kết",
                     Visible = true,
                     IconClass = "fa-dot-circle-o",
                     RouteValues = new RouteValueDictionary() { { "Area", "Admin" } }
@@ -87,7 +86,7 @@ namespace Nop.Plugin.Affiliate.CategoryMap
             var configItem = new SiteMapNode()
             {
                 SystemName = "Affiliate.Plugins.Amazon.Configure",
-                Title = _localizationService.GetResource("Nop.Plugin.Affiliate.CategoryMap.Setting"),
+                Title = "Cài đặt",
                 Visible = true,
                 Url = "/Admin/Plugin/ConfigureMiscPlugin?systemName=Affiliate.CategoryMap",
                 IconClass = "fa-dot-circle-o",
@@ -105,7 +104,6 @@ namespace Nop.Plugin.Affiliate.CategoryMap
         {
             _context.Uninstall();
             this.DeletePluginLocaleResource("Nop.Plugin.Affiliate");
-            this.DeletePluginLocaleResource("Admin.Common.Source");
 
             _settingService.DeleteSetting<ProductMappingSettings>();
             base.Uninstall();
