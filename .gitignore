@@ -202,5 +202,5 @@ $RECYCLE.BIN/
 # NopCommerce List
 Tests/
 Nop.Web/Plugins/*/
-Nop.Web/Plugins/SevenSpikes.*/
+!Nop.Web/Plugins/SevenSpikes.*/
 !Nop.Web/Plugins/bin/
