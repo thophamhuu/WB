@@ -1,4 +1,5 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core;
 using Nop.Core.Domain.Stores;
 using Nop.Services.Stores;
 using System;
@@ -106,12 +107,12 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Gets store mapping records
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="entity">Entity</param>
         /// <returns>Store mapping records</returns>
-        public IList<StoreMapping> GetStoreMappings<T>(T entity) where T : BaseEntity, IStoreMappingSupported
+        public IList<StoreMapping> GetStoreMappings(string entityName, int entityId)
         {
-            return _storeMappingService.GetStoreMappings(entity);
+            return _storeMappingService.GetStoreMappings(entityName, entityId);
         }
 
         /// <summary>
@@ -126,12 +127,12 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Inserts a store mapping record
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type Name</param>
         /// <param name="storeId">Store id</param>
         /// <param name="entity">Entity</param>
-        public void InsertStoreMapping<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported
+        public void InsertStoreMapping([FromBody] InsertStoreMappingModel model)
         {
-            _storeMappingService.InsertStoreMapping(entity, storeId);
+            _storeMappingService.InsertStoreMapping(model.entityName, model.entity, model.storeId);
         }
 
         /// <summary>
@@ -146,35 +147,24 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Find store identifiers with granted access (mapped to the entity)
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="entity">Wntity</param>
         /// <returns>Store identifiers</returns>
-        public int[] GetStoresIdsWithAccess<T>(T entity) where T : BaseEntity, IStoreMappingSupported
+        public int[] GetStoresIdsWithAccess(string entityName, int entityId)
         {
-            return _storeMappingService.GetStoresIdsWithAccess(entity);
-        }
-
-        /// <summary>
-        /// Authorize whether entity could be accessed in the current store (mapped to this store)
-        /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <param name="entity">Wntity</param>
-        /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize<T>(T entity) where T : BaseEntity, IStoreMappingSupported
-        {
-            return _storeMappingService.Authorize(entity);
+            return _storeMappingService.GetStoresIdsWithAccess(entityName, entityId);
         }
 
         /// <summary>
         /// Authorize whether entity could be accessed in a store (mapped to this store)
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="entity">Entity</param>
         /// <param name="storeId">Store identifier</param>
         /// <returns>true - authorized; otherwise, false</returns>
-        public bool Authorize<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported
+        public bool Authorize([FromBody]AuthorizeModel model)
         {
-            return _storeMappingService.Authorize(entity, storeId);
+            return _storeMappingService.Authorize(model.entityName, model.entity, model.storeId);
         }
 
         #endregion

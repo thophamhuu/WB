@@ -1,4 +1,5 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core;
 using Nop.Core.Domain.Seo;
 using Nop.Services.Seo;
 using System;
@@ -137,13 +138,13 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Save slug
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type Name</typeparam>
         /// <param name="entity">Entity</param>
         /// <param name="slug">Slug</param>
         /// <param name="languageId">Language ID</param>
-        public void SaveSlug<T>(T entity, string slug, int languageId) where T : BaseEntity, ISlugSupported
+        public void SaveSlug([FromBody]SaveSlugModel model)
         {
-            _urlRecordService.SaveSlug(entity, slug, languageId);
+            _urlRecordService.SaveSlug(model.entityName, model.entity, model.slug, model.languageId);
         }
 
         #endregion

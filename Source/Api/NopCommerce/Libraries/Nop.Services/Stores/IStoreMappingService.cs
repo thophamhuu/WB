@@ -31,6 +31,14 @@ namespace Nop.Services.Stores
         IList<StoreMapping> GetStoreMappings<T>(T entity) where T : BaseEntity, IStoreMappingSupported;
 
         /// <summary>
+        /// Gets store mapping records
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <returns>Store mapping records</returns>
+        IList<StoreMapping> GetStoreMappings(string entityName,int entityId);
+
+        /// <summary>
         /// Inserts a store mapping record
         /// </summary>
         /// <param name="storeMapping">Store mapping</param>
@@ -43,6 +51,14 @@ namespace Nop.Services.Stores
         /// <param name="storeId">Store id</param>
         /// <param name="entity">Entity</param>
         void InsertStoreMapping<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported;
+
+        /// <summary>
+        /// Inserts a store mapping record
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="storeId">Store id</param>
+        /// <param name="entity">Entity</param>
+        void InsertStoreMapping(string entityName, dynamic entity, int storeId);
 
         /// <summary>
         /// Updates the store mapping record
@@ -59,12 +75,28 @@ namespace Nop.Services.Stores
         int[] GetStoresIdsWithAccess<T>(T entity) where T : BaseEntity, IStoreMappingSupported;
 
         /// <summary>
+        /// Find store identifiers with granted access (mapped to the entity)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>Store identifiers</returns>
+        int[] GetStoresIdsWithAccess(string entityName, int entityId);
+
+        /// <summary>
         /// Authorize whether entity could be accessed in the current store (mapped to this store)
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="entity">Wntity</param>
         /// <returns>true - authorized; otherwise, false</returns>
         bool Authorize<T>(T entity) where T : BaseEntity, IStoreMappingSupported;
+
+        /// <summary>
+        /// Authorize whether entity could be accessed in the current store (mapped to this store)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        bool Authorize(string entityName, dynamic entity);
 
         /// <summary>
         /// Authorize whether entity could be accessed in a store (mapped to this store)
@@ -74,5 +106,14 @@ namespace Nop.Services.Stores
         /// <param name="storeId">Store identifier</param>
         /// <returns>true - authorized; otherwise, false</returns>
         bool Authorize<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported;
+
+        /// <summary>
+        /// Authorize whether entity could be accessed in a store (mapped to this store)
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <param name="storeId">Store identifier</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        bool Authorize(string entityName, dynamic entity, int storeId);
     }
 }

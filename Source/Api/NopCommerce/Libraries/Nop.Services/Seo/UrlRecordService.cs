@@ -444,7 +444,103 @@ namespace Nop.Services.Seo
                 }
             }
         }
+        /// <summary>
+        /// Save slug
+        /// </summary>
+        /// <param name="entityName">Type Name</typeparam>
+        /// <param name="entity">Entity</param>
+        /// <param name="slug">Slug</param>
+        /// <param name="languageId">Language ID</param>
+        public virtual void SaveSlug(string entityName, dynamic entity, string slug, int languageId)
+        {
+            if (entity == null)
+                throw new ArgumentNullException("entity");
 
+            int entityId = entity.Id;
+
+            var query = from ur in _urlRecordRepository.Table
+                        where ur.EntityId == entityId &&
+                        ur.EntityName == entityName &&
+                        ur.LanguageId == languageId
+                        orderby ur.Id descending
+                        select ur;
+            var allUrlRecords = query.ToList();
+            var activeUrlRecord = allUrlRecords.FirstOrDefault(x => x.IsActive);
+
+            if (activeUrlRecord == null && !string.IsNullOrWhiteSpace(slug))
+            {
+                //find in non-active records with the specified slug
+                var nonActiveRecordWithSpecifiedSlug = allUrlRecords
+                    .FirstOrDefault(x => x.Slug.Equals(slug, StringComparison.InvariantCultureIgnoreCase) && !x.IsActive);
+                if (nonActiveRecordWithSpecifiedSlug != null)
+                {
+                    //mark non-active record as active
+                    nonActiveRecordWithSpecifiedSlug.IsActive = true;
+                    UpdateUrlRecord(nonActiveRecordWithSpecifiedSlug);
+                }
+                else
+                {
+                    //new record
+                    var urlRecord = new UrlRecord
+                    {
+                        EntityId = entityId,
+                        EntityName = entityName,
+                        Slug = slug,
+                        LanguageId = languageId,
+                        IsActive = true,
+                    };
+                    InsertUrlRecord(urlRecord);
+                }
+            }
+
+            if (activeUrlRecord != null && string.IsNullOrWhiteSpace(slug))
+            {
+                //disable the previous active URL record
+                activeUrlRecord.IsActive = false;
+                UpdateUrlRecord(activeUrlRecord);
+            }
+
+            if (activeUrlRecord != null && !string.IsNullOrWhiteSpace(slug))
+            {
+                //it should not be the same slug as in active URL record
+                if (!activeUrlRecord.Slug.Equals(slug, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    //find in non-active records with the specified slug
+                    var nonActiveRecordWithSpecifiedSlug = allUrlRecords
+                        .FirstOrDefault(x => x.Slug.Equals(slug, StringComparison.InvariantCultureIgnoreCase) && !x.IsActive);
+                    if (nonActiveRecordWithSpecifiedSlug != null)
+                    {
+                        //mark non-active record as active
+                        nonActiveRecordWithSpecifiedSlug.IsActive = true;
+                        UpdateUrlRecord(nonActiveRecordWithSpecifiedSlug);
+
+                        //disable the previous active URL record
+                        activeUrlRecord.IsActive = false;
+                        UpdateUrlRecord(activeUrlRecord);
+                    }
+                    else
+                    {
+                        //insert new record
+                        //we do not update the existing record because we should track all previously entered slugs
+                        //to ensure that URLs will work fine
+                        var urlRecord = new UrlRecord
+                        {
+                            EntityId = entityId,
+                            EntityName = entityName,
+                            Slug = slug,
+                            LanguageId = languageId,
+                            IsActive = true,
+                        };
+                        InsertUrlRecord(urlRecord);
+
+                        //disable the previous active URL record
+                        activeUrlRecord.IsActive = false;
+                        UpdateUrlRecord(activeUrlRecord);
+                    }
+
+                }
+            }
+        }
         #endregion
     }
 }

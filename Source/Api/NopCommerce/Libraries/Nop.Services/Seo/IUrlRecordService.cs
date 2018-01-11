@@ -7,7 +7,7 @@ namespace Nop.Services.Seo
     /// <summary>
     /// Provides information about URL records
     /// </summary>
-    public partial interface  IUrlRecordService
+    public partial interface IUrlRecordService
     {
         /// <summary>
         /// Deletes an URL record
@@ -33,7 +33,7 @@ namespace Nop.Services.Seo
         /// </summary>
         /// <param name="urlRecordIds">URL record identifiers</param>
         /// <returns>URL record</returns>
-        IList<UrlRecord> GetUrlRecordsByIds(int [] urlRecordIds);
+        IList<UrlRecord> GetUrlRecordsByIds(int[] urlRecordIds);
 
         /// <summary>
         /// Inserts an URL record
@@ -89,5 +89,12 @@ namespace Nop.Services.Seo
         /// <param name="slug">Slug</param>
         /// <param name="languageId">Language ID</param>
         void SaveSlug<T>(T entity, string slug, int languageId) where T : BaseEntity, ISlugSupported;
+        /// Save slug
+        /// </summary>
+        /// <param name="entityName">Type name</typeparam>
+        /// <param name="entity">Entity</param>
+        /// <param name="slug">Slug</param>
+        /// <param name="languageId">Language ID</param>
+        void SaveSlug(string entityName, dynamic entity, string slug, int languageId);
     }
 }

@@ -160,7 +160,6 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Gets or sets the customer roles
         /// </summary>
-        [DataMember]
         public virtual ICollection<CustomerRole> CustomerRoles
         {
             get { return _customerRoles ?? (_customerRoles = new List<CustomerRole>()); }
@@ -170,7 +169,6 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Gets or sets shopping cart items
         /// </summary>
-        [DataMember]
         public virtual ICollection<ShoppingCartItem> ShoppingCartItems
         {
             get { return _shoppingCartItems ?? (_shoppingCartItems = new List<ShoppingCartItem>()); }
@@ -180,7 +178,6 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Gets or sets return request of this customer
         /// </summary>
-        [DataMember]
         public virtual ICollection<ReturnRequest> ReturnRequests
         {
             get { return _returnRequests ?? (_returnRequests = new List<ReturnRequest>()); }
@@ -190,19 +187,16 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Default billing address
         /// </summary>
-        [DataMember]
         public virtual Address BillingAddress { get; set; }
 
         /// <summary>
         /// Default shipping address
         /// </summary>
-        [DataMember]
         public virtual Address ShippingAddress { get; set; }
 
         /// <summary>
         /// Gets or sets customer addresses
         /// </summary>
-        [DataMember]
         public virtual ICollection<Address> Addresses
         {
             get { return _addresses ?? (_addresses = new List<Address>()); }

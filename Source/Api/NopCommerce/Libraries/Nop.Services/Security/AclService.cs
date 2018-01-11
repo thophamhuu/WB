@@ -17,7 +17,7 @@ namespace Nop.Services.Security
     public partial class AclService : IAclService
     {
         #region Constants
-        
+
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -53,7 +53,7 @@ namespace Nop.Services.Security
         /// <param name="aclRecordRepository">ACL record repository</param>
         /// <param name="catalogSettings">Catalog settings</param>
         /// <param name="eventPublisher">Event publisher</param>
-        public AclService(ICacheManager cacheManager, 
+        public AclService(ICacheManager cacheManager,
             IWorkContext workContext,
             IRepository<AclRecord> aclRecordRepository,
             IEventPublisher eventPublisher,
@@ -123,6 +123,26 @@ namespace Nop.Services.Security
             return aclRecords;
         }
 
+        /// <summary>
+        /// Gets ACL records
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Entity</param>
+        /// <returns>ACL records</returns>
+        public virtual IList<AclRecord> GetAclRecords(string entityName, int entityId)
+        {
+            if (entityId == 0)
+                throw new ArgumentNullException("entity");
+
+
+            var query = from ur in _aclRecordRepository.Table
+                        where ur.EntityId == entityId &&
+                        ur.EntityName == entityName
+                        select ur;
+            var aclRecords = query.ToList();
+            return aclRecords;
+        }
+
 
         /// <summary>
         /// Inserts an ACL record
@@ -158,6 +178,32 @@ namespace Nop.Services.Security
 
             int entityId = entity.Id;
             string entityName = typeof(T).Name;
+
+            var aclRecord = new AclRecord
+            {
+                EntityId = entityId,
+                EntityName = entityName,
+                CustomerRoleId = customerRoleId
+            };
+
+            InsertAclRecord(aclRecord);
+        }
+
+        /// <summary>
+        /// Inserts an ACL record
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="customerRoleId">Customer role id</param>
+        /// <param name="entity">Entity</param>
+        public virtual void InsertAclRecord(string entityName, dynamic entity, int customerRoleId)
+        {
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+
+            if (customerRoleId == 0)
+                throw new ArgumentOutOfRangeException("customerRoleId");
+
+            int entityId = entity.Id;
 
             var aclRecord = new AclRecord
             {
@@ -206,10 +252,44 @@ namespace Nop.Services.Security
             {
                 var query = from ur in _aclRecordRepository.Table
                             where ur.EntityId == entityId &&
-                            ur.EntityName == entityName 
+                            ur.EntityName == entityName
                             select ur.CustomerRoleId;
                 return query.ToArray();
             });
+        }
+
+        /// <summary>
+        /// Find customer role identifiers with granted access
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>Customer role identifiers</returns>
+        public virtual int[] GetCustomerRoleIdsWithAccess(string entityName, int entityId)
+        {
+            if (entityId == 0)
+                throw new ArgumentNullException("entity");
+
+
+            string key = string.Format(ACLRECORD_BY_ENTITYID_NAME_KEY, entityId, entityName);
+            return _cacheManager.Get(key, () =>
+            {
+                var query = from ur in _aclRecordRepository.Table
+                            where ur.EntityId == entityId &&
+                            ur.EntityName == entityName
+                            select ur.CustomerRoleId;
+                return query.ToArray();
+            });
+        }
+
+        /// <summary>
+        /// Authorize ACL permission
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        public virtual bool Authorize(string entityName, dynamic entity)
+        {
+            return Authorize(entityName, entity, _workContext.CurrentCustomer);
         }
 
         /// <summary>
@@ -231,6 +311,36 @@ namespace Nop.Services.Security
         /// <param name="customer">Customer</param>
         /// <returns>true - authorized; otherwise, false</returns>
         public virtual bool Authorize<T>(T entity, Customer customer) where T : BaseEntity, IAclSupported
+        {
+            if (entity == null)
+                return false;
+
+            if (customer == null)
+                return false;
+
+            if (_catalogSettings.IgnoreAcl)
+                return true;
+
+            if (!entity.SubjectToAcl)
+                return true;
+
+            foreach (var role1 in customer.CustomerRoles.Where(cr => cr.Active))
+                foreach (var role2Id in GetCustomerRoleIdsWithAccess(entity))
+                    if (role1.Id == role2Id)
+                        //yes, we have such permission
+                        return true;
+
+            //no permission found
+            return false;
+        }
+        /// <summary>
+        /// Authorize ACL permission
+        /// </summary>
+        /// <param name="entityName">Type</param>
+        /// <param name="entity">Wntity</param>
+        /// <param name="customer">Customer</param>
+        /// <returns>true - authorized; otherwise, false</returns>
+        public virtual bool Authorize(string entityName, dynamic entity, Customer customer)
         {
             if (entity == null)
                 return false;

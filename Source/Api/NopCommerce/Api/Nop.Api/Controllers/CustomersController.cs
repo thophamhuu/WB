@@ -192,7 +192,7 @@ namespace Nop.Api.Controllers
         /// Updates the customer
         /// </summary>
         /// <param name="customer">Customer</param>
-        public void UpdateCustomer(Customer customer)
+        public void UpdateCustomer([FromBody]Customer customer)
         {
             _customerService.UpdateCustomer(customer);
         }

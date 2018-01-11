@@ -1,4 +1,5 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Security;
 using Nop.Services.Security;
@@ -56,15 +57,15 @@ namespace Nop.Api.Controllers
             return _aclService.GetAclRecordById(aclRecordId);
         }
 
-        /// <summary>
+                /// <summary>
         /// Gets ACL records
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="entity">Entity</param>
         /// <returns>ACL records</returns>
-        public IList<AclRecord> GetAclRecords<T>(T entity) where T : BaseEntity, IAclSupported
+        public IList<AclRecord> GetAclRecords(string entityName, int entityId)
         {
-            return _aclService.GetAclRecords(entity);
+            return _aclService.GetAclRecords(entityName, entityId);
         }
 
         /// <summary>
@@ -79,12 +80,12 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Inserts an ACL record
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="customerRoleId">Customer role id</param>
         /// <param name="entity">Entity</param>
-        public void InsertAclRecord<T>(T entity, int customerRoleId) where T : BaseEntity, IAclSupported
+        public void InsertAclRecord([FromBody] InsertAclRecordModel model)
         {
-            _aclService.InsertAclRecord(entity, customerRoleId);
+            _aclService.InsertAclRecord(model.entityName, model.entity, model.customerRoleId);
         }
 
         /// <summary>
@@ -99,12 +100,12 @@ namespace Nop.Api.Controllers
         /// <summary>
         /// Find customer role identifiers with granted access
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
+        /// <param name="entityName">Type</param>
         /// <param name="entity">Wntity</param>
         /// <returns>Customer role identifiers</returns>
-        public int[] GetCustomerRoleIdsWithAccess<T>(T entity) where T : BaseEntity, IAclSupported
+        public int[] GetCustomerRoleIdsWithAccess(string entityName,int entityId)
         {
-            return _aclService.GetCustomerRoleIdsWithAccess(entity);
+            return _aclService.GetCustomerRoleIdsWithAccess(entityName, entityId);
         }
 
         #endregion

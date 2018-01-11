@@ -41,8 +41,13 @@ namespace Nop.Services.Stores
         /// <returns>Store mapping records</returns>
         public virtual IList<StoreMapping> GetStoreMappings<T>(T entity) where T : BaseEntity, IStoreMappingSupported
         {
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+
+            var entityName = typeof(T).Name;
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("entity", entity);
+            parameters.Add("entityName", entityName);
             return APIHelper.Instance.GetListAsync<StoreMapping>("Stores", "GetStoreMappings", parameters);
         }
 
@@ -64,6 +69,7 @@ namespace Nop.Services.Stores
         /// <param name="entity">Entity</param>
         public virtual void InsertStoreMapping<T>(T entity, int storeId) where T : BaseEntity, IStoreMappingSupported
         {
+
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("storeId", storeId);
             APIHelper.Instance.PostAsync("Stores", "InsertStoreMapping", entity, parameters);
