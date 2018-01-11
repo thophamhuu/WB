@@ -511,6 +511,13 @@ namespace Nop.Services.Customers
             APIHelper.Instance.PostAsync("Customers", "UpdateCustomerPassword", customerPassword);
         }
 
+        public ICollection<CustomerRole> GetCustomerRolesByCustomerId(int customerId)
+        {
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("customerId", customerId);
+            return APIHelper.Instance.GetListAsync<CustomerRole>("Customers", "GetCustomerRolesByCustomerId", parameters);
+        }
+
         #endregion
 
         #endregion

@@ -901,6 +901,11 @@ namespace Nop.Services.Customers
             _eventPublisher.EntityUpdated(customerPassword);
         }
 
+        public ICollection<CustomerRole> GetCustomerRolesByCustomerId(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #endregion

@@ -187,7 +187,14 @@ namespace Nop.Core.Domain.Customers
             get { return _addresses ?? (_addresses = new List<Address>()); }
             protected set { _addresses = value; }            
         }
-        
+
+        #endregion
+
+        #region Worldbuy Custom
+        public void SetCustomerRoles(IList<CustomerRole> customerRoles)
+        {
+            this._customerRoles = customerRoles;
+        }
         #endregion
     }
 }

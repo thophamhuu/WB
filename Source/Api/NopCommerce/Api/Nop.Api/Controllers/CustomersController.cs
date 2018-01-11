@@ -169,7 +169,10 @@ namespace Nop.Api.Controllers
         {
             return _customerService.GetCustomerByUsername(username);
         }
-
+        public ICollection<CustomerRole> GetCustomerRolesByCustomerId(int customerId)
+        {
+            return _customerService.GetCustomerById(customerId).CustomerRoles;
+        }
         /// <summary>
         /// Insert a guest customer
         /// </summary>

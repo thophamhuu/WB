@@ -65,6 +65,7 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Gets or sets the permission records
         /// </summary>
+        [DataMember]
         public virtual ICollection<PermissionRecord> PermissionRecords
         {
             get { return _permissionRecords ?? (_permissionRecords = new List<PermissionRecord>()); }

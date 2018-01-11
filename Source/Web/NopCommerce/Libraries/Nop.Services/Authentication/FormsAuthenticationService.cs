@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Security;
 using Nop.Core.Domain.Customers;
 using Nop.Services.Customers;
+using System.Linq;
 
 namespace Nop.Services.Authentication
 {
@@ -132,6 +133,12 @@ namespace Nop.Services.Authentication
 
             var formsIdentity = (FormsIdentity)_httpContext.User.Identity;
             var customer = GetAuthenticatedCustomerFromTicket(formsIdentity.Ticket);
+            if (customer != null)
+            {
+                var customerRoles = _customerService.GetCustomerRolesByCustomerId(customer.Id).ToList();
+                if (customerRoles != null)
+                    customer.SetCustomerRoles(customerRoles);
+            }
             if (customer != null && customer.Active && !customer.RequireReLogin && !customer.Deleted  && customer.IsRegistered())
                 _cachedCustomer = customer;
             return _cachedCustomer;

@@ -160,6 +160,7 @@ namespace Nop.Core.Domain.Customers
         /// <summary>
         /// Gets or sets the customer roles
         /// </summary>
+        /// 
         public virtual ICollection<CustomerRole> CustomerRoles
         {
             get { return _customerRoles ?? (_customerRoles = new List<CustomerRole>()); }
