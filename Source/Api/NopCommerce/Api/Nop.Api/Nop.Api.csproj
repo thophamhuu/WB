@@ -272,6 +272,8 @@
     </Compile>
     <Compile Include="Models\ClientApi.cs" />
     <Compile Include="Models\Requests\AuthorizeModel.cs" />
+    <Compile Include="Models\Requests\GetFinalPriceModel.cs" />
+    <Compile Include="Models\Requests\GetUnitPriceModel.cs" />
     <Compile Include="Models\Requests\InsertAclRecordModel.cs" />
     <Compile Include="Models\Requests\InsertStoreMappingModel.cs" />
     <Compile Include="Models\Requests\SaveSlugModel.cs" />

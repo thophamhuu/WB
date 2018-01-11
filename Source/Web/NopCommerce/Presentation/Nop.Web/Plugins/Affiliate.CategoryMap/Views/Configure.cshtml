@@ -26,12 +26,21 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.ShippingDescriptions)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.ShippingDescriptions)
+                                @Html.ValidationMessageFor(model => model.ShippingDescriptions)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
                                 &nbsp;
                             </div>
                             <div class="col-md-9">
                                 <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
 
-                                <input type="button" class="btn bg-red" onclick="UpdatePrice()" value="@T("Nop.Plugin.Affiliate.CategoryMap.UpdatePrice")" />
+                                <input type="button" class="btn bg-red" onclick="UpdatePrice()" value="Áp dụng cho tất cả sản phẩm" />
                             </div>
                         </div>
                     </div>
@@ -42,7 +51,7 @@
     </div>
     <script>
         function UpdatePrice() {
-            if (!window.confirm("@T("Nop.Plugin.Affiliate.CategoryMap.ConfirmUpdatePrice")"))
+            if (!window.confirm("Bạn có muốn áp dụng cho tất cả sản phẩm"))
                 return false;
             $.ajax({
                 type: "POST",

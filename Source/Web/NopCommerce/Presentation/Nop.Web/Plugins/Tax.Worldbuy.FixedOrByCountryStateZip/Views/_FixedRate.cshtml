@@ -4,7 +4,7 @@
             <div id="tax-categories-grid"></div>
             <script>
                 $(document)
-                    .ready(function() {
+                    .ready(function () {
                         $("#tax-categories-grid")
                             .kendoGrid({
                                 dataSource: {
@@ -38,12 +38,12 @@
                                             }
                                         }
                                     },
-                                    requestEnd: function(e) {
+                                    requestEnd: function (e) {
                                         if (e.type == "update") {
                                             this.read();
                                         }
                                     },
-                                    error: function(e) {
+                                    error: function (e) {
                                         display_kendoui_grid_error(e);
                                         // Cancel the changes
                                         this.cancelChanges();
@@ -73,7 +73,7 @@
                                     field: "Rate",
                                     title: "@T("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.Rate")",
                                     width: 200,
-                                    editor: function(container, options) {
+                                    editor: function (container, options) {
                                         $('<input name="' + options.field + '"/>')
                                             .appendTo(container)
                                             .kendoNumericTextBox({
@@ -81,6 +81,11 @@
                                                 decimals: 4
                                             });
                                     }
+                                }, {
+                                    selectable: true,
+                                    field: "IsAbsolute",
+                                    title: "@T("Plugins.Tax.Worldbuy.FixedOrByCountryStateZip.Fields.IsAbsolute")",
+                                    width: 50,
                                 }, {
                                     command: {
                                         name: "edit",
@@ -91,8 +96,8 @@
                                         }
                                     },
                                     title: "@T("Admin.Common.Edit")",
-                                        width: 150
-                                    }
+                                    width: 150
+                                }
                                 ]
                             });
                     });
