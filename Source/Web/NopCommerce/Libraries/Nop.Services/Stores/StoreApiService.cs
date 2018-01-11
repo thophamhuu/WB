@@ -26,7 +26,7 @@ namespace Nop.Services.Stores
         /// <returns>Stores</returns>
         public virtual IList<Store> GetAllStores()
         {
-            return APIHelper.Instance.GetListAsync<Store>("Stores", "GetAllStores", null);
+            return APIHelper.Instance.GetListAsync<Store>("Stores", "GetAllStores", new Dictionary<string, dynamic>());
         }
 
         /// <summary>

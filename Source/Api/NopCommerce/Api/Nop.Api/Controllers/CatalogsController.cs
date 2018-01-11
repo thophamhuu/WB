@@ -1,4 +1,5 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
@@ -7,6 +8,7 @@ using Nop.Services.Catalog;
 using Nop.Services.Discounts;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -664,69 +666,24 @@ namespace Nop.Api.Controllers
         /// <param name="additionalCharge">Additional charge</param>
         /// <param name="includeDiscounts">A value indicating whether include discounts or not for final price computation</param>
         /// <param name="quantity">Shopping cart item quantity</param>
-        /// <returns>Final price</returns>
-        public decimal GetFinalPrice(Product product, Customer customer, decimal additionalCharge = decimal.Zero, bool includeDiscounts = true, int quantity = 1)
-        {
-            return _priceCalculationService.GetFinalPrice(product, customer, additionalCharge, includeDiscounts, quantity);
-        }
-
-        /// <summary>
-        /// Gets the final price
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="customer">The customer</param>
-        /// <param name="additionalCharge">Additional charge</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for final price computation</param>
-        /// <param name="quantity">Shopping cart item quantity</param>
-        /// <param name="discountAmount">Applied discount amount</param>
-        /// <param name="appliedDiscounts">Applied discounts</param>
-        /// <returns>Final price</returns>
-        public decimal GetFinalPrice(Product product, Customer customer, decimal additionalCharge, bool includeDiscounts, int quantity, out decimal discountAmount, out List<DiscountForCaching> appliedDiscounts)
-        {
-            return _priceCalculationService.GetFinalPrice(product, customer, additionalCharge, includeDiscounts, quantity, out discountAmount, out appliedDiscounts);
-        }
-
-        /// <summary>
-        /// Gets the final price
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="customer">The customer</param>
-        /// <param name="additionalCharge">Additional charge</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for final price computation</param>
-        /// <param name="quantity">Shopping cart item quantity</param>
         /// <param name="rentalStartDate">Rental period start date (for rental products)</param>
         /// <param name="rentalEndDate">Rental period end date (for rental products)</param>
         /// <param name="discountAmount">Applied discount amount</param>
         /// <param name="appliedDiscounts">Applied discounts</param>
         /// <returns>Final price</returns>
-        public decimal GetFinalPrice(Product product, Customer customer, decimal additionalCharge, bool includeDiscounts, int quantity, DateTime? rentalStartDate, DateTime? rentalEndDate, out decimal discountAmount, out List<DiscountForCaching> appliedDiscounts)
+        public object GetFinalPrice([FromBody]GetFinalPriceModel model)
         {
-            return _priceCalculationService.GetFinalPrice(product, customer, additionalCharge, includeDiscounts, quantity, rentalStartDate, rentalEndDate, out discountAmount, out appliedDiscounts);
-        }
+            decimal discountAmount = model.discountAmount;
+            List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
 
-        /// <summary>
-        /// Gets the shopping cart unit price (one item)
-        /// </summary>
-        /// <param name="shoppingCartItem">The shopping cart item</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
-        /// <returns>Shopping cart unit price (one item)</returns>
-        public decimal GetUnitPrice(ShoppingCartItem shoppingCartItem,
-            bool includeDiscounts = true)
-        {
-            return _priceCalculationService.GetUnitPrice(shoppingCartItem, includeDiscounts);
-        }
+            var result =  _priceCalculationService.GetFinalPrice(model.product, model.customer, model.additionalCharge, model.includeDiscounts, model.quantity, model.rentalStartDate, model.rentalEndDate, out discountAmount, out appliedDiscounts);
 
-        /// <summary>
-        /// Gets the shopping cart unit price (one item)
-        /// </summary>
-        /// <param name="shoppingCartItem">The shopping cart item</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
-        /// <param name="discountAmount">Applied discount amount</param>
-        /// <param name="appliedDiscounts">Applied discounts</param>
-        /// <returns>Shopping cart unit price (one item)</returns>
-        public decimal GetUnitPrice(ShoppingCartItem shoppingCartItem, bool includeDiscounts, out decimal discountAmount, out List<DiscountForCaching> appliedDiscounts)
-        {
-            return _priceCalculationService.GetUnitPrice(shoppingCartItem, includeDiscounts, out discountAmount, out appliedDiscounts);
+            dynamic expando = new ExpandoObject();
+            expando.result = result;
+            expando.discountAmount = discountAmount;
+            expando.appliedDiscounts = appliedDiscounts;
+
+            return expando;
         }
 
         /// <summary>
@@ -744,40 +701,18 @@ namespace Nop.Api.Controllers
         /// <param name="discountAmount">Applied discount amount</param>
         /// <param name="appliedDiscounts">Applied discounts</param>
         /// <returns>Shopping cart unit price (one item)</returns>
-        public decimal GetUnitPrice(Product product, Customer customer, ShoppingCartType shoppingCartType, int quantity, string attributesXml, decimal customerEnteredPrice,
-            DateTime? rentalStartDate, DateTime? rentalEndDate, bool includeDiscounts, out decimal discountAmount, out List<DiscountForCaching> appliedDiscounts)
+        public object GetUnitPrice([FromBody]GetUnitPriceModel model)
         {
-            return _priceCalculationService.GetUnitPrice(product, customer, shoppingCartType, quantity, attributesXml, customerEnteredPrice, rentalStartDate, rentalEndDate, includeDiscounts, out discountAmount, out appliedDiscounts);
-        }
+            decimal discountAmount = model.discountAmount;
+            List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
+            var result = _priceCalculationService.GetUnitPrice(model.product, model.customer, model.shoppingCartType, model.quantity, model.attributesXml, model.customerEnteredPrice, model.rentalStartDate, model.rentalEndDate, model.includeDiscounts, out discountAmount, out appliedDiscounts);
 
-        /// <summary>
-        /// Gets the shopping cart item sub total
-        /// </summary>
-        /// <param name="shoppingCartItem">The shopping cart item</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
-        /// <returns>Shopping cart item sub total</returns>
-        public decimal GetSubTotal(ShoppingCartItem shoppingCartItem,
-            bool includeDiscounts = true)
-        {
-            return _priceCalculationService.GetSubTotal(shoppingCartItem, includeDiscounts);
-        }
+            dynamic expando = new ExpandoObject();
+            expando.result = result;
+            expando.discountAmount = discountAmount;
+            expando.appliedDiscounts = appliedDiscounts;
 
-        /// <summary>
-        /// Gets the shopping cart item sub total
-        /// </summary>
-        /// <param name="shoppingCartItem">The shopping cart item</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
-        /// <param name="discountAmount">Applied discount amount</param>
-        /// <param name="appliedDiscounts">Applied discounts</param>
-        /// <param name="maximumDiscountQty">Maximum discounted qty. Return not nullable value if discount cannot be applied to ALL items</param>
-        /// <returns>Shopping cart item sub total</returns>
-        public decimal GetSubTotal(ShoppingCartItem shoppingCartItem,
-            bool includeDiscounts,
-            out decimal discountAmount,
-            out List<DiscountForCaching> appliedDiscounts,
-            out int? maximumDiscountQty)
-        {
-            return _priceCalculationService.GetSubTotal(shoppingCartItem, includeDiscounts, out discountAmount, out appliedDiscounts, out maximumDiscountQty);
+            return expando;
         }
 
         /// <summary>
