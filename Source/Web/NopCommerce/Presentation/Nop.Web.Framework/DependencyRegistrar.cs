@@ -210,7 +210,7 @@ namespace Nop.Web.Framework
                     .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                     .InstancePerLifetimeScope();
                 //use static cache (between HTTP requests)
-                builder.RegisterType<PriceCalculationService>().As<IPriceCalculationService>()
+                builder.RegisterType<PriceCalculationApiService>().As<IPriceCalculationService>()
                     .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                     .InstancePerLifetimeScope();
 
@@ -328,7 +328,7 @@ namespace Nop.Web.Framework
 
                 builder.RegisterType<PollApiService>().As<IPollService>().InstancePerLifetimeScope();
                 builder.RegisterType<BlogService>().As<IBlogService>().InstancePerLifetimeScope();
-                builder.RegisterType<WidgetApiService>().As<IWidgetService>().InstancePerLifetimeScope();
+                builder.RegisterType<WidgetService>().As<IWidgetService>().InstancePerLifetimeScope();
                 builder.RegisterType<TopicApiService>().As<ITopicService>().InstancePerLifetimeScope();
                 builder.RegisterType<NewsApiService>().As<INewsService>().InstancePerLifetimeScope();
 
