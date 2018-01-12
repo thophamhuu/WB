@@ -20,7 +20,6 @@ namespace Nop.Services.Tax
         /// Gets or sets a tax rate
         /// </summary>
         public decimal TaxRate { get; set; }
-
         /// <summary>
         /// Gets or sets errors
         /// </summary>

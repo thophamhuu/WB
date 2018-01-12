@@ -5,6 +5,6 @@
 Source/**/bin/
 Source/**/obj/
 Tests/
-Nop.Web/Plugins/*/
+Nop.Web/Plugins/*
 !Nop.Web/Plugins/SevenSpikes.*/
 !Nop.Web/Plugins/bin/

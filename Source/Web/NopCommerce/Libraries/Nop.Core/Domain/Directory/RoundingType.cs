@@ -38,6 +38,14 @@
         /// <summary>
         /// Sales ending in 1–99 cents round up to the next whole dollar
         /// </summary>
-        Rounding1Up = 70
+        Rounding1Up = 70,
+        /// <summary>
+        /// Sales ending in 1–99 cents round up to the next whole vnd
+        /// </summary>
+        Rounding1000 = 80,
+        /// <summary>
+        /// Sales ending in 1–99 cents round up to the next whole vnd
+        /// </summary>
+        Rounding1000Up =90
     }
 }

@@ -22,7 +22,7 @@ namespace Nop.Core.Configuration
 
             var startupNode = section.SelectSingleNode("Startup");
             config.IgnoreStartupTasks = GetBool(startupNode, "IgnoreStartupTasks");
-
+           
             var redisCachingNode = section.SelectSingleNode("RedisCaching");
             config.RedisCachingEnabled = GetBool(redisCachingNode, "Enabled");
             config.RedisCachingConnectionString = GetString(redisCachingNode, "ConnectionString");
@@ -33,7 +33,7 @@ namespace Nop.Core.Configuration
 
             var supportPreviousNopcommerceVersionsNode = section.SelectSingleNode("SupportPreviousNopcommerceVersions");
             config.SupportPreviousNopcommerceVersions = GetBool(supportPreviousNopcommerceVersionsNode, "Enabled");
-
+            
             var webFarmsNode = section.SelectSingleNode("WebFarms");
             config.MultipleInstancesEnabled = GetBool(webFarmsNode, "MultipleInstancesEnabled");
             config.RunOnAzureWebApps = GetBool(webFarmsNode, "RunOnAzureWebApps");
@@ -48,9 +48,6 @@ namespace Nop.Core.Configuration
             config.UseFastInstallationService = GetBool(installationNode, "UseFastInstallationService");
             config.PluginsIgnoredDuringInstallation = GetString(installationNode, "PluginsIgnoredDuringInstallation");
 
-            var apiNode = section.SelectSingleNode("Api");
-            config.UseApi = GetBool(apiNode, "UseApi");
-            config.BaseAddress = GetString(apiNode, "BaseAddress");
             return config;
         }
 
@@ -145,8 +142,5 @@ namespace Nop.Core.Configuration
         /// A list of plugins ignored during nopCommerce installation
         /// </summary>
         public string PluginsIgnoredDuringInstallation { get; private set; }
-
-        public bool UseApi { get; private set; }
-        public string BaseAddress { get;private set;}
     }
 }

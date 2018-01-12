@@ -278,7 +278,9 @@
     <Compile Include="Models\Requests\InsertStoreMappingModel.cs" />
     <Compile Include="Models\Requests\Model.cs" />
     <Compile Include="Models\Requests\SaveSlugModel.cs" />
+    <Compile Include="Models\Requests\SearchProductsRequest.cs" />
     <Compile Include="Models\Requests\ValidateCustomerModel.cs" />
+    <Compile Include="Models\Responses\SearchProductsResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\Common.cs" />
     <Compile Include="Providers\WorldBuyRefreshTokenProvider.cs" />

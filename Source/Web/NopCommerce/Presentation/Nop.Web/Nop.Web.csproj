@@ -21,7 +21,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <IISExpressSSLPort>44303</IISExpressSSLPort>
+    <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -480,6 +481,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\browscap.xml" />
+    <Content Include="App_Data\InstalledPlugins.txt" />
     <Content Include="App_Data\Install\Fast\create_required_data.sql" />
     <Content Include="App_Data\Install\Fast\create_sample_data.sql" />
     <Content Include="App_Data\Install\Fast\readme.txt" />
@@ -540,6 +542,9 @@
     <Content Include="Content\Images\default-image.png" />
     <Content Include="Content\Images\rolling.gif" />
     <Content Include="Content\install\images\logo.png" />
+    <Content Include="Content\jquery-scroller\jquery.scrollbar.css" />
+    <Content Include="Content\jquery-scroller\jquery.scrollbar.js" />
+    <Content Include="Content\jquery-scroller\jquery.scrollbar.min.js" />
     <Content Include="Content\jquery-ui-themes\smoothness\images\animated-overlay.gif" />
     <Content Include="Content\jquery-ui-themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\jquery-ui-themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -1166,6 +1171,24 @@
     <Content Include="Plugins\SevenSpikes.Theme.Pavilion\SevenSpikes.Theme.Pavilion.dll" />
     <Content Include="Plugins\SevenSpikes.Theme.Pavilion\Styles\admin.css" />
     <Content Include="Plugins\SevenSpikes.Theme.Pavilion\SupportedWidgetZones.xml" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\1000.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\1280.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\480.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\768.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\mobile-only.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\styles.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\css\worldbuy-icon.css" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\flag-us.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\flag-vn.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-application.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-category.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\icons\worldbuy-icon-tag.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\logo.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\photo_2017-11-07_10-05-59.jpg" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-account.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-cart.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\img\worldbuy\worldbuy-icon-search.png" />
+    <Content Include="Plugins\Worldbuy.Plugin\Content\scripts\worldbuy.js" />
     <Content Include="Scripts\fineuploader\edit.gif" />
     <Content Include="Scripts\fineuploader\fineuploader-4.2.2.css" />
     <Content Include="Scripts\fineuploader\fineuploader-4.2.2.min.css" />
@@ -1873,7 +1896,7 @@
       <Name>Nop.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj">
-      <Project>{210541ad-f659-47da-8763-16f36c5cd2f4}</Project>
+      <Project>{210541AD-F659-47DA-8763-16F36C5CD2F4}</Project>
       <Name>Nop.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nop.Web.Framework\Nop.Web.Framework.csproj">
@@ -2070,7 +2093,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15536</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:15536/</IISUrl>
+          <IISUrl>http://localhost:15081/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace Nop.Core
 {
@@ -10,7 +9,6 @@ namespace Nop.Core
     /// </summary>
     /// <typeparam name="T">T</typeparam>
     [Serializable]
-    [DataContract(IsReference = true)]
     public class PagedList<T> : List<T>, IPagedList<T> 
     {
         /// <summary>

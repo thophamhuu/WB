@@ -115,6 +115,31 @@
                                 @Html.ValidationMessageFor(model => model.ConsiderAssociatedProductsDimensions)
                             </div>
                         </div>
+                        @{
+                            bool IsAdditionalCost = ViewBag.IsAdditionalCost;
+                            decimal AdditionalCost = ViewBag.AdditionalCost;
+                        }
+                        <div class="form-group advanced-setting">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                <label class="control-label" for="ConsiderAssociatedProductsDimensions" title="">@T("worldbuy.settings.shipping.isadditionalcost.label")</label>
+                                <div class="ico-help" title="@T("worldbuy.settings.shipping.isadditionalcost.description")"><i class="fa fa-question-circle"></i></div></div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.CheckBox("IsAdditionalCost",IsAdditionalCost)
+                            </div>
+                        </div>
+                        <div class="form-group advanced-setting">
+                            <div class="col-md-3">
+                                <div class="label-wrapper">
+                                    <label class="control-label" for="ConsiderAssociatedProductsDimensions" title="">@T("worldbuy.settings.shipping.additionalcost.label")</label>
+                                    <div class="ico-help" title="@T("worldbuy.settings.shipping.additionalcost.description")"><i class="fa fa-question-circle"></i></div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.Editor("AdditionalCost", AdditionalCost)
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default advanced-setting">

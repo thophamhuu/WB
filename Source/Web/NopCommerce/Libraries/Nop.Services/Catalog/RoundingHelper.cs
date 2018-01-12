@@ -95,6 +95,18 @@ namespace Nop.Services.Catalog
                         rez = t < 50 ? Math.Truncate(rez) : Math.Truncate(rez) + 1;
 
                     break;
+                case RoundingType.Rounding1000:
+                case RoundingType.Rounding1000Up:
+                    if (rez > 1000)
+                    {
+                        decimal d = rez / 1000;
+                        t = (d - Math.Truncate(d)) * 1000;
+                        if (roundingType == RoundingType.Rounding1000Up && t > 0)
+                            rez = (Math.Truncate(d)+1) * 1000;
+                        else
+                            rez = (Math.Truncate(d)) * 1000;
+                    }
+                    break;
                 case RoundingType.Rounding001:
                 default:
                     break;

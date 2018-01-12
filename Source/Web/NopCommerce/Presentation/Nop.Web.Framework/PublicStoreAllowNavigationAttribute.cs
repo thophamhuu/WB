@@ -50,15 +50,7 @@ namespace Nop.Web.Framework
                 return;
             
             var permissionService = EngineContext.Current.Resolve<IPermissionService>();
-            var permisstionRecord = StandardPermissionProvider.PublicStoreAllowNavigation;
-            var customerRoles = permissionService.GetCustomerRolesBySystemName(permisstionRecord.SystemName);
-            if(customerRoles!=null && customerRoles.Count > 0)
-            {
-                permisstionRecord.SetCustomerRoles(customerRoles);
-            }
-            
             var publicStoreAllowNavigation = permissionService.Authorize(StandardPermissionProvider.PublicStoreAllowNavigation);
-            
             if (publicStoreAllowNavigation)
                 return;
 

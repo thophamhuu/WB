@@ -12,6 +12,11 @@ namespace Nop.Services.ExportImport
         /// Import products from XLSX file
         /// </summary>
         /// <param name="stream">Stream</param>
+        void ImportPriceProductsFromXlsx(Stream stream);
+        /// <summary>
+        /// Import products from XLSX file
+        /// </summary>
+        /// <param name="stream">Stream</param>
         void ImportProductsFromXlsx(Stream stream);
 
         /// <summary>

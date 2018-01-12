@@ -35,4 +35,5 @@ Shipping.RateByDistrict
 Order.Amazon
 Payments.CashOnDelivery
 Payments.CashAtWB
+Widgets.GoogleAnalytics
 Tax.Worldbuy.FixedOrByCountryStateZip

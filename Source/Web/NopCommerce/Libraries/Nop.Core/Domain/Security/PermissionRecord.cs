@@ -33,10 +33,5 @@ namespace Nop.Core.Domain.Security
             get { return _customerRoles ?? (_customerRoles = new List<CustomerRole>()); }
             protected set { _customerRoles = value; }
         }   
-
-        public void SetCustomerRoles(ICollection<CustomerRole> customerRoles)
-        {
-            _customerRoles = customerRoles;
-        }
     }
 }

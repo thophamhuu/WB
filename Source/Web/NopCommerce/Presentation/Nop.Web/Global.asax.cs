@@ -20,7 +20,6 @@ using Nop.Web.Framework.Mvc.Routes;
 using Nop.Web.Framework.Themes;
 using StackExchange.Profiling;
 using StackExchange.Profiling.Mvc;
-using Nop.Services;
 
 namespace Nop.Web
 {
@@ -51,7 +50,6 @@ namespace Nop.Web
             //disable "X-AspNetMvc-Version" header name
             MvcHandler.DisableMvcResponseHeader = true;
 
-            APIHelper.Initilize();
             //initialize engine context
             EngineContext.Initialize(false);
 

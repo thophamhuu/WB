@@ -10,7 +10,7 @@ namespace Nop.Web.Controllers
 {
     [CheckAffiliate]
     [StoreClosed]
-    //[PublicStoreAllowNavigation]
+    [PublicStoreAllowNavigation]
     [LanguageSeoCode]
     [NopHttpsRequirement(SslRequirement.NoMatter)]
     [WwwRequirement]

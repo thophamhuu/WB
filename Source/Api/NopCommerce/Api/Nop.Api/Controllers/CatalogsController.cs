@@ -1,4 +1,5 @@
 ﻿using Nop.Api.Models.Requests;
+using Nop.Api.Models.Responses;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
@@ -232,9 +233,10 @@ namespace Nop.Api.Controllers
         /// </summary>
         /// <param name="category">Category</param>
         [HttpPost]
-        public void InsertCategory([FromBody]Category category)
+        public Category InsertCategory([FromBody]Category category)
         {
             _categoryService.InsertCategory(category);
+            return category;
         }
 
         /// <summary>
@@ -676,7 +678,7 @@ namespace Nop.Api.Controllers
             decimal discountAmount = model.discountAmount;
             List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
 
-            var result =  _priceCalculationService.GetFinalPrice(model.product, model.customer, model.additionalCharge, model.includeDiscounts, model.quantity, model.rentalStartDate, model.rentalEndDate, out discountAmount, out appliedDiscounts);
+            var result = _priceCalculationService.GetFinalPrice(model.product, model.customer, model.additionalCharge, model.includeDiscounts, model.quantity, model.rentalStartDate, model.rentalEndDate, out discountAmount, out appliedDiscounts);
 
             dynamic expando = new ExpandoObject();
             expando.result = result;
@@ -1139,16 +1141,16 @@ namespace Nop.Api.Controllers
         /// false - load only "Unpublished" products
         /// </param>
         /// <returns>Products</returns>
-        public IAPIPagedList<Product> SearchProducts(int pageIndex = 0, int pageSize = int.MaxValue, IList<int> categoryIds = null, int manufacturerId = 0,
-            int storeId = 0, int vendorId = 0, int warehouseId = 0, ProductType? productType = null, bool visibleIndividuallyOnly = false, bool markedAsNewOnly = false,
-            bool? featuredProducts = null, decimal? priceMin = null, decimal? priceMax = null, int productTagId = 0, string keywords = null, bool searchDescriptions = false,
-            bool searchManufacturerPartNumber = true, bool searchSku = true, bool searchProductTags = false, int languageId = 0, IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position, bool showHidden = false, bool? overridePublished = null)
-        {
-            return _productService.SearchProducts(pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
-                featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
-                orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
-        }
+        //public IAPIPagedList<Product> SearchProducts(int pageIndex = 0, int pageSize = int.MaxValue, IList<int> categoryIds = null, int manufacturerId = 0,
+        //    int storeId = 0, int vendorId = 0, int warehouseId = 0, ProductType? productType = null, bool visibleIndividuallyOnly = false, bool markedAsNewOnly = false,
+        //    bool? featuredProducts = null, decimal? priceMin = null, decimal? priceMax = null, int productTagId = 0, string keywords = null, bool searchDescriptions = false,
+        //    bool searchManufacturerPartNumber = true, bool searchSku = true, bool searchProductTags = false, int languageId = 0, IList<int> filteredSpecs = null,
+        //    ProductSortingEnum orderBy = ProductSortingEnum.Position, bool showHidden = false, bool? overridePublished = null)
+        //{
+        //    return _productService.SearchProducts(pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
+        //        featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
+        //        orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
+        //}
 
         /// <summary>
         /// Search products
@@ -1184,37 +1186,18 @@ namespace Nop.Api.Controllers
         /// false - load only "Unpublished" products
         /// </param>
         /// <returns>Products</returns>
-        public IAPIPagedList<Product> SearchProducts(
-            out IList<int> filterableSpecificationAttributeOptionIds,
-            bool loadFilterableSpecificationAttributeOptionIds = false,
-            int pageIndex = 0,
-            int pageSize = int.MaxValue,
-            IList<int> categoryIds = null,
-            int manufacturerId = 0,
-            int storeId = 0,
-            int vendorId = 0,
-            int warehouseId = 0,
-            ProductType? productType = null,
-            bool visibleIndividuallyOnly = false,
-            bool markedAsNewOnly = false,
-            bool? featuredProducts = null,
-            decimal? priceMin = null,
-            decimal? priceMax = null,
-            int productTagId = 0,
-            string keywords = null,
-            bool searchDescriptions = false,
-            bool searchManufacturerPartNumber = true,
-            bool searchSku = true,
-            bool searchProductTags = false,
-            int languageId = 0,
-            IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position,
-            bool showHidden = false,
-            bool? overridePublished = null)
+        public HttpResponseMessage SearchProducts([FromBody]SearchProductsRequest model)
         {
-            return _productService.SearchProducts(out filterableSpecificationAttributeOptionIds, loadFilterableSpecificationAttributeOptionIds, pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
-                featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
-                orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
+            IList<int> filterableSpecificationAttributeOptionIds = model.filterableSpecificationAttributeOptionIds;
+            var data = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds, model.loadFilterableSpecificationAttributeOptionIds, model.pageIndex, model.pageSize, model.categoryIds, model.manufacturerId, model.storeId, model.vendorId, model.warehouseId, model.productType, model.visibleIndividuallyOnly, model.markedAsNewOnly,
+               model.featuredProducts, model.priceMin, model.priceMax, model.productTagId, model.keywords, model.searchDescriptions, model.searchManufacturerPartNumber, model.searchSku, model.searchProductTags, model.languageId, model.filteredSpecs,
+                model.orderBy, model.showHidden, model.overridePublished).ConvertPagedListToAPIPagedList();
+            SearchProductsResponse result = new SearchProductsResponse
+            {
+                filterableSpecificationAttributeOptionIds = filterableSpecificationAttributeOptionIds,
+                data = data
+            };
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         /// <summary>

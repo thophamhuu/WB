@@ -251,6 +251,7 @@
     <Compile Include="ViewEngines\Razor\WebViewPage.cs" />
     <Compile Include="Menu\IAdminMenuPlugin.cs" />
     <Compile Include="WebWorkContext.cs" />
+    <Compile Include="WorldbuyHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">
