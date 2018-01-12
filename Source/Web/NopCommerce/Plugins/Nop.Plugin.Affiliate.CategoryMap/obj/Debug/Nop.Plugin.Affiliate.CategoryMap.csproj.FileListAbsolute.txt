@@ -1,0 +1,10 @@
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Description.txt
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\logo.png
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\web.config
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Views\Configure.cshtml
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Views\web.config
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Nop.Plugin.Affiliate.CategoryMap.dll
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Affiliate.CategoryMap\Nop.Plugin.Affiliate.CategoryMap.pdb
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.csprojResolveAssemblyReference.cache
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.dll
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Affiliate.CategoryMap\obj\Debug\Nop.Plugin.Affiliate.CategoryMap.pdb

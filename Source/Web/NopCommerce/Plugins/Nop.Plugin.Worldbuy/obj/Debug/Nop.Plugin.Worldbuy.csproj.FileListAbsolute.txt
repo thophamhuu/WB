@@ -1,0 +1,7 @@
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Description.txt
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\web.config
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Nop.Plugin.Worldbuy.dll
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Worldbuy.Plugin\Nop.Plugin.Worldbuy.pdb
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.csprojResolveAssemblyReference.cache
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.dll
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Worldbuy\obj\Debug\Nop.Plugin.Worldbuy.pdb

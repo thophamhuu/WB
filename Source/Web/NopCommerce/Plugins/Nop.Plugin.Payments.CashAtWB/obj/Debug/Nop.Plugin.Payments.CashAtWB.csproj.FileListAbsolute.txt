@@ -1,0 +1,11 @@
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Description.txt
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\logo.jpg
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Views\Configure.cshtml
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Views\PaymentInfo.cshtml
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\web.config
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Nop.Plugin.Payments.CashAtWB.dll.config
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Nop.Plugin.Payments.CashAtWB.dll
+E:\WB\Source\Web\NopCommerce\Presentation\Nop.Web\Plugins\Payments.CashAtWB\Nop.Plugin.Payments.CashAtWB.pdb
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Payments.CashAtWB\obj\Debug\Nop.Plugin.Payments.CashAtWB.csprojResolveAssemblyReference.cache
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Payments.CashAtWB\obj\Debug\Nop.Plugin.Payments.CashAtWB.dll
+E:\WB\Source\Web\NopCommerce\Plugins\Nop.Plugin.Payments.CashAtWB\obj\Debug\Nop.Plugin.Payments.CashAtWB.pdb
