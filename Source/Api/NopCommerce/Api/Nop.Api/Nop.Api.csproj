@@ -276,6 +276,7 @@
     <Compile Include="Models\Requests\GetUnitPriceModel.cs" />
     <Compile Include="Models\Requests\InsertAclRecordModel.cs" />
     <Compile Include="Models\Requests\InsertStoreMappingModel.cs" />
+    <Compile Include="Models\Requests\Model.cs" />
     <Compile Include="Models\Requests\SaveSlugModel.cs" />
     <Compile Include="Models\Requests\ValidateCustomerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nop.Services.Catalog
 {
-    public partial class CategoryTemplateApiServicecs : ICategoryTemplateService
+    public partial class CategoryTemplateApiService : ICategoryTemplateService
     {
         #region Methods
 

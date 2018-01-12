@@ -177,10 +177,8 @@ namespace Nop.Services.Directory
         /// <returns>Converted value</returns>
         public virtual decimal ConvertFromPrimaryStoreCurrency(decimal amount, Currency targetCurrencyCode)
         {
-            var parameters = new Dictionary<string, dynamic>();
-            parameters.Add("amount", amount);
-            parameters.Add("targetCurrencyCode", targetCurrencyCode);
-            return APIHelper.Instance.GetAsync<decimal>("Directory", "ConvertFromPrimaryStoreCurrency", parameters);
+            var obj = new { amount, targetCurrencyCode };
+            return APIHelper.Instance.PostAsync<decimal>("Directory", "ConvertFromPrimaryStoreCurrency", obj);
         }
 
         #endregion

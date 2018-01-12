@@ -1,4 +1,5 @@
-﻿using Nop.Core.Domain.Customers;
+﻿using Nop.Api.Models.Requests;
+using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
 using Nop.Services.Directory;
 using System;
@@ -281,9 +282,9 @@ namespace Nop.Api.Controllers
         /// <param name="amount">Amount</param>
         /// <param name="targetCurrencyCode">Target currency code</param>
         /// <returns>Converted value</returns>
-        public decimal ConvertFromPrimaryStoreCurrency(decimal amount, Currency targetCurrencyCode)
+        public decimal ConvertFromPrimaryStoreCurrency([FromBody]ConvertFromPrimaryStoreCurrencyModel model)
         {
-            return _currencyService.ConvertFromPrimaryStoreCurrency(amount, targetCurrencyCode);
+            return _currencyService.ConvertFromPrimaryStoreCurrency(model.amount, model.targetCurrencyCode);
         }
 
         #endregion

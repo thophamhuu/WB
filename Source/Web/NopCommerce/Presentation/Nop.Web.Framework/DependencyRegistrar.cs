@@ -100,62 +100,64 @@ namespace Nop.Web.Framework
             //controllers
             builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
 
+
+            //data layer
+            var dataSettingsManager = new DataSettingsManager();
+            var dataProviderSettings = dataSettingsManager.LoadSettings();
+            builder.Register(c => dataSettingsManager.LoadSettings()).As<DataSettings>();
+            builder.Register(x => new EfDataProviderManager(x.Resolve<DataSettings>())).As<BaseDataProviderManager>().InstancePerDependency();
+
+
+            builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
+
+            if (dataProviderSettings != null && dataProviderSettings.IsValid())
+            {
+                var efDataProviderManager = new EfDataProviderManager(dataSettingsManager.LoadSettings());
+                var dataProvider = efDataProviderManager.LoadDataProvider();
+                dataProvider.InitConnectionFactory();
+
+                builder.Register<IDbContext>(c => new NopObjectContext(dataProviderSettings.DataConnectionString)).InstancePerLifetimeScope();
+            }
+            else
+            {
+                builder.Register<IDbContext>(c => new NopObjectContext(dataSettingsManager.LoadSettings().DataConnectionString)).InstancePerLifetimeScope();
+            }
+
+
+            builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
+            //plugins
+            builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
+            builder.RegisterType<OfficialFeedManager>().As<IOfficialFeedManager>().InstancePerLifetimeScope();
+
+            //cache managers
+            if (config.RedisCachingEnabled)
+            {
+                builder.RegisterType<RedisConnectionWrapper>().As<IRedisConnectionWrapper>().SingleInstance();
+                builder.RegisterType<RedisCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_static").InstancePerLifetimeScope();
+            }
+            else
+            {
+                builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_static").SingleInstance();
+            }
+            builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_per_request").InstancePerLifetimeScope();
+
+            if (config.RunOnAzureWebApps)
+            {
+                builder.RegisterType<AzureWebAppsMachineNameProvider>().As<IMachineNameProvider>().SingleInstance();
+            }
+            else
+            {
+                builder.RegisterType<DefaultMachineNameProvider>().As<IMachineNameProvider>().SingleInstance();
+            }
+
+            //work context
+            builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
+            //store context
+            builder.RegisterType<WebStoreContext>().As<IStoreContext>().InstancePerLifetimeScope();
             if (config.UseApi)
             {
-                //data layer
-                var dataSettingsManager = new DataSettingsManager();
-                var dataProviderSettings = dataSettingsManager.LoadSettings();
-                builder.Register(c => dataSettingsManager.LoadSettings()).As<DataSettings>();
-                builder.Register(x => new EfDataProviderManager(x.Resolve<DataSettings>())).As<BaseDataProviderManager>().InstancePerDependency();
-
-
-                builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
-
-                if (dataProviderSettings != null && dataProviderSettings.IsValid())
-                {
-                    var efDataProviderManager = new EfDataProviderManager(dataSettingsManager.LoadSettings());
-                    var dataProvider = efDataProviderManager.LoadDataProvider();
-                    dataProvider.InitConnectionFactory();
-
-                    builder.Register<IDbContext>(c => new NopObjectContext(dataProviderSettings.DataConnectionString)).InstancePerLifetimeScope();
-                }
-                else
-                {
-                    builder.Register<IDbContext>(c => new NopObjectContext(dataSettingsManager.LoadSettings().DataConnectionString)).InstancePerLifetimeScope();
-                }
-
-
-                builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-
-                //plugins
-                builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
-                builder.RegisterType<OfficialFeedManager>().As<IOfficialFeedManager>().InstancePerLifetimeScope();
-
-                //cache managers
-                if (config.RedisCachingEnabled)
-                {
-                    builder.RegisterType<RedisConnectionWrapper>().As<IRedisConnectionWrapper>().SingleInstance();
-                    builder.RegisterType<RedisCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_static").InstancePerLifetimeScope();
-                }
-                else
-                {
-                    builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_static").SingleInstance();
-                }
-                builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>().Named<ICacheManager>("nop_cache_per_request").InstancePerLifetimeScope();
-
-                if (config.RunOnAzureWebApps)
-                {
-                    builder.RegisterType<AzureWebAppsMachineNameProvider>().As<IMachineNameProvider>().SingleInstance();
-                }
-                else
-                {
-                    builder.RegisterType<DefaultMachineNameProvider>().As<IMachineNameProvider>().SingleInstance();
-                }
-
-                //work context
-                builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope();
-                //store context
-                builder.RegisterType<WebStoreContext>().As<IStoreContext>().InstancePerLifetimeScope();
+                
 
                 //services
                 builder.RegisterType<BackInStockSubscriptionService>().As<IBackInStockSubscriptionService>().InstancePerLifetimeScope();
@@ -220,9 +222,9 @@ namespace Nop.Web.Framework
                 builder.RegisterType<MeasureApiService>().As<IMeasureService>().InstancePerLifetimeScope();
                 builder.RegisterType<StateProvinceApiService>().As<IStateProvinceService>().InstancePerLifetimeScope();
 
-                builder.RegisterType<StoreApiService>().As<IStoreService>().InstancePerLifetimeScope();
+                builder.RegisterType<StoreService>().As<IStoreService>().InstancePerLifetimeScope();
                 //use static cache (between HTTP requests)
-                builder.RegisterType<StoreMappingApiService>().As<IStoreMappingService>()
+                builder.RegisterType<StoreMappingService>().As<IStoreMappingService>()
                     .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"))
                     .InstancePerLifetimeScope();
 
@@ -287,7 +289,7 @@ namespace Nop.Web.Framework
 
                 builder.RegisterType<PaymentApiService>().As<IPaymentService>().InstancePerLifetimeScope();
 
-                builder.RegisterType<EncryptionApiService>().As<IEncryptionService>().InstancePerLifetimeScope();
+                builder.RegisterType<EncryptionService>().As<IEncryptionService>().InstancePerLifetimeScope();
                 builder.RegisterType<FormsAuthenticationService>().As<IAuthenticationService>().InstancePerLifetimeScope();
 
 
@@ -338,33 +340,6 @@ namespace Nop.Web.Framework
 
                 builder.RegisterType<ScheduleTaskApiService>().As<IScheduleTaskService>().InstancePerLifetimeScope();
 
-                builder.RegisterType<ExportManagerApi>().As<IExportManager>().InstancePerLifetimeScope();
-                builder.RegisterType<ImportManagerApi>().As<IImportManager>().InstancePerLifetimeScope();
-                builder.RegisterType<PdfApiService>().As<IPdfService>().InstancePerLifetimeScope();
-                builder.RegisterType<ThemeProvider>().As<IThemeProvider>().InstancePerLifetimeScope();
-                builder.RegisterType<ThemeContext>().As<IThemeContext>().InstancePerLifetimeScope();
-
-
-                builder.RegisterType<ExternalAuthorizer>().As<IExternalAuthorizer>().InstancePerLifetimeScope();
-                builder.RegisterType<OpenAuthenticationService>().As<IOpenAuthenticationService>().InstancePerLifetimeScope();
-
-
-                builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
-
-                //Register event consumers
-                var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
-                foreach (var consumer in consumers)
-                {
-                    builder.RegisterType(consumer)
-                        .As(consumer.FindInterfaces((type, criteria) =>
-                        {
-                            var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
-                            return isMatch;
-                        }, typeof(IConsumer<>)))
-                        .InstancePerLifetimeScope();
-                }
-                builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
-                builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             }
             //else
             //{
@@ -632,6 +607,34 @@ namespace Nop.Web.Framework
             //    builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             //    builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             //}
+
+
+            builder.RegisterType<ExportManager>().As<IExportManager>().InstancePerLifetimeScope();
+            builder.RegisterType<ImportManager>().As<IImportManager>().InstancePerLifetimeScope();
+            builder.RegisterType<PdfService>().As<IPdfService>().InstancePerLifetimeScope();
+            builder.RegisterType<ThemeProvider>().As<IThemeProvider>().InstancePerLifetimeScope();
+            builder.RegisterType<ThemeContext>().As<IThemeContext>().InstancePerLifetimeScope();
+
+
+            builder.RegisterType<ExternalAuthorizer>().As<IExternalAuthorizer>().InstancePerLifetimeScope();
+            builder.RegisterType<OpenAuthenticationService>().As<IOpenAuthenticationService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
+
+            //Register event consumers
+            var consumers = typeFinder.FindClassesOfType(typeof(IConsumer<>)).ToList();
+            foreach (var consumer in consumers)
+            {
+                builder.RegisterType(consumer)
+                    .As(consumer.FindInterfaces((type, criteria) =>
+                    {
+                        var isMatch = type.IsGenericType && ((Type)criteria).IsAssignableFrom(type.GetGenericTypeDefinition());
+                        return isMatch;
+                    }, typeof(IConsumer<>)))
+                    .InstancePerLifetimeScope();
+            }
+            builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
+            builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
         }
 
         /// <summary>
