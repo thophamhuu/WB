@@ -21,30 +21,9 @@ build/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-*_i.c
-*_p.c
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*.log
+
 *.vspscc
 *.vssscc
-.builds
-*.pidb
-*.log
-*.scc
-
 # OS generated files #
 .DS_Store*
 
@@ -184,10 +163,6 @@ $RECYCLE.BIN/
 
 # Rider
 .idea/
-
-# Output folder used by Webpack or other FE stuff
-**/node_modules/*
-**/wwwroot/*
 
 # SpecFlow specific
 *.feature.cs
