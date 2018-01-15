@@ -13,7 +13,7 @@ namespace Nop.Services.Localization
     /// <summary>
     /// Provides information about localizable entities
     /// </summary>
-    public partial class LocalizedEntityService : ApiService, ILocalizedEntityService
+    public partial class LocalizedEntityService : ILocalizedEntityService
     {
         #region Constants
 
@@ -98,29 +98,22 @@ namespace Nop.Services.Localization
             return _cacheManager.Get(key, () =>
             {
                 var list = new List<LocalizedPropertyForCaching>();
-                if (CheckUseApi)
-                {
+                var query = from lp in _localizedPropertyRepository.Table
+                            select lp;
+                var localizedProperties = query.ToList();
 
-                }
-                else
+                foreach (var lp in localizedProperties)
                 {
-                    var query = from lp in _localizedPropertyRepository.Table
-                                select lp;
-                    var localizedProperties = query.ToList();
-
-                    foreach (var lp in localizedProperties)
+                    var localizedPropertyForCaching = new LocalizedPropertyForCaching
                     {
-                        var localizedPropertyForCaching = new LocalizedPropertyForCaching
-                        {
-                            Id = lp.Id,
-                            EntityId = lp.EntityId,
-                            LanguageId = lp.LanguageId,
-                            LocaleKeyGroup = lp.LocaleKeyGroup,
-                            LocaleKey = lp.LocaleKey,
-                            LocaleValue = lp.LocaleValue
-                        };
-                        list.Add(localizedPropertyForCaching);
-                    }
+                        Id = lp.Id,
+                        EntityId = lp.EntityId,
+                        LanguageId = lp.LanguageId,
+                        LocaleKeyGroup = lp.LocaleKeyGroup,
+                        LocaleKey = lp.LocaleKey,
+                        LocaleValue = lp.LocaleValue
+                    };
+                    list.Add(localizedPropertyForCaching);
                 }
 
                 return list;
@@ -189,24 +182,20 @@ namespace Nop.Services.Localization
                 string key = string.Format(LOCALIZEDPROPERTY_KEY, languageId, entityId, localeKeyGroup, localeKey);
                 return _cacheManager.Get(key, () =>
                 {
-                    if (CheckUseApi) { return ""; }
-                    else
-                    {
-                        var source = GetAllLocalizedPropertiesCached();
-                        var query = from lp in source
-                                    where lp.LanguageId == languageId &&
-                                    lp.EntityId == entityId &&
-                                    lp.LocaleKeyGroup == localeKeyGroup &&
-                                    lp.LocaleKey == localeKey
-                                    select lp.LocaleValue;
-                        var localeValue = query.FirstOrDefault();
-                        //little hack here. nulls aren't cacheable so set it to ""
-                        if (localeValue == null)
-                            localeValue = "";
-                        //load all records (we know they are cached)
+                    var source = GetAllLocalizedPropertiesCached();
+                    var query = from lp in source
+                                where lp.LanguageId == languageId &&
+                                lp.EntityId == entityId &&
+                                lp.LocaleKeyGroup == localeKeyGroup &&
+                                lp.LocaleKey == localeKey
+                                select lp.LocaleValue;
+                    var localeValue = query.FirstOrDefault();
+                    //little hack here. nulls aren't cacheable so set it to ""
+                    if (localeValue == null)
+                        localeValue = "";
+                    //load all records (we know they are cached)
 
-                        return localeValue;
-                    }
+                    return localeValue;
 
                 });
 
