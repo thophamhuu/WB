@@ -1116,6 +1116,10 @@ namespace Nop.Services.Orders
                 };
                 var response = APIHelper.Instance.PostAsync<AddToCartResponse>("Orders", "AddToCart", body);
                 customer.SetShoppingCartItems(response.ShoppingCartItems);
+
+
+                //updated "HasShoppingCartItems" property used for performance optimization
+                customer.HasShoppingCartItems = customer.ShoppingCartItems.Any();
                 warnings = response.warnings.ToList();
             }
             else
