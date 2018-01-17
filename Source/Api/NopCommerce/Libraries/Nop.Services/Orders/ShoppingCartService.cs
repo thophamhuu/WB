@@ -1170,7 +1170,7 @@ namespace Nop.Services.Orders
                     {
                         ShoppingCartType = shoppingCartType,
                         StoreId = storeId,
-                        Product = product,
+                        ProductId = product.Id,
                         AttributesXml = attributesXml,
                         CustomerEnteredPrice = customerEnteredPrice,
                         Quantity = quantity,
