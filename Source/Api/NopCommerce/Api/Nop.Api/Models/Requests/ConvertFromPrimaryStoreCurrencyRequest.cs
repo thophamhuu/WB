@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class ConvertFromPrimaryStoreCurrencyModel
+    public class ConvertFromPrimaryStoreCurrencyRequest
     {
         public decimal amount { get; set; } public Currency targetCurrencyCode { get; set; }
     }

@@ -16,6 +16,7 @@ using Nop.Services.Localization;
 using Nop.Services.Security;
 using Nop.Services.Shipping.Date;
 using Nop.Services.Stores;
+using Nop.Core.Infrastructure;
 
 namespace Nop.Services.Orders
 {
@@ -75,7 +76,7 @@ namespace Nop.Services.Orders
         /// <param name="productAttributeService">Product attribute service</param>
         /// <param name="dateTimeHelper">Datetime helper</param>
         public ShoppingCartService(IRepository<ShoppingCartItem> sciRepository,
-            IWorkContext workContext, 
+            IWorkContext workContext,
             IStoreContext storeContext,
             ICurrencyService currencyService,
             IProductService productService,
@@ -87,7 +88,7 @@ namespace Nop.Services.Orders
             ICustomerService customerService,
             ShoppingCartSettings shoppingCartSettings,
             IEventPublisher eventPublisher,
-            IPermissionService permissionService, 
+            IPermissionService permissionService,
             IAclService aclService,
             IDateRangeService dateRangeService,
             IStoreMappingService storeMappingService,
@@ -127,7 +128,7 @@ namespace Nop.Services.Orders
         /// <param name="shoppingCartItem">Shopping cart item</param>
         /// <param name="resetCheckoutData">A value indicating whether to reset checkout data</param>
         /// <param name="ensureOnlyActiveCheckoutAttributes">A value indicating whether to ensure that only active checkout attributes are attached to the current customer</param>
-        public virtual void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true, 
+        public virtual void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true,
             bool ensureOnlyActiveCheckoutAttributes = false)
         {
             if (shoppingCartItem == null)
@@ -176,8 +177,8 @@ namespace Nop.Services.Orders
         public virtual int DeleteExpiredShoppingCartItems(DateTime olderThanUtc)
         {
             var query = from sci in _sciRepository.Table
-                           where sci.UpdatedOnUtc < olderThanUtc
-                           select sci;
+                        where sci.UpdatedOnUtc < olderThanUtc
+                        select sci;
 
             var cartItems = query.ToList();
             foreach (var cartItem in cartItems)
@@ -220,7 +221,7 @@ namespace Nop.Services.Orders
                     if (rp != null)
                         requiredProducts.Add(rp);
                 }
-                
+
                 foreach (var rp in requiredProducts)
                 {
                     //ensure that product is in the cart
@@ -244,7 +245,7 @@ namespace Nop.Services.Orders
                             {
                                 //pass 'false' for 'automaticallyAddRequiredProductsIfEnabled' to prevent circular references
                                 var addToCartWarnings = AddToCart(customer: customer,
-                                    product: rp, 
+                                    product: rp,
                                     shoppingCartType: shoppingCartType,
                                     storeId: storeId,
                                     automaticallyAddRequiredProductsIfEnabled: false);
@@ -272,7 +273,7 @@ namespace Nop.Services.Orders
 
             return warnings;
         }
-        
+
         /// <summary>
         /// Validates a product for standard properties
         /// </summary>
@@ -313,7 +314,7 @@ namespace Nop.Services.Orders
             {
                 warnings.Add("This is not simple product");
             }
-            
+
             //ACL
             if (!_aclService.Authorize(product, customer))
             {
@@ -485,9 +486,9 @@ namespace Nop.Services.Orders
         /// <param name="attributesXml">Attributes in XML format</param>
         /// <param name="ignoreNonCombinableAttributes">A value indicating whether we should ignore non-combinable attributes</param>
         /// <returns>Warnings</returns>
-        public virtual IList<string> GetShoppingCartItemAttributeWarnings(Customer customer, 
+        public virtual IList<string> GetShoppingCartItemAttributeWarnings(Customer customer,
             ShoppingCartType shoppingCartType,
-            Product product, 
+            Product product,
             int quantity = 1,
             string attributesXml = "",
             bool ignoreNonCombinableAttributes = false)
@@ -557,9 +558,9 @@ namespace Nop.Services.Orders
                     if (!found)
                     {
                         var notFoundWarning = !string.IsNullOrEmpty(a2.TextPrompt) ?
-                            a2.TextPrompt : 
+                            a2.TextPrompt :
                             string.Format(_localizationService.GetResource("ShoppingCart.SelectAttribute"), a2.ProductAttribute.GetLocalized(a => a.Name));
-                        
+
                         warnings.Add(notFoundWarning);
                     }
                 }
@@ -589,7 +590,7 @@ namespace Nop.Services.Orders
             {
                 if (!pam.ValidationRulesAllowed())
                     continue;
-                
+
                 //minimum length
                 if (pam.ValidationMinLength.HasValue)
                 {
@@ -650,7 +651,7 @@ namespace Nop.Services.Orders
                             var attributeName = attributeValue.ProductAttributeMapping.ProductAttribute.GetLocalized(a => a.Name);
                             var attributeValueName = attributeValue.GetLocalized(a => a.Name);
                             warnings.Add(string.Format(
-                                _localizationService.GetResource("ShoppingCart.AssociatedAttributeWarning"), 
+                                _localizationService.GetResource("ShoppingCart.AssociatedAttributeWarning"),
                                 attributeName, attributeValueName, associatedProductWarning));
                         }
                     }
@@ -727,7 +728,7 @@ namespace Nop.Services.Orders
         {
             if (product == null)
                 throw new ArgumentNullException("product");
-            
+
             var warnings = new List<string>();
 
             if (!product.IsRental)
@@ -803,7 +804,7 @@ namespace Nop.Services.Orders
                 throw new ArgumentNullException("product");
 
             var warnings = new List<string>();
-            
+
             //standard properties
             if (getStandardWarnings)
                 warnings.AddRange(GetStandardWarnings(customer, shoppingCartType, product, attributesXml, customerEnteredPrice, quantity));
@@ -823,7 +824,7 @@ namespace Nop.Services.Orders
             //rental products
             if (getRentalWarnings)
                 warnings.AddRange(GetRentalProductWarnings(product, rentalStartDate, rentalEndDate));
-            
+
             return warnings;
         }
 
@@ -834,7 +835,7 @@ namespace Nop.Services.Orders
         /// <param name="checkoutAttributesXml">Checkout attributes in XML format</param>
         /// <param name="validateCheckoutAttributes">A value indicating whether to validate checkout attributes</param>
         /// <returns>Warnings</returns>
-        public virtual IList<string> GetShoppingCartWarnings(IList<ShoppingCartItem> shoppingCart, 
+        public virtual IList<string> GetShoppingCartWarnings(IList<ShoppingCartItem> shoppingCart,
             string checkoutAttributesXml, bool validateCheckoutAttributes)
         {
             var warnings = new List<string>();
@@ -982,7 +983,7 @@ namespace Nop.Services.Orders
             Product product,
             string attributesXml = "",
             decimal customerEnteredPrice = decimal.Zero,
-            DateTime? rentalStartDate = null, 
+            DateTime? rentalStartDate = null,
             DateTime? rentalEndDate = null)
         {
             if (shoppingCart == null)
@@ -1068,6 +1069,7 @@ namespace Nop.Services.Orders
             DateTime? rentalStartDate = null, DateTime? rentalEndDate = null,
             int quantity = 1, bool automaticallyAddRequiredProductsIfEnabled = true)
         {
+
             if (customer == null)
                 throw new ArgumentNullException("customer");
 
@@ -1114,7 +1116,7 @@ namespace Nop.Services.Orders
                 //update existing shopping cart item
                 int newQuantity = shoppingCartItem.Quantity + quantity;
                 warnings.AddRange(GetShoppingCartItemWarnings(customer, shoppingCartType, product,
-                    storeId, attributesXml, 
+                    storeId, attributesXml,
                     customerEnteredPrice, rentalStartDate, rentalEndDate,
                     newQuantity, automaticallyAddRequiredProductsIfEnabled));
 
@@ -1134,7 +1136,7 @@ namespace Nop.Services.Orders
                 //new shopping cart item
                 warnings.AddRange(GetShoppingCartItemWarnings(customer, shoppingCartType, product,
                     storeId, attributesXml, customerEnteredPrice,
-                    rentalStartDate, rentalEndDate, 
+                    rentalStartDate, rentalEndDate,
                     quantity, automaticallyAddRequiredProductsIfEnabled));
                 if (!warnings.Any())
                 {
@@ -1175,11 +1177,11 @@ namespace Nop.Services.Orders
                         RentalStartDateUtc = rentalStartDate,
                         RentalEndDateUtc = rentalEndDate,
                         CreatedOnUtc = now,
-                        UpdatedOnUtc = now
+                        UpdatedOnUtc = now,
+                        CustomerId = customer.Id
                     };
+                    InsertShoppingCartItem(shoppingCartItem);
                     customer.ShoppingCartItems.Add(shoppingCartItem);
-                    _customerService.UpdateCustomer(customer);
-
 
                     //updated "HasShoppingCartItems" property used for performance optimization
                     customer.HasShoppingCartItems = customer.ShoppingCartItems.Any();
@@ -1192,7 +1194,11 @@ namespace Nop.Services.Orders
 
             return warnings;
         }
-
+        public virtual void InsertShoppingCartItem(ShoppingCartItem shoppingCartItem)
+        {
+            var _shoppingCartItemRepository = EngineContext.Current.Resolve<IRepository<ShoppingCartItem>>();
+            _shoppingCartItemRepository.Insert(shoppingCartItem);
+        }
         /// <summary>
         /// Updates the shopping cart item
         /// </summary>
@@ -1208,7 +1214,7 @@ namespace Nop.Services.Orders
         public virtual IList<string> UpdateShoppingCartItem(Customer customer,
             int shoppingCartItemId, string attributesXml,
             decimal customerEnteredPrice,
-            DateTime? rentalStartDate = null, DateTime? rentalEndDate = null, 
+            DateTime? rentalStartDate = null, DateTime? rentalEndDate = null,
             int quantity = 1, bool resetCheckoutData = true)
         {
             if (customer == null)
@@ -1229,7 +1235,7 @@ namespace Nop.Services.Orders
                     //check warnings
                     warnings.AddRange(GetShoppingCartItemWarnings(customer, shoppingCartItem.ShoppingCartType,
                         shoppingCartItem.Product, shoppingCartItem.StoreId,
-                        attributesXml, customerEnteredPrice, 
+                        attributesXml, customerEnteredPrice,
                         rentalStartDate, rentalEndDate, quantity, false));
                     if (!warnings.Any())
                     {
@@ -1255,7 +1261,7 @@ namespace Nop.Services.Orders
 
             return warnings;
         }
-        
+
         /// <summary>
         /// Migrate shopping cart
         /// </summary>
@@ -1277,7 +1283,7 @@ namespace Nop.Services.Orders
             for (int i = 0; i < fromCart.Count; i++)
             {
                 var sci = fromCart[i];
-                AddToCart(toCustomer, sci.Product, sci.ShoppingCartType, sci.StoreId, 
+                AddToCart(toCustomer, sci.Product, sci.ShoppingCartType, sci.StoreId,
                     sci.AttributesXml, sci.CustomerEnteredPrice,
                     sci.RentalStartDateUtc, sci.RentalEndDateUtc, sci.Quantity, false);
             }
@@ -1300,7 +1306,7 @@ namespace Nop.Services.Orders
 
                 //save customer
                 _customerService.UpdateCustomer(toCustomer);
-                 
+
             }
         }
 

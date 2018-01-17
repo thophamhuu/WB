@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class SaveSlugModel
+    public class SaveSlugRequest
     {
         public string entityName { get; set; }
         public dynamic entity { get; set; }

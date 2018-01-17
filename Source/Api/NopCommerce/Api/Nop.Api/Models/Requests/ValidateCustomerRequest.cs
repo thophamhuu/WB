@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class ValidateCustomerModel
+    public class ValidateCustomerRequest
     {
         public string usernameOrEmail { get; set; }
         public string password { get; set; }

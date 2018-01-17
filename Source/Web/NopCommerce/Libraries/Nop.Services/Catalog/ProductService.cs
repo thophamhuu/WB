@@ -29,6 +29,15 @@ namespace Nop.Services.Catalog
     public partial class ProductService : ApiService, IProductService
     {
         #region Constants
+
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : product ID
+        /// </remarks>
+        private const string PRODUCTS_SEARCH_KEY = "Nop.product.search-{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}-{10}-{11}-{12}";
+
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -233,20 +242,24 @@ namespace Nop.Services.Catalog
         /// <returns>Product</returns>
         public virtual Product GetProductById(int productId)
         {
-            
+
             if (productId == 0)
                 return null;
-            if (CheckUseApi)
+
+            string key = string.Format(PRODUCTS_BY_ID_KEY, productId);
+            return _cacheManager.Get(key, () =>
             {
-                var parameters = new Dictionary<string, dynamic>();
-                parameters.Add("productId", productId);
-                return APIHelper.Instance.GetAsync<Product>("Catalogs", "GetProductById", parameters);
-            }
-            else
-            {
-                string key = string.Format(PRODUCTS_BY_ID_KEY, productId);
-                return _cacheManager.Get(key, () => _productRepository.GetById(productId));
-            }
+                if (CheckUseApi)
+                {
+                    var parameters = new Dictionary<string, dynamic>();
+                    parameters.Add("productId", productId);
+                    return APIHelper.Instance.GetAsync<Product>("Catalogs", "GetProductById", parameters);
+                }
+                else
+                {
+                    return _productRepository.GetById(productId);
+                }
+            });
         }
 
         /// <summary>
@@ -514,68 +527,54 @@ namespace Nop.Services.Catalog
             if (CheckUseApi)
             {
                 var parameters = new Dictionary<string, dynamic>();
-                //var filterableSpecificationAttributeOptionIds
                 IList<int> optionIds = new List<int>();
-                //string arrFilterableSpecificationAttributeOptionIds = optionIds == null ? null : String.Join(",", optionIds);
-
-                //if (!String.IsNullOrEmpty( arrFilterableSpecificationAttributeOptionIds))
-                //{
-                //    parameters.Add("filterableSpecificationAttributeOptionIds", arrFilterableSpecificationAttributeOptionIds);
-                //}
-
-                //parameters.Add("pageIndex", pageIndex);
-                //parameters.Add("pageSize", pageSize);
-                //parameters.Add("categoryIds", categoryIds);
-                //parameters.Add("manufacturerId", manufacturerId);
-                //parameters.Add("storeId", storeId);
-                //parameters.Add("vendorId", vendorId);
-                //parameters.Add("warehouseId", warehouseId);
-                //parameters.Add("productType", productType);
-                //parameters.Add("visibleIndividuallyOnly", visibleIndividuallyOnly);
-                //parameters.Add("markedAsNewOnly", markedAsNewOnly);
-                //parameters.Add("featuredProducts", featuredProducts);
-                //parameters.Add("priceMin", priceMin);
-                //parameters.Add("priceMax", priceMax);
-                //parameters.Add("productTagId", productTagId);
-                //parameters.Add("keywords", keywords);
-                //parameters.Add("searchDescriptions", searchDescriptions);
-                //parameters.Add("searchManufacturerPartNumber", searchManufacturerPartNumber);
-                //parameters.Add("searchSku", searchSku);
-                //parameters.Add("searchProductTags", searchProductTags);
-                //parameters.Add("languageId", languageId);
-                //parameters.Add("filteredSpecs", filteredSpecs);
-                //parameters.Add("orderBy", orderBy);
-                //parameters.Add("showHidden", showHidden);
-                //parameters.Add("overridePublished", overridePublished);
-                object body = new
-                {
-                    optionIds,
-                    loadFilterableSpecificationAttributeOptionIds,
-                    pageIndex,
-                    pageSize,
-                    categoryIds,
+                string cacheKey = string.Format(PRODUCTS_SEARCH_KEY,
+                    optionIds != null ? String.Join(".", optionIds) : "",
+                    categoryIds != null ? String.Join(".", categoryIds) : "",
                     manufacturerId,
                     storeId,
                     vendorId,
                     warehouseId,
-                    productType,
-                    visibleIndividuallyOnly,
-                    markedAsNewOnly,
-                    featuredProducts,
+                    productType.HasValue ? productType.Value.ToString() : "",
                     priceMin,
                     priceMax,
                     productTagId,
-                    keywords,
-                    searchDescriptions,
-                    searchManufacturerPartNumber,
-                    searchSku,
-                    searchProductTags,
+                    keywords ?? "",
                     languageId,
-                    filteredSpecs,
-                    orderBy,
-                    showHidden,
-                    overridePublished };
-                var result = APIHelper.Instance.PostAsync<SearchProductsResponse>("Catalogs", "SearchProducts", body);
+                    filteredSpecs != null ? String.Join(".", filteredSpecs) : "");
+                var result = _cacheManager.Get<SearchProductsResponse>(cacheKey, () =>
+                 {
+                     object body = new
+                     {
+                         optionIds,
+                         loadFilterableSpecificationAttributeOptionIds,
+                         pageIndex,
+                         pageSize,
+                         categoryIds,
+                         manufacturerId,
+                         storeId,
+                         vendorId,
+                         warehouseId,
+                         productType,
+                         visibleIndividuallyOnly,
+                         markedAsNewOnly,
+                         featuredProducts,
+                         priceMin,
+                         priceMax,
+                         productTagId,
+                         keywords,
+                         searchDescriptions,
+                         searchManufacturerPartNumber,
+                         searchSku,
+                         searchProductTags,
+                         languageId,
+                         filteredSpecs,
+                         orderBy,
+                         showHidden,
+                         overridePublished
+                     };
+                     return APIHelper.Instance.PostAsync<SearchProductsResponse>("Catalogs", "SearchProducts", body);
+                 });
                 filterableSpecificationAttributeOptionIds = result.filterableSpecificationAttributeOptionIds;
                 return result.data.ConvertAPIPagedListToPagedList();
             }

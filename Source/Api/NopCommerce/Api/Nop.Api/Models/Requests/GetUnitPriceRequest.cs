@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class GetUnitPriceModel
+    public class GetUnitPriceRequest
     {
         public Product product { get; set; }
         public Customer customer { get; set; }

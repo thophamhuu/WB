@@ -64,6 +64,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the admin comment
         /// </summary>
+        [DataMember]
         public string AdminComment { get; set; }
 
         /// <summary>
@@ -75,11 +76,13 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets a vendor identifier
         /// </summary>
+        [DataMember]
         public int VendorId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to show the product on home page
         /// </summary>
+        [DataMember]
         public bool ShowOnHomePage { get; set; }
 
         /// <summary>
@@ -712,6 +715,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the collection of ProductCategory
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductCategory> ProductCategories
         {
             get { return _productCategories ?? (_productCategories = new List<ProductCategory>()); }
@@ -721,6 +725,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the collection of ProductManufacturer
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductManufacturer> ProductManufacturers
         {
             get { return _productManufacturers ?? (_productManufacturers = new List<ProductManufacturer>()); }
@@ -730,6 +735,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the collection of ProductPicture
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductPicture> ProductPictures
         {
             get { return _productPictures ?? (_productPictures = new List<ProductPicture>()); }
@@ -739,6 +745,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the collection of product reviews
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductReview> ProductReviews
         {
             get { return _productReviews ?? (_productReviews = new List<ProductReview>()); }
@@ -748,6 +755,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the product specification attribute
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductSpecificationAttribute> ProductSpecificationAttributes
         {
             get { return _productSpecificationAttributes ?? (_productSpecificationAttributes = new List<ProductSpecificationAttribute>()); }
@@ -757,6 +765,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the product tags
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductTag> ProductTags
         {
             get { return _productTags ?? (_productTags = new List<ProductTag>()); }
@@ -766,6 +775,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the product attribute mappings
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductAttributeMapping> ProductAttributeMappings
         {
             get { return _productAttributeMappings ?? (_productAttributeMappings = new List<ProductAttributeMapping>()); }
@@ -775,6 +785,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the product attribute combinations
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductAttributeCombination> ProductAttributeCombinations
         {
             get { return _productAttributeCombinations ?? (_productAttributeCombinations = new List<ProductAttributeCombination>()); }
@@ -784,6 +795,7 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the tier prices
         /// </summary>
+        [DataMember]
         public virtual ICollection<TierPrice> TierPrices
         {
             get { return _tierPrices ?? (_tierPrices = new List<TierPrice>()); }
@@ -793,15 +805,17 @@ namespace Nop.Core.Domain.Catalog
         /// <summary>
         /// Gets or sets the collection of applied discounts
         /// </summary>
+        [DataMember]
         public virtual ICollection<Discount> AppliedDiscounts
         {
             get { return _appliedDiscounts ?? (_appliedDiscounts = new List<Discount>()); }
             protected set { _appliedDiscounts = value; }
         }
-        
+
         /// <summary>
         /// Gets or sets the collection of "ProductWarehouseInventory" records. We use it only when "UseMultipleWarehouses" is set to "true" and ManageInventoryMethod" to "ManageStock"
         /// </summary>
+        [DataMember]
         public virtual ICollection<ProductWarehouseInventory> ProductWarehouseInventory
         {
             get { return _productWarehouseInventory ?? (_productWarehouseInventory = new List<ProductWarehouseInventory>()); }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class InsertAclRecordModel
+    public class InsertAclRecordRequest
     {
         public string entityName { get; set; }
         public dynamic entity { get; set; }

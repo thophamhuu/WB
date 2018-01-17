@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Nop.Api.Models.Requests
 {
-    public class GetFinalPriceModel
+    public class GetFinalPriceRequest
     {
         public Product product { get; set; }
         public Customer customer { get; set; }

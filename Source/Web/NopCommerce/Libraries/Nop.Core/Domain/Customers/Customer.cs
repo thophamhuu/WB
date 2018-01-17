@@ -159,7 +159,10 @@ namespace Nop.Core.Domain.Customers
             get { return _shoppingCartItems ?? (_shoppingCartItems = new List<ShoppingCartItem>()); }
             protected set { _shoppingCartItems = value; }            
         }
-
+        public virtual void SetShoppingCartItems (List<ShoppingCartItem> shoppingCartItems)
+        {
+            _shoppingCartItems = shoppingCartItems;
+        }
         /// <summary>
         /// Gets or sets return request of this customer
         /// </summary>

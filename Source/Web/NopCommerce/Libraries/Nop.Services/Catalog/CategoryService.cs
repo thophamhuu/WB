@@ -30,6 +30,16 @@ namespace Nop.Services.Catalog
         /// {0} : category ID
         /// </remarks>
         private const string CATEGORIES_BY_ID_KEY = "Nop.category.id-{0}";
+
+        /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} :category name
+        /// {1} : store ID
+        /// </remarks>
+        private const string CATEGORIES_ALL_KEY = "Nop.category.all-{0}-{1}";
+
         /// <summary>
         /// Key for caching
         /// </summary>
@@ -189,13 +199,17 @@ namespace Nop.Services.Catalog
         {
             if (CheckUseApi)
             {
-                var parameters = new Dictionary<string, dynamic>();
-                parameters.Add("categoryName", categoryName);
-                parameters.Add("storeId", storeId);
-                parameters.Add("pageIndex", pageIndex);
-                parameters.Add("pageSize", pageSize);
-                parameters.Add("showHidden", showHidden);
-                return APIHelper.Instance.GetPagedListAsync<Category>("Catalogs", "GetAllCategories", parameters);
+                string cacheKey = string.Format(CATEGORIES_ALL_KEY, categoryName, storeId);
+                return _cacheManager.Get<IPagedList<Category>>(cacheKey, () =>
+                {
+                    var parameters = new Dictionary<string, dynamic>();
+                    parameters.Add("categoryName", categoryName);
+                    parameters.Add("storeId", storeId);
+                    parameters.Add("pageIndex", pageIndex);
+                    parameters.Add("pageSize", pageSize);
+                    parameters.Add("showHidden", showHidden);
+                    return APIHelper.Instance.GetPagedListAsync<Category>("Catalogs", "GetAllCategories", parameters);
+                });
             }
             else
             {
@@ -409,18 +423,24 @@ namespace Nop.Services.Catalog
         {
             if (categoryId == 0)
                 return null;
-            if (CheckUseApi)
-            {
-                var parameters = new Dictionary<string, dynamic>();
-                parameters.Add("categoryId", categoryId);
-                return APIHelper.Instance.GetAsync<Category>("Catalogs", "GetCategoryById", parameters);
-            }
-            else
-            {
-                string key = string.Format(CATEGORIES_BY_ID_KEY, categoryId);
-                return _cacheManager.Get(key, () => _categoryRepository.GetById(categoryId));
-            }
 
+            string key = string.Format(CATEGORIES_BY_ID_KEY, categoryId);
+            return _cacheManager.Get(key, () =>
+            {
+                Category category = null;
+                if (CheckUseApi)
+                {
+                    var parameters = new Dictionary<string, dynamic>();
+                    parameters.Add("categoryId", categoryId);
+                    category = APIHelper.Instance.GetAsync<Category>("Catalogs", "GetCategoryById", parameters);
+                }
+                else
+                {
+                    category = _categoryRepository.GetById(categoryId);
+
+                }
+                return category;
+            });
         }
 
         /// <summary>
