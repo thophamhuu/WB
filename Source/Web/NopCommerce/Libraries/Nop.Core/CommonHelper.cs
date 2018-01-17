@@ -353,10 +353,5 @@ namespace Nop.Core
             path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
             return Path.Combine(baseDirectory, path);
         }        
-
-        public static string DateTimeUtcToStringAPI(DateTime dateTime)
-        {
-            return dateTime.ToString("MM-dd-yyyy-hh-mm-ss");
-        }
     }
 }

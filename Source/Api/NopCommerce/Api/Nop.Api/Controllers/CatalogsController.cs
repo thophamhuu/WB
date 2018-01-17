@@ -1,4 +1,5 @@
 ﻿using Nop.Api.Models.Requests;
+using Nop.Api.Models.Responses;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
@@ -67,114 +68,114 @@ namespace Nop.Api.Controllers
 
         #region BackInStockSubscription
 
-        /// <summary>
-        /// Delete a back in stock subscription
-        /// </summary>
-        /// <param name="subscription">Subscription</param>
-        [HttpDelete]
-        public void DeleteSubscription(BackInStockSubscription subscription)
-        {
-            _backInStockSubscriptionService.DeleteSubscription(subscription);
-        }
+        ///// <summary>
+        ///// Delete a back in stock subscription
+        ///// </summary>
+        ///// <param name="subscription">Subscription</param>
+        //[HttpDelete]
+        //public void DeleteSubscription(BackInStockSubscription subscription)
+        //{
+        //    _backInStockSubscriptionService.DeleteSubscription(subscription);
+        //}
 
-        /// <summary>
-        /// Gets all subscriptions
-        /// </summary>
-        /// <param name="customerId">Customer identifier</param>
-        /// <param name="storeId">Store identifier; pass 0 to load all records</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <returns>Subscriptions</returns>
-        [HttpGet]
-        public IAPIPagedList<BackInStockSubscription> GetAllSubscriptionsByCustomerId(int customerId,
-            int storeId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
-        {
-            return _backInStockSubscriptionService.GetAllSubscriptionsByCustomerId(customerId, storeId, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
-        }
+        ///// <summary>
+        ///// Gets all subscriptions
+        ///// </summary>
+        ///// <param name="customerId">Customer identifier</param>
+        ///// <param name="storeId">Store identifier; pass 0 to load all records</param>
+        ///// <param name="pageIndex">Page index</param>
+        ///// <param name="pageSize">Page size</param>
+        ///// <returns>Subscriptions</returns>
+        //[HttpGet]
+        //public IAPIPagedList<BackInStockSubscription> GetAllSubscriptionsByCustomerId(int customerId,
+        //    int storeId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
+        //{
+        //    return _backInStockSubscriptionService.GetAllSubscriptionsByCustomerId(customerId, storeId, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
+        //}
 
-        /// <summary>
-        /// Gets all subscriptions
-        /// </summary>
-        /// <param name="productId">Product identifier</param>
-        /// <param name="storeId">Store identifier; pass 0 to load all records</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <returns>Subscriptions</returns>
-        [HttpGet]
-        public IAPIPagedList<BackInStockSubscription> GetAllSubscriptionsByProductId(int productId,
-            int storeId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
-        {
-            return _backInStockSubscriptionService.GetAllSubscriptionsByProductId(productId, storeId, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
-        }
+        ///// <summary>
+        ///// Gets all subscriptions
+        ///// </summary>
+        ///// <param name="productId">Product identifier</param>
+        ///// <param name="storeId">Store identifier; pass 0 to load all records</param>
+        ///// <param name="pageIndex">Page index</param>
+        ///// <param name="pageSize">Page size</param>
+        ///// <returns>Subscriptions</returns>
+        //[HttpGet]
+        //public IAPIPagedList<BackInStockSubscription> GetAllSubscriptionsByProductId(int productId,
+        //    int storeId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
+        //{
+        //    return _backInStockSubscriptionService.GetAllSubscriptionsByProductId(productId, storeId, pageIndex, pageSize).ConvertPagedListToAPIPagedList();
+        //}
 
-        /// <summary>
-        /// Gets all subscriptions
-        /// </summary>
-        /// <param name="customerId">Customer id</param>
-        /// <param name="productId">Product identifier</param>
-        /// <param name="storeId">Store identifier</param>
-        /// <returns>Subscriptions</returns>
-        [HttpGet]
-        public BackInStockSubscription FindSubscription(int customerId, int productId, int storeId)
-        {
-            return _backInStockSubscriptionService.FindSubscription(customerId, productId, storeId);
-        }
+        ///// <summary>
+        ///// Gets all subscriptions
+        ///// </summary>
+        ///// <param name="customerId">Customer id</param>
+        ///// <param name="productId">Product identifier</param>
+        ///// <param name="storeId">Store identifier</param>
+        ///// <returns>Subscriptions</returns>
+        //[HttpGet]
+        //public BackInStockSubscription FindSubscription(int customerId, int productId, int storeId)
+        //{
+        //    return _backInStockSubscriptionService.FindSubscription(customerId, productId, storeId);
+        //}
 
-        /// <summary>
-        /// Gets a subscription
-        /// </summary>
-        /// <param name="subscriptionId">Subscription identifier</param>
-        /// <returns>Subscription</returns>
-        [HttpGet]
-        public BackInStockSubscription GetSubscriptionById(int subscriptionId)
-        {
-            return _backInStockSubscriptionService.GetSubscriptionById(subscriptionId);
-        }
+        ///// <summary>
+        ///// Gets a subscription
+        ///// </summary>
+        ///// <param name="subscriptionId">Subscription identifier</param>
+        ///// <returns>Subscription</returns>
+        //[HttpGet]
+        //public BackInStockSubscription GetSubscriptionById(int subscriptionId)
+        //{
+        //    return _backInStockSubscriptionService.GetSubscriptionById(subscriptionId);
+        //}
 
-        /// <summary>
-        /// Inserts subscription
-        /// </summary>
-        /// <param name="subscription">Subscription</param>
-        [HttpPost]
-        public void InsertSubscription(BackInStockSubscription subscription)
-        {
-            _backInStockSubscriptionService.InsertSubscription(subscription);
-        }
+        ///// <summary>
+        ///// Inserts subscription
+        ///// </summary>
+        ///// <param name="subscription">Subscription</param>
+        //[HttpPost]
+        //public void InsertSubscription(BackInStockSubscription subscription)
+        //{
+        //    _backInStockSubscriptionService.InsertSubscription(subscription);
+        //}
 
-        /// <summary>
-        /// Updates subscription
-        /// </summary>
-        /// <param name="subscription">Subscription</param>
-        [HttpPut]
-        public void UpdateSubscription(BackInStockSubscription subscription)
-        {
-            _backInStockSubscriptionService.UpdateSubscription(subscription);
-        }
+        ///// <summary>
+        ///// Updates subscription
+        ///// </summary>
+        ///// <param name="subscription">Subscription</param>
+        //[HttpPut]
+        //public void UpdateSubscription(BackInStockSubscription subscription)
+        //{
+        //    _backInStockSubscriptionService.UpdateSubscription(subscription);
+        //}
 
-        /// <summary>
-        /// Send notification to subscribers
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <returns>Number of sent email</returns>
-        [HttpGet]
-        public int SendNotificationsToSubscribers(Product product)
-        {
-            return _backInStockSubscriptionService.SendNotificationsToSubscribers(product);
-        }
+        ///// <summary>
+        ///// Send notification to subscribers
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <returns>Number of sent email</returns>
+        //[HttpGet]
+        //public int SendNotificationsToSubscribers(Product product)
+        //{
+        //    return _backInStockSubscriptionService.SendNotificationsToSubscribers(product);
+        //}
 
-        #endregion
+        //#endregion
 
-        #region Category
+        //#region Category
 
-        /// <summary>
-        /// Delete category
-        /// </summary>
-        /// <param name="category">Category</param>
-        [HttpPost]
-        public void DeleteCategory([FromBody]Category category)
-        {
-            _categoryService.DeleteCategory(category);
-        }
+        ///// <summary>
+        ///// Delete category
+        ///// </summary>
+        ///// <param name="category">Category</param>
+        //[HttpPost]
+        //public void DeleteCategory([FromBody]Category category)
+        //{
+        //    _categoryService.DeleteCategory(category);
+        //}
 
         /// <summary>
         /// Gets all categories
@@ -227,35 +228,36 @@ namespace Nop.Api.Controllers
             return _categoryService.GetCategoryById(categoryId);
         }
 
-        /// <summary>
-        /// Inserts category
-        /// </summary>
-        /// <param name="category">Category</param>
-        [HttpPost]
-        public void InsertCategory([FromBody]Category category)
-        {
-            _categoryService.InsertCategory(category);
-        }
+        ///// <summary>
+        ///// Inserts category
+        ///// </summary>
+        ///// <param name="category">Category</param>
+        //[HttpPost]
+        //public Category InsertCategory([FromBody]Category category)
+        //{
+        //    _categoryService.InsertCategory(category);
+        //    return category;
+        //}
 
-        /// <summary>
-        /// Updates the category
-        /// </summary>
-        /// <param name="category">Category</param>
-        [HttpPut]
-        public void UpdateCategory([FromBody]Category category)
-        {
-            _categoryService.UpdateCategory(category);
-        }
+        ///// <summary>
+        ///// Updates the category
+        ///// </summary>
+        ///// <param name="category">Category</param>
+        //[HttpPut]
+        //public void UpdateCategory([FromBody]Category category)
+        //{
+        //    _categoryService.UpdateCategory(category);
+        //}
 
-        /// <summary>
-        /// Deletes a product category mapping
-        /// </summary>
-        /// <param name="productCategory">Product category</param>
-        [HttpDelete]
-        public void DeleteProductCategory([FromBody]ProductCategory productCategory)
-        {
-            _categoryService.DeleteProductCategory(productCategory);
-        }
+        ///// <summary>
+        ///// Deletes a product category mapping
+        ///// </summary>
+        ///// <param name="productCategory">Product category</param>
+        //[HttpDelete]
+        //public void DeleteProductCategory([FromBody]ProductCategory productCategory)
+        //{
+        //    _categoryService.DeleteProductCategory(productCategory);
+        //}
 
         /// <summary>
         /// Gets product category mapping collection
@@ -308,25 +310,25 @@ namespace Nop.Api.Controllers
             return _categoryService.GetProductCategoryById(productCategoryId);
         }
 
-        /// <summary>
-        /// Inserts a product category mapping
-        /// </summary>
-        /// <param name="productCategory">>Product category mapping</param>
-        [HttpPost]
-        public void InsertProductCategory([FromBody]ProductCategory productCategory)
-        {
-            _categoryService.InsertProductCategory(productCategory);
-        }
+        ///// <summary>
+        ///// Inserts a product category mapping
+        ///// </summary>
+        ///// <param name="productCategory">>Product category mapping</param>
+        //[HttpPost]
+        //public void InsertProductCategory([FromBody]ProductCategory productCategory)
+        //{
+        //    _categoryService.InsertProductCategory(productCategory);
+        //}
 
-        /// <summary>
-        /// Updates the product category mapping 
-        /// </summary>
-        /// <param name="productCategory">>Product category mapping</param>
-        [HttpPut]
-        public void UpdateProductCategory([FromBody]ProductCategory productCategory)
-        {
-            _categoryService.UpdateProductCategory(productCategory);
-        }
+        ///// <summary>
+        ///// Updates the product category mapping 
+        ///// </summary>
+        ///// <param name="productCategory">>Product category mapping</param>
+        //[HttpPut]
+        //public void UpdateProductCategory([FromBody]ProductCategory productCategory)
+        //{
+        //    _categoryService.UpdateProductCategory(productCategory);
+        //}
 
         /// <summary>
         /// Returns a list of names of not existing categories
@@ -352,60 +354,60 @@ namespace Nop.Api.Controllers
 
         #endregion
 
-        #region CategoryTemplate
+        //#region CategoryTemplate
 
-        /// <summary>
-        /// Delete category template
-        /// </summary>
-        /// <param name="categoryTemplate">Category template</param>
-        [HttpDelete]
-        public void DeleteCategoryTemplate(CategoryTemplate categoryTemplate)
-        {
-            _categoryTemplateService.DeleteCategoryTemplate(categoryTemplate);
-        }
+        ///// <summary>
+        ///// Delete category template
+        ///// </summary>
+        ///// <param name="categoryTemplate">Category template</param>
+        //[HttpDelete]
+        //public void DeleteCategoryTemplate(CategoryTemplate categoryTemplate)
+        //{
+        //    _categoryTemplateService.DeleteCategoryTemplate(categoryTemplate);
+        //}
 
-        /// <summary>
-        /// Gets all category templates
-        /// </summary>
-        /// <returns>Category templates</returns>
-        [HttpGet]
-        public IList<CategoryTemplate> GetAllCategoryTemplates()
-        {
-            return _categoryTemplateService.GetAllCategoryTemplates();
-        }
+        ///// <summary>
+        ///// Gets all category templates
+        ///// </summary>
+        ///// <returns>Category templates</returns>
+        //[HttpGet]
+        //public IList<CategoryTemplate> GetAllCategoryTemplates()
+        //{
+        //    return _categoryTemplateService.GetAllCategoryTemplates();
+        //}
 
-        /// <summary>
-        /// Gets a category template
-        /// </summary>
-        /// <param name="categoryTemplateId">Category template identifier</param>
-        /// <returns>Category template</returns>
-        [HttpGet]
-        public CategoryTemplate GetCategoryTemplateById(int categoryTemplateId)
-        {
-            return _categoryTemplateService.GetCategoryTemplateById(categoryTemplateId);
-        }
+        ///// <summary>
+        ///// Gets a category template
+        ///// </summary>
+        ///// <param name="categoryTemplateId">Category template identifier</param>
+        ///// <returns>Category template</returns>
+        //[HttpGet]
+        //public CategoryTemplate GetCategoryTemplateById(int categoryTemplateId)
+        //{
+        //    return _categoryTemplateService.GetCategoryTemplateById(categoryTemplateId);
+        //}
 
-        /// <summary>
-        /// Inserts category template
-        /// </summary>
-        /// <param name="categoryTemplate">Category template</param>
-        [HttpPost]
-        public void InsertCategoryTemplate(CategoryTemplate categoryTemplate)
-        {
-            _categoryTemplateService.InsertCategoryTemplate(categoryTemplate);
-        }
+        ///// <summary>
+        ///// Inserts category template
+        ///// </summary>
+        ///// <param name="categoryTemplate">Category template</param>
+        //[HttpPost]
+        //public void InsertCategoryTemplate(CategoryTemplate categoryTemplate)
+        //{
+        //    _categoryTemplateService.InsertCategoryTemplate(categoryTemplate);
+        //}
 
-        /// <summary>
-        /// Updates the category template
-        /// </summary>
-        /// <param name="categoryTemplate">Category template</param>
-        [HttpPut]
-        public void UpdateCategoryTemplate(CategoryTemplate categoryTemplate)
-        {
-            _categoryTemplateService.UpdateCategoryTemplate(categoryTemplate);
-        }
+        ///// <summary>
+        ///// Updates the category template
+        ///// </summary>
+        ///// <param name="categoryTemplate">Category template</param>
+        //[HttpPut]
+        //public void UpdateCategoryTemplate(CategoryTemplate categoryTemplate)
+        //{
+        //    _categoryTemplateService.UpdateCategoryTemplate(categoryTemplate);
+        //}
 
-        #endregion
+        //#endregion
 
         #region  CompareProducts
 
@@ -452,33 +454,33 @@ namespace Nop.Api.Controllers
 
         #region CopyProduct
 
-        /// <summary>
-        /// Create a copy of product with all depended data
-        /// </summary>
-        /// <param name="product">The product to copy</param>
-        /// <param name="newName">The name of product duplicate</param>
-        /// <param name="isPublished">A value indicating whether the product duplicate should be published</param>
-        /// <param name="copyImages">A value indicating whether the product images should be copied</param>
-        /// <param name="copyAssociatedProducts">A value indicating whether the copy associated products</param>
-        /// <returns>Product copy</returns>
-        public Product CopyProduct(Product product, string newName,
-            bool isPublished = true, bool copyImages = true, bool copyAssociatedProducts = true)
-        {
-            return _copyProductService.CopyProduct(product, newName, isPublished, copyImages, copyAssociatedProducts);
-        }
+        ///// <summary>
+        ///// Create a copy of product with all depended data
+        ///// </summary>
+        ///// <param name="product">The product to copy</param>
+        ///// <param name="newName">The name of product duplicate</param>
+        ///// <param name="isPublished">A value indicating whether the product duplicate should be published</param>
+        ///// <param name="copyImages">A value indicating whether the product images should be copied</param>
+        ///// <param name="copyAssociatedProducts">A value indicating whether the copy associated products</param>
+        ///// <returns>Product copy</returns>
+        //public Product CopyProduct(Product product, string newName,
+        //    bool isPublished = true, bool copyImages = true, bool copyAssociatedProducts = true)
+        //{
+        //    return _copyProductService.CopyProduct(product, newName, isPublished, copyImages, copyAssociatedProducts);
+        //}
 
         #endregion
 
         #region Manufacturers
 
-        /// <summary>
-        /// Deletes a manufacturer
-        /// </summary>
-        /// <param name="manufacturer">Manufacturer</param>
-        public void DeleteManufacturer(Manufacturer manufacturer)
-        {
-            _manufacturerService.DeleteManufacturer(manufacturer);
-        }
+        ///// <summary>
+        ///// Deletes a manufacturer
+        ///// </summary>
+        ///// <param name="manufacturer">Manufacturer</param>
+        //public void DeleteManufacturer(Manufacturer manufacturer)
+        //{
+        //    _manufacturerService.DeleteManufacturer(manufacturer);
+        //}
 
         /// <summary>
         /// Gets all manufacturers
@@ -504,32 +506,32 @@ namespace Nop.Api.Controllers
             return _manufacturerService.GetManufacturerById(manufacturerId);
         }
 
-        /// <summary>
-        /// Inserts a manufacturer
-        /// </summary>
-        /// <param name="manufacturer">Manufacturer</param>
-        public void InsertManufacturer(Manufacturer manufacturer)
-        {
-            _manufacturerService.InsertManufacturer(manufacturer);
-        }
+        ///// <summary>
+        ///// Inserts a manufacturer
+        ///// </summary>
+        ///// <param name="manufacturer">Manufacturer</param>
+        //public void InsertManufacturer(Manufacturer manufacturer)
+        //{
+        //    _manufacturerService.InsertManufacturer(manufacturer);
+        //}
 
-        /// <summary>
-        /// Updates the manufacturer
-        /// </summary>
-        /// <param name="manufacturer">Manufacturer</param>
-        public void UpdateManufacturer(Manufacturer manufacturer)
-        {
-            _manufacturerService.UpdateManufacturer(manufacturer);
-        }
+        ///// <summary>
+        ///// Updates the manufacturer
+        ///// </summary>
+        ///// <param name="manufacturer">Manufacturer</param>
+        //public void UpdateManufacturer(Manufacturer manufacturer)
+        //{
+        //    _manufacturerService.UpdateManufacturer(manufacturer);
+        //}
 
-        /// <summary>
-        /// Deletes a product manufacturer mapping
-        /// </summary>
-        /// <param name="productManufacturer">Product manufacturer mapping</param>
-        public void DeleteProductManufacturer(ProductManufacturer productManufacturer)
-        {
-            _manufacturerService.DeleteProductManufacturer(productManufacturer);
-        }
+        ///// <summary>
+        ///// Deletes a product manufacturer mapping
+        ///// </summary>
+        ///// <param name="productManufacturer">Product manufacturer mapping</param>
+        //public void DeleteProductManufacturer(ProductManufacturer productManufacturer)
+        //{
+        //    _manufacturerService.DeleteProductManufacturer(productManufacturer);
+        //}
 
         /// <summary>
         /// Gets product manufacturer collection
@@ -566,33 +568,33 @@ namespace Nop.Api.Controllers
             return _manufacturerService.GetProductManufacturerById(productManufacturerId);
         }
 
-        /// <summary>
-        /// Inserts a product manufacturer mapping
-        /// </summary>
-        /// <param name="productManufacturer">Product manufacturer mapping</param>
-        public void InsertProductManufacturer(ProductManufacturer productManufacturer)
-        {
-            _manufacturerService.InsertProductManufacturer(productManufacturer);
-        }
+        ///// <summary>
+        ///// Inserts a product manufacturer mapping
+        ///// </summary>
+        ///// <param name="productManufacturer">Product manufacturer mapping</param>
+        //public void InsertProductManufacturer(ProductManufacturer productManufacturer)
+        //{
+        //    _manufacturerService.InsertProductManufacturer(productManufacturer);
+        //}
 
-        /// <summary>
-        /// Updates the product manufacturer mapping
-        /// </summary>
-        /// <param name="productManufacturer">Product manufacturer mapping</param>
-        public void UpdateProductManufacturer(ProductManufacturer productManufacturer)
-        {
-            _manufacturerService.UpdateProductManufacturer(productManufacturer);
-        }
+        ///// <summary>
+        ///// Updates the product manufacturer mapping
+        ///// </summary>
+        ///// <param name="productManufacturer">Product manufacturer mapping</param>
+        //public void UpdateProductManufacturer(ProductManufacturer productManufacturer)
+        //{
+        //    _manufacturerService.UpdateProductManufacturer(productManufacturer);
+        //}
 
         /// <summary>
         /// Get manufacturer IDs for products
         /// </summary>
         /// <param name="productIds">Products IDs</param>
         /// <returns>Manufacturer IDs for products</returns>
-        public IDictionary<int, int[]> GetProductManufacturerIds(int[] productIds)
-        {
-            return _manufacturerService.GetProductManufacturerIds(productIds);
-        }
+        //public IDictionary<int, int[]> GetProductManufacturerIds(int[] productIds)
+        //{
+        //    return _manufacturerService.GetProductManufacturerIds(productIds);
+        //}
 
         /// <summary>
         /// Returns a list of names of not existing manufacturers
@@ -658,83 +660,83 @@ namespace Nop.Api.Controllers
 
         #region PriceCalculations
 
-        /// <summary>
-        /// Gets the final price
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="customer">The customer</param>
-        /// <param name="additionalCharge">Additional charge</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for final price computation</param>
-        /// <param name="quantity">Shopping cart item quantity</param>
-        /// <param name="rentalStartDate">Rental period start date (for rental products)</param>
-        /// <param name="rentalEndDate">Rental period end date (for rental products)</param>
-        /// <param name="discountAmount">Applied discount amount</param>
-        /// <param name="appliedDiscounts">Applied discounts</param>
-        /// <returns>Final price</returns>
-        public object GetFinalPrice([FromBody]GetFinalPriceModel model)
-        {
-            decimal discountAmount = model.discountAmount;
-            List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
+        ///// <summary>
+        ///// Gets the final price
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="customer">The customer</param>
+        ///// <param name="additionalCharge">Additional charge</param>
+        ///// <param name="includeDiscounts">A value indicating whether include discounts or not for final price computation</param>
+        ///// <param name="quantity">Shopping cart item quantity</param>
+        ///// <param name="rentalStartDate">Rental period start date (for rental products)</param>
+        ///// <param name="rentalEndDate">Rental period end date (for rental products)</param>
+        ///// <param name="discountAmount">Applied discount amount</param>
+        ///// <param name="appliedDiscounts">Applied discounts</param>
+        ///// <returns>Final price</returns>
+        //public object GetFinalPrice([FromBody]GetFinalPriceModel model)
+        //{
+        //    decimal discountAmount = model.discountAmount;
+        //    List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
 
-            var result =  _priceCalculationService.GetFinalPrice(model.product, model.customer, model.additionalCharge, model.includeDiscounts, model.quantity, model.rentalStartDate, model.rentalEndDate, out discountAmount, out appliedDiscounts);
+        //    var result = _priceCalculationService.GetFinalPrice(model.product, model.customer, model.additionalCharge, model.includeDiscounts, model.quantity, model.rentalStartDate, model.rentalEndDate, out discountAmount, out appliedDiscounts);
 
-            dynamic expando = new ExpandoObject();
-            expando.result = result;
-            expando.discountAmount = discountAmount;
-            expando.appliedDiscounts = appliedDiscounts;
+        //    dynamic expando = new ExpandoObject();
+        //    expando.result = result;
+        //    expando.discountAmount = discountAmount;
+        //    expando.appliedDiscounts = appliedDiscounts;
 
-            return expando;
-        }
+        //    return expando;
+        //}
 
-        /// <summary>
-        /// Gets the shopping cart unit price (one item)
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="customer">Customer</param>
-        /// <param name="shoppingCartType">Shopping cart type</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="attributesXml">Product atrributes (XML format)</param>
-        /// <param name="customerEnteredPrice">Customer entered price (if specified)</param>
-        /// <param name="rentalStartDate">Rental start date (null for not rental products)</param>
-        /// <param name="rentalEndDate">Rental end date (null for not rental products)</param>
-        /// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
-        /// <param name="discountAmount">Applied discount amount</param>
-        /// <param name="appliedDiscounts">Applied discounts</param>
-        /// <returns>Shopping cart unit price (one item)</returns>
-        public object GetUnitPrice([FromBody]GetUnitPriceModel model)
-        {
-            decimal discountAmount = model.discountAmount;
-            List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
-            var result = _priceCalculationService.GetUnitPrice(model.product, model.customer, model.shoppingCartType, model.quantity, model.attributesXml, model.customerEnteredPrice, model.rentalStartDate, model.rentalEndDate, model.includeDiscounts, out discountAmount, out appliedDiscounts);
+        ///// <summary>
+        ///// Gets the shopping cart unit price (one item)
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="customer">Customer</param>
+        ///// <param name="shoppingCartType">Shopping cart type</param>
+        ///// <param name="quantity">Quantity</param>
+        ///// <param name="attributesXml">Product atrributes (XML format)</param>
+        ///// <param name="customerEnteredPrice">Customer entered price (if specified)</param>
+        ///// <param name="rentalStartDate">Rental start date (null for not rental products)</param>
+        ///// <param name="rentalEndDate">Rental end date (null for not rental products)</param>
+        ///// <param name="includeDiscounts">A value indicating whether include discounts or not for price computation</param>
+        ///// <param name="discountAmount">Applied discount amount</param>
+        ///// <param name="appliedDiscounts">Applied discounts</param>
+        ///// <returns>Shopping cart unit price (one item)</returns>
+        //public object GetUnitPrice([FromBody]GetUnitPriceModel model)
+        //{
+        //    decimal discountAmount = model.discountAmount;
+        //    List<DiscountForCaching> appliedDiscounts = model.appliedDiscounts;
+        //    var result = _priceCalculationService.GetUnitPrice(model.product, model.customer, model.shoppingCartType, model.quantity, model.attributesXml, model.customerEnteredPrice, model.rentalStartDate, model.rentalEndDate, model.includeDiscounts, out discountAmount, out appliedDiscounts);
 
-            dynamic expando = new ExpandoObject();
-            expando.result = result;
-            expando.discountAmount = discountAmount;
-            expando.appliedDiscounts = appliedDiscounts;
+        //    dynamic expando = new ExpandoObject();
+        //    expando.result = result;
+        //    expando.discountAmount = discountAmount;
+        //    expando.appliedDiscounts = appliedDiscounts;
 
-            return expando;
-        }
+        //    return expando;
+        //}
 
-        /// <summary>
-        /// Gets the product cost (one item)
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="attributesXml">Shopping cart item attributes in XML</param>
-        /// <returns>Product cost (one item)</returns>
-        public decimal GetProductCost(Product product, string attributesXml)
-        {
-            return _priceCalculationService.GetProductCost(product, attributesXml);
-        }
+        ///// <summary>
+        ///// Gets the product cost (one item)
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="attributesXml">Shopping cart item attributes in XML</param>
+        ///// <returns>Product cost (one item)</returns>
+        //public decimal GetProductCost(Product product, string attributesXml)
+        //{
+        //    return _priceCalculationService.GetProductCost(product, attributesXml);
+        //}
 
-        /// <summary>
-        /// Get a price adjustment of a product attribute value
-        /// </summary>
-        /// <param name="value">Product attribute value</param>
-        /// <returns>Price adjustment</returns>
-        public decimal GetProductAttributeValuePriceAdjustment(ProductAttributeValue value)
-        {
-            return _priceCalculationService.GetProductAttributeValuePriceAdjustment(value);
-        }
+        ///// <summary>
+        ///// Get a price adjustment of a product attribute value
+        ///// </summary>
+        ///// <param name="value">Product attribute value</param>
+        ///// <returns>Price adjustment</returns>
+        //public decimal GetProductAttributeValuePriceAdjustment(ProductAttributeValue value)
+        //{
+        //    return _priceCalculationService.GetProductAttributeValuePriceAdjustment(value);
+        //}
 
         #endregion
 
@@ -746,10 +748,10 @@ namespace Nop.Api.Controllers
         /// Deletes a product attribute
         /// </summary>
         /// <param name="productAttribute">Product attribute</param>
-        public void DeleteProductAttribute([FromBody]ProductAttribute productAttribute)
-        {
-            _productAttributeService.DeleteProductAttribute(productAttribute);
-        }
+        //public void DeleteProductAttribute([FromBody]ProductAttribute productAttribute)
+        //{
+        //    _productAttributeService.DeleteProductAttribute(productAttribute);
+        //}
 
         /// <summary>
         /// Gets all product attributes
@@ -772,23 +774,23 @@ namespace Nop.Api.Controllers
             return _productAttributeService.GetProductAttributeById(productAttributeId);
         }
 
-        /// <summary>
-        /// Inserts a product attribute
-        /// </summary>
-        /// <param name="productAttribute">Product attribute</param>
-        public void InsertProductAttribute([FromBody]ProductAttribute productAttribute)
-        {
-            _productAttributeService.InsertProductAttribute(productAttribute);
-        }
+        ///// <summary>
+        ///// Inserts a product attribute
+        ///// </summary>
+        ///// <param name="productAttribute">Product attribute</param>
+        //public void InsertProductAttribute([FromBody]ProductAttribute productAttribute)
+        //{
+        //    _productAttributeService.InsertProductAttribute(productAttribute);
+        //}
 
-        /// <summary>
-        /// Updates the product attribute
-        /// </summary>
-        /// <param name="productAttribute">Product attribute</param>
-        public void UpdateProductAttribute([FromBody]ProductAttribute productAttribute)
-        {
-            _productAttributeService.UpdateProductAttribute(productAttribute);
-        }
+        ///// <summary>
+        ///// Updates the product attribute
+        ///// </summary>
+        ///// <param name="productAttribute">Product attribute</param>
+        //public void UpdateProductAttribute([FromBody]ProductAttribute productAttribute)
+        //{
+        //    _productAttributeService.UpdateProductAttribute(productAttribute);
+        //}
 
         /// <summary>
         /// Returns a list of IDs of not existing attributes
@@ -804,14 +806,14 @@ namespace Nop.Api.Controllers
 
         #region Product attributes mappings
 
-        /// <summary>
-        /// Deletes a product attribute mapping
-        /// </summary>
-        /// <param name="productAttributeMapping">Product attribute mapping</param>
-        public void DeleteProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
-        {
-            _productAttributeService.DeleteProductAttributeMapping(productAttributeMapping);
-        }
+        ///// <summary>
+        ///// Deletes a product attribute mapping
+        ///// </summary>
+        ///// <param name="productAttributeMapping">Product attribute mapping</param>
+        //public void DeleteProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
+        //{
+        //    _productAttributeService.DeleteProductAttributeMapping(productAttributeMapping);
+        //}
 
         /// <summary>
         /// Gets product attribute mappings by product identifier
@@ -833,36 +835,36 @@ namespace Nop.Api.Controllers
             return _productAttributeService.GetProductAttributeMappingById(productAttributeMappingId);
         }
 
-        /// <summary>
-        /// Inserts a product attribute mapping
-        /// </summary>
-        /// <param name="productAttributeMapping">The product attribute mapping</param>
-        public void InsertProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
-        {
-            _productAttributeService.InsertProductAttributeMapping(productAttributeMapping);
-        }
+        ///// <summary>
+        ///// Inserts a product attribute mapping
+        ///// </summary>
+        ///// <param name="productAttributeMapping">The product attribute mapping</param>
+        //public void InsertProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
+        //{
+        //    _productAttributeService.InsertProductAttributeMapping(productAttributeMapping);
+        //}
 
-        /// <summary>
-        /// Updates the product attribute mapping
-        /// </summary>
-        /// <param name="productAttributeMapping">The product attribute mapping</param>
-        public void UpdateProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
-        {
-            _productAttributeService.UpdateProductAttributeMapping(productAttributeMapping);
-        }
+        ///// <summary>
+        ///// Updates the product attribute mapping
+        ///// </summary>
+        ///// <param name="productAttributeMapping">The product attribute mapping</param>
+        //public void UpdateProductAttributeMapping([FromBody]ProductAttributeMapping productAttributeMapping)
+        //{
+        //    _productAttributeService.UpdateProductAttributeMapping(productAttributeMapping);
+        //}
 
         #endregion
 
         #region Product attribute values
 
-        /// <summary>
-        /// Deletes a product attribute value
-        /// </summary>
-        /// <param name="productAttributeValue">Product attribute value</param>
-        public void DeleteProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
-        {
-            _productAttributeService.DeleteProductAttributeValue(productAttributeValue);
-        }
+        ///// <summary>
+        ///// Deletes a product attribute value
+        ///// </summary>
+        ///// <param name="productAttributeValue">Product attribute value</param>
+        //public void DeleteProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
+        //{
+        //    _productAttributeService.DeleteProductAttributeValue(productAttributeValue);
+        //}
 
         /// <summary>
         /// Gets product attribute values by product attribute mapping identifier
@@ -884,23 +886,23 @@ namespace Nop.Api.Controllers
             return _productAttributeService.GetProductAttributeValueById(productAttributeValueId);
         }
 
-        /// <summary>
-        /// Inserts a product attribute value
-        /// </summary>
-        /// <param name="productAttributeValue">The product attribute value</param>
-        public void InsertProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
-        {
-            _productAttributeService.InsertProductAttributeValue(productAttributeValue);
-        }
+        ///// <summary>
+        ///// Inserts a product attribute value
+        ///// </summary>
+        ///// <param name="productAttributeValue">The product attribute value</param>
+        //public void InsertProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
+        //{
+        //    _productAttributeService.InsertProductAttributeValue(productAttributeValue);
+        //}
 
-        /// <summary>
-        /// Updates the product attribute value
-        /// </summary>
-        /// <param name="productAttributeValue">The product attribute value</param>
-        public void UpdateProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
-        {
-            _productAttributeService.UpdateProductAttributeValue(productAttributeValue);
-        }
+        ///// <summary>
+        ///// Updates the product attribute value
+        ///// </summary>
+        ///// <param name="productAttributeValue">The product attribute value</param>
+        //public void UpdateProductAttributeValue([FromBody]ProductAttributeValue productAttributeValue)
+        //{
+        //    _productAttributeService.UpdateProductAttributeValue(productAttributeValue);
+        //}
 
         #endregion
 
@@ -935,36 +937,36 @@ namespace Nop.Api.Controllers
             return _productAttributeService.GetPredefinedProductAttributeValueById(id);
         }
 
-        /// <summary>
-        /// Inserts a predefined product attribute value
-        /// </summary>
-        /// <param name="ppav">The predefined product attribute value</param>
-        public void InsertPredefinedProductAttributeValue([FromBody]PredefinedProductAttributeValue ppav)
-        {
-            _productAttributeService.InsertPredefinedProductAttributeValue(ppav);
-        }
+        ///// <summary>
+        ///// Inserts a predefined product attribute value
+        ///// </summary>
+        ///// <param name="ppav">The predefined product attribute value</param>
+        //public void InsertPredefinedProductAttributeValue([FromBody]PredefinedProductAttributeValue ppav)
+        //{
+        //    _productAttributeService.InsertPredefinedProductAttributeValue(ppav);
+        //}
 
-        /// <summary>
-        /// Updates the predefined product attribute value
-        /// </summary>
-        /// <param name="ppav">The predefined product attribute value</param>
-        public void UpdatePredefinedProductAttributeValue([FromBody]PredefinedProductAttributeValue ppav)
-        {
-            _productAttributeService.UpdatePredefinedProductAttributeValue(ppav);
-        }
+        ///// <summary>
+        ///// Updates the predefined product attribute value
+        ///// </summary>
+        ///// <param name="ppav">The predefined product attribute value</param>
+        //public void UpdatePredefinedProductAttributeValue([FromBody]PredefinedProductAttributeValue ppav)
+        //{
+        //    _productAttributeService.UpdatePredefinedProductAttributeValue(ppav);
+        //}
 
         #endregion
 
         #region Product attribute combinations
 
-        /// <summary>
-        /// Deletes a product attribute combination
-        /// </summary>
-        /// <param name="combination">Product attribute combination</param>
-        public void DeleteProductAttributeCombination([FromBody]ProductAttributeCombination combination)
-        {
-            _productAttributeService.DeleteProductAttributeCombination(combination);
-        }
+        ///// <summary>
+        ///// Deletes a product attribute combination
+        ///// </summary>
+        ///// <param name="combination">Product attribute combination</param>
+        //public void DeleteProductAttributeCombination([FromBody]ProductAttributeCombination combination)
+        //{
+        //    _productAttributeService.DeleteProductAttributeCombination(combination);
+        //}
 
         /// <summary>
         /// Gets all product attribute combinations
@@ -996,23 +998,23 @@ namespace Nop.Api.Controllers
             return _productAttributeService.GetProductAttributeCombinationBySku(sku);
         }
 
-        /// <summary>
-        /// Inserts a product attribute combination
-        /// </summary>
-        /// <param name="combination">Product attribute combination</param>
-        public void InsertProductAttributeCombination([FromBody]ProductAttributeCombination combination)
-        {
-            _productAttributeService.InsertProductAttributeCombination(combination);
-        }
+        ///// <summary>
+        ///// Inserts a product attribute combination
+        ///// </summary>
+        ///// <param name="combination">Product attribute combination</param>
+        //public void InsertProductAttributeCombination([FromBody]ProductAttributeCombination combination)
+        //{
+        //    _productAttributeService.InsertProductAttributeCombination(combination);
+        //}
 
-        /// <summary>
-        /// Updates a product attribute combination
-        /// </summary>
-        /// <param name="combination">Product attribute combination</param>
-        public void UpdateProductAttributeCombination([FromBody]ProductAttributeCombination combination)
-        {
-            _productAttributeService.UpdateProductAttributeCombination(combination);
-        }
+        ///// <summary>
+        ///// Updates a product attribute combination
+        ///// </summary>
+        ///// <param name="combination">Product attribute combination</param>
+        //public void UpdateProductAttributeCombination([FromBody]ProductAttributeCombination combination)
+        //{
+        //    _productAttributeService.UpdateProductAttributeCombination(combination);
+        //}
 
         #endregion
 
@@ -1022,23 +1024,23 @@ namespace Nop.Api.Controllers
 
         #region Products
 
-        /// <summary>
-        /// Delete a product
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void DeleteProduct([FromBody]Product product)
-        {
-            _productService.DeleteProduct(product);
-        }
+        ///// <summary>
+        ///// Delete a product
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void DeleteProduct([FromBody]Product product)
+        //{
+        //    _productService.DeleteProduct(product);
+        //}
 
-        /// <summary>
-        /// Delete products
-        /// </summary>
-        /// <param name="products">Products</param>
-        public void DeleteProducts([FromBody]IList<Product> products)
-        {
-            _productService.DeleteProducts(products);
-        }
+        ///// <summary>
+        ///// Delete products
+        ///// </summary>
+        ///// <param name="products">Products</param>
+        //public void DeleteProducts([FromBody]IList<Product> products)
+        //{
+        //    _productService.DeleteProducts(products);
+        //}
 
         /// <summary>
         /// Gets all products displayed on the home page
@@ -1069,32 +1071,32 @@ namespace Nop.Api.Controllers
             return _productService.GetProductsByIds(productIds);
         }
 
-        /// <summary>
-        /// Inserts a product
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void InsertProduct([FromBody]Product product)
-        {
-            _productService.InsertProduct(product);
-        }
+        ///// <summary>
+        ///// Inserts a product
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void InsertProduct([FromBody]Product product)
+        //{
+        //    _productService.InsertProduct(product);
+        //}
 
-        /// <summary>
-        /// Updates the product
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void UpdateProduct([FromBody]Product product)
-        {
-            _productService.UpdateProduct(product);
-        }
+        ///// <summary>
+        ///// Updates the product
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void UpdateProduct([FromBody]Product product)
+        //{
+        //    _productService.UpdateProduct(product);
+        //}
 
-        /// <summary>
-        /// Updates the products
-        /// </summary>
-        /// <param name="products">Product</param>
-        public void UpdateProducts([FromBody]IList<Product> products)
-        {
-            _productService.UpdateProducts(products);
-        }
+        ///// <summary>
+        ///// Updates the products
+        ///// </summary>
+        ///// <param name="products">Product</param>
+        //public void UpdateProducts([FromBody]IList<Product> products)
+        //{
+        //    _productService.UpdateProducts(products);
+        //}
 
         /// <summary>
         /// Get number of product (published and visible) in certain category
@@ -1139,16 +1141,16 @@ namespace Nop.Api.Controllers
         /// false - load only "Unpublished" products
         /// </param>
         /// <returns>Products</returns>
-        public IAPIPagedList<Product> SearchProducts(int pageIndex = 0, int pageSize = int.MaxValue, IList<int> categoryIds = null, int manufacturerId = 0,
-            int storeId = 0, int vendorId = 0, int warehouseId = 0, ProductType? productType = null, bool visibleIndividuallyOnly = false, bool markedAsNewOnly = false,
-            bool? featuredProducts = null, decimal? priceMin = null, decimal? priceMax = null, int productTagId = 0, string keywords = null, bool searchDescriptions = false,
-            bool searchManufacturerPartNumber = true, bool searchSku = true, bool searchProductTags = false, int languageId = 0, IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position, bool showHidden = false, bool? overridePublished = null)
-        {
-            return _productService.SearchProducts(pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
-                featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
-                orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
-        }
+        //public IAPIPagedList<Product> SearchProducts(int pageIndex = 0, int pageSize = int.MaxValue, IList<int> categoryIds = null, int manufacturerId = 0,
+        //    int storeId = 0, int vendorId = 0, int warehouseId = 0, ProductType? productType = null, bool visibleIndividuallyOnly = false, bool markedAsNewOnly = false,
+        //    bool? featuredProducts = null, decimal? priceMin = null, decimal? priceMax = null, int productTagId = 0, string keywords = null, bool searchDescriptions = false,
+        //    bool searchManufacturerPartNumber = true, bool searchSku = true, bool searchProductTags = false, int languageId = 0, IList<int> filteredSpecs = null,
+        //    ProductSortingEnum orderBy = ProductSortingEnum.Position, bool showHidden = false, bool? overridePublished = null)
+        //{
+        //    return _productService.SearchProducts(pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
+        //        featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
+        //        orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
+        //}
 
         /// <summary>
         /// Search products
@@ -1184,37 +1186,18 @@ namespace Nop.Api.Controllers
         /// false - load only "Unpublished" products
         /// </param>
         /// <returns>Products</returns>
-        public IAPIPagedList<Product> SearchProducts(
-            out IList<int> filterableSpecificationAttributeOptionIds,
-            bool loadFilterableSpecificationAttributeOptionIds = false,
-            int pageIndex = 0,
-            int pageSize = int.MaxValue,
-            IList<int> categoryIds = null,
-            int manufacturerId = 0,
-            int storeId = 0,
-            int vendorId = 0,
-            int warehouseId = 0,
-            ProductType? productType = null,
-            bool visibleIndividuallyOnly = false,
-            bool markedAsNewOnly = false,
-            bool? featuredProducts = null,
-            decimal? priceMin = null,
-            decimal? priceMax = null,
-            int productTagId = 0,
-            string keywords = null,
-            bool searchDescriptions = false,
-            bool searchManufacturerPartNumber = true,
-            bool searchSku = true,
-            bool searchProductTags = false,
-            int languageId = 0,
-            IList<int> filteredSpecs = null,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position,
-            bool showHidden = false,
-            bool? overridePublished = null)
+        public HttpResponseMessage SearchProducts([FromBody]SearchProductsRequest model)
         {
-            return _productService.SearchProducts(out filterableSpecificationAttributeOptionIds, loadFilterableSpecificationAttributeOptionIds, pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly,
-                featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, searchProductTags, languageId, filteredSpecs,
-                orderBy, showHidden, overridePublished).ConvertPagedListToAPIPagedList();
+            IList<int> filterableSpecificationAttributeOptionIds = model.filterableSpecificationAttributeOptionIds;
+            var data = _productService.SearchProducts(out filterableSpecificationAttributeOptionIds, model.loadFilterableSpecificationAttributeOptionIds, model.pageIndex, model.pageSize, model.categoryIds, model.manufacturerId, model.storeId, model.vendorId, model.warehouseId, model.productType, model.visibleIndividuallyOnly, model.markedAsNewOnly,
+               model.featuredProducts, model.priceMin, model.priceMax, model.productTagId, model.keywords, model.searchDescriptions, model.searchManufacturerPartNumber, model.searchSku, model.searchProductTags, model.languageId, model.filteredSpecs,
+                model.orderBy, model.showHidden, model.overridePublished).ConvertPagedListToAPIPagedList();
+            SearchProductsResponse result = new SearchProductsResponse
+            {
+                filterableSpecificationAttributeOptionIds = filterableSpecificationAttributeOptionIds,
+                data = data
+            };
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         /// <summary>
@@ -1244,14 +1227,14 @@ namespace Nop.Api.Controllers
             return _productService.GetAssociatedProducts(parentGroupedProductId, storeId, vendorId, showHidden);
         }
 
-        /// <summary>
-        /// Update product review totals
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void UpdateProductReviewTotals([FromBody]Product product)
-        {
-            _productService.UpdateProductReviewTotals(product);
-        }
+        ///// <summary>
+        ///// Update product review totals
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void UpdateProductReviewTotals([FromBody]Product product)
+        //{
+        //    _productService.UpdateProductReviewTotals(product);
+        //}
 
         /// <summary>
         /// Get low stock products
@@ -1300,23 +1283,23 @@ namespace Nop.Api.Controllers
             return _productService.GetProductsBySku(skuArray, vendorId);
         }
 
-        /// <summary>
-        /// Update HasTierPrices property (used for performance optimization)
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void UpdateHasTierPricesProperty([FromBody]Product product)
-        {
-            _productService.UpdateHasTierPricesProperty(product);
-        }
+        ///// <summary>
+        ///// Update HasTierPrices property (used for performance optimization)
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void UpdateHasTierPricesProperty([FromBody]Product product)
+        //{
+        //    _productService.UpdateHasTierPricesProperty(product);
+        //}
 
-        /// <summary>
-        /// Update HasDiscountsApplied property (used for performance optimization)
-        /// </summary>
-        /// <param name="product">Product</param>
-        public void UpdateHasDiscountsApplied([FromBody]Product product)
-        {
-            _productService.UpdateHasDiscountsApplied(product);
-        }
+        ///// <summary>
+        ///// Update HasDiscountsApplied property (used for performance optimization)
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        //public void UpdateHasDiscountsApplied([FromBody]Product product)
+        //{
+        //    _productService.UpdateHasDiscountsApplied(product);
+        //}
 
         /// <summary>
         /// Gets number of products by vendor identifier
@@ -1332,74 +1315,74 @@ namespace Nop.Api.Controllers
 
         #region Inventory management methods
 
-        /// <summary>
-        /// Adjust inventory
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="quantityToChange">Quantity to increase or descrease</param>
-        /// <param name="attributesXml">Attributes in XML format</param>
-        /// <param name="message">Message for the stock quantity history</param>
-        public void AdjustInventory(Product product, int quantityToChange, string attributesXml = "", string message = "")
-        {
-            _productService.AdjustInventory(product, quantityToChange, attributesXml, message);
-        }
+        ///// <summary>
+        ///// Adjust inventory
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="quantityToChange">Quantity to increase or descrease</param>
+        ///// <param name="attributesXml">Attributes in XML format</param>
+        ///// <param name="message">Message for the stock quantity history</param>
+        //public void AdjustInventory(Product product, int quantityToChange, string attributesXml = "", string message = "")
+        //{
+        //    _productService.AdjustInventory(product, quantityToChange, attributesXml, message);
+        //}
 
-        /// <summary>
-        /// Reserve the given quantity in the warehouses.
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="quantity">Quantity, must be negative</param>
-        public void ReserveInventory(Product product, int quantity)
-        {
-            _productService.ReserveInventory(product, quantity);
-        }
+        ///// <summary>
+        ///// Reserve the given quantity in the warehouses.
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="quantity">Quantity, must be negative</param>
+        //public void ReserveInventory(Product product, int quantity)
+        //{
+        //    _productService.ReserveInventory(product, quantity);
+        //}
 
-        /// <summary>
-        /// Unblocks the given quantity reserved items in the warehouses
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="quantity">Quantity, must be positive</param>
-        public void UnblockReservedInventory(Product product, int quantity)
-        {
-            _productService.UnblockReservedInventory(product, quantity);
-        }
+        ///// <summary>
+        ///// Unblocks the given quantity reserved items in the warehouses
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="quantity">Quantity, must be positive</param>
+        //public void UnblockReservedInventory(Product product, int quantity)
+        //{
+        //    _productService.UnblockReservedInventory(product, quantity);
+        //}
 
-        /// <summary>
-        /// Book the reserved quantity
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="warehouseId">Warehouse identifier</param>
-        /// <param name="quantity">Quantity, must be negative</param>
-        /// <param name="message">Message for the stock quantity history</param>
-        public void BookReservedInventory(Product product, int warehouseId, int quantity, string message = "")
-        {
-            _productService.BookReservedInventory(product, warehouseId, quantity, message);
-        }
+        ///// <summary>
+        ///// Book the reserved quantity
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="warehouseId">Warehouse identifier</param>
+        ///// <param name="quantity">Quantity, must be negative</param>
+        ///// <param name="message">Message for the stock quantity history</param>
+        //public void BookReservedInventory(Product product, int warehouseId, int quantity, string message = "")
+        //{
+        //    _productService.BookReservedInventory(product, warehouseId, quantity, message);
+        //}
 
-        /// <summary>
-        /// Reverse booked inventory (if acceptable)
-        /// </summary>
-        /// <param name="product">product</param>
-        /// <param name="shipmentItem">Shipment item</param>
-        /// <returns>Quantity reversed</returns>
-        /// <param name="message">Message for the stock quantity history</param>
-        public int ReverseBookedInventory(Product product, ShipmentItem shipmentItem, string message = "")
-        {
-            return _productService.ReverseBookedInventory(product, shipmentItem, message);
-        }
+        ///// <summary>
+        ///// Reverse booked inventory (if acceptable)
+        ///// </summary>
+        ///// <param name="product">product</param>
+        ///// <param name="shipmentItem">Shipment item</param>
+        ///// <returns>Quantity reversed</returns>
+        ///// <param name="message">Message for the stock quantity history</param>
+        //public int ReverseBookedInventory(Product product, ShipmentItem shipmentItem, string message = "")
+        //{
+        //    return _productService.ReverseBookedInventory(product, shipmentItem, message);
+        //}
 
         #endregion
 
         #region Related products
 
-        /// <summary>
-        /// Deletes a related product
-        /// </summary>
-        /// <param name="relatedProduct">Related product</param>
-        public void DeleteRelatedProduct([FromBody]RelatedProduct relatedProduct)
-        {
-            _productService.DeleteRelatedProduct(relatedProduct);
-        }
+        ///// <summary>
+        ///// Deletes a related product
+        ///// </summary>
+        ///// <param name="relatedProduct">Related product</param>
+        //public void DeleteRelatedProduct([FromBody]RelatedProduct relatedProduct)
+        //{
+        //    _productService.DeleteRelatedProduct(relatedProduct);
+        //}
 
         /// <summary>
         /// Gets related products by product identifier
@@ -1422,36 +1405,36 @@ namespace Nop.Api.Controllers
             return _productService.GetRelatedProductById(relatedProductId);
         }
 
-        /// <summary>
-        /// Inserts a related product
-        /// </summary>
-        /// <param name="relatedProduct">Related product</param>
-        public void InsertRelatedProduct([FromBody]RelatedProduct relatedProduct)
-        {
-            _productService.InsertRelatedProduct(relatedProduct);
-        }
+        ///// <summary>
+        ///// Inserts a related product
+        ///// </summary>
+        ///// <param name="relatedProduct">Related product</param>
+        //public void InsertRelatedProduct([FromBody]RelatedProduct relatedProduct)
+        //{
+        //    _productService.InsertRelatedProduct(relatedProduct);
+        //}
 
-        /// <summary>
-        /// Updates a related product
-        /// </summary>
-        /// <param name="relatedProduct">Related product</param>
-        public void UpdateRelatedProduct([FromBody]RelatedProduct relatedProduct)
-        {
-            _productService.UpdateRelatedProduct(relatedProduct);
-        }
+        ///// <summary>
+        ///// Updates a related product
+        ///// </summary>
+        ///// <param name="relatedProduct">Related product</param>
+        //public void UpdateRelatedProduct([FromBody]RelatedProduct relatedProduct)
+        //{
+        //    _productService.UpdateRelatedProduct(relatedProduct);
+        //}
 
         #endregion
 
         #region Cross-sell products
 
-        /// <summary>
-        /// Deletes a cross-sell product
-        /// </summary>
-        /// <param name="crossSellProduct">Cross-sell</param>
-        public void DeleteCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
-        {
-            _productService.DeleteCrossSellProduct(crossSellProduct);
-        }
+        ///// <summary>
+        ///// Deletes a cross-sell product
+        ///// </summary>
+        ///// <param name="crossSellProduct">Cross-sell</param>
+        //public void DeleteCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
+        //{
+        //    _productService.DeleteCrossSellProduct(crossSellProduct);
+        //}
 
         /// <summary>
         /// Gets cross-sell products by product identifier
@@ -1474,23 +1457,23 @@ namespace Nop.Api.Controllers
             return _productService.GetCrossSellProductById(crossSellProductId);
         }
 
-        /// <summary>
-        /// Inserts a cross-sell product
-        /// </summary>
-        /// <param name="crossSellProduct">Cross-sell product</param>
-        public void InsertCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
-        {
-            _productService.InsertCrossSellProduct(crossSellProduct);
-        }
+        ///// <summary>
+        ///// Inserts a cross-sell product
+        ///// </summary>
+        ///// <param name="crossSellProduct">Cross-sell product</param>
+        //public void InsertCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
+        //{
+        //    _productService.InsertCrossSellProduct(crossSellProduct);
+        //}
 
-        /// <summary>
-        /// Updates a cross-sell product
-        /// </summary>
-        /// <param name="crossSellProduct">Cross-sell product</param>
-        public void UpdateCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
-        {
-            _productService.UpdateCrossSellProduct(crossSellProduct);
-        }
+        ///// <summary>
+        ///// Updates a cross-sell product
+        ///// </summary>
+        ///// <param name="crossSellProduct">Cross-sell product</param>
+        //public void UpdateCrossSellProduct([FromBody]CrossSellProduct crossSellProduct)
+        //{
+        //    _productService.UpdateCrossSellProduct(crossSellProduct);
+        //}
 
         /// <summary>
         /// Gets a cross-sells
@@ -1526,36 +1509,36 @@ namespace Nop.Api.Controllers
             return _productService.GetTierPriceById(tierPriceId);
         }
 
-        /// <summary>
-        /// Inserts a tier price
-        /// </summary>
-        /// <param name="tierPrice">Tier price</param>
-        public void InsertTierPrice([FromBody]TierPrice tierPrice)
-        {
-            _productService.InsertTierPrice(tierPrice);
-        }
+        ///// <summary>
+        ///// Inserts a tier price
+        ///// </summary>
+        ///// <param name="tierPrice">Tier price</param>
+        //public void InsertTierPrice([FromBody]TierPrice tierPrice)
+        //{
+        //    _productService.InsertTierPrice(tierPrice);
+        //}
 
-        /// <summary>
-        /// Updates the tier price
-        /// </summary>
-        /// <param name="tierPrice">Tier price</param>
-        public void UpdateTierPrice([FromBody]TierPrice tierPrice)
-        {
-            _productService.UpdateTierPrice(tierPrice);
-        }
+        ///// <summary>
+        ///// Updates the tier price
+        ///// </summary>
+        ///// <param name="tierPrice">Tier price</param>
+        //public void UpdateTierPrice([FromBody]TierPrice tierPrice)
+        //{
+        //    _productService.UpdateTierPrice(tierPrice);
+        //}
 
         #endregion
 
         #region Product pictures
 
-        /// <summary>
-        /// Deletes a product picture
-        /// </summary>
-        /// <param name="productPicture">Product picture</param>
-        public void DeleteProductPicture([FromBody]ProductPicture productPicture)
-        {
-            _productService.DeleteProductPicture(productPicture);
-        }
+        ///// <summary>
+        ///// Deletes a product picture
+        ///// </summary>
+        ///// <param name="productPicture">Product picture</param>
+        //public void DeleteProductPicture([FromBody]ProductPicture productPicture)
+        //{
+        //    _productService.DeleteProductPicture(productPicture);
+        //}
 
         /// <summary>
         /// Gets a product pictures by product identifier
@@ -1577,23 +1560,23 @@ namespace Nop.Api.Controllers
             return _productService.GetProductPictureById(productPictureId);
         }
 
-        /// <summary>
-        /// Inserts a product picture
-        /// </summary>
-        /// <param name="productPicture">Product picture</param>
-        public void InsertProductPicture([FromBody]ProductPicture productPicture)
-        {
-            _productService.InsertProductPicture(productPicture);
-        }
+        ///// <summary>
+        ///// Inserts a product picture
+        ///// </summary>
+        ///// <param name="productPicture">Product picture</param>
+        //public void InsertProductPicture([FromBody]ProductPicture productPicture)
+        //{
+        //    _productService.InsertProductPicture(productPicture);
+        //}
 
-        /// <summary>
-        /// Updates a product picture
-        /// </summary>
-        /// <param name="productPicture">Product picture</param>
-        public void UpdateProductPicture([FromBody]ProductPicture productPicture)
-        {
-            _productService.UpdateProductPicture(productPicture);
-        }
+        ///// <summary>
+        ///// Updates a product picture
+        ///// </summary>
+        ///// <param name="productPicture">Product picture</param>
+        //public void UpdateProductPicture([FromBody]ProductPicture productPicture)
+        //{
+        //    _productService.UpdateProductPicture(productPicture);
+        //}
 
         /// <summary>
         /// Get the IDs of all product images 
@@ -1651,55 +1634,55 @@ namespace Nop.Api.Controllers
             return _productService.GetProducReviewsByIds(productReviewIds);
         }
 
-        /// <summary>
-        /// Deletes a product review
-        /// </summary>
-        /// <param name="productReview">Product review</param>
-        public void DeleteProductReview([FromBody]ProductReview productReview)
-        {
-            _productService.DeleteProductReview(productReview);
-        }
+        ///// <summary>
+        ///// Deletes a product review
+        ///// </summary>
+        ///// <param name="productReview">Product review</param>
+        //public void DeleteProductReview([FromBody]ProductReview productReview)
+        //{
+        //    _productService.DeleteProductReview(productReview);
+        //}
 
-        /// <summary>
-        /// Deletes product reviews
-        /// </summary>
-        /// <param name="productReviews">Product reviews</param>
-        public void DeleteProductReviews([FromBody]IList<ProductReview> productReviews)
-        {
-            _productService.DeleteProductReviews(productReviews);
-        }
+        ///// <summary>
+        ///// Deletes product reviews
+        ///// </summary>
+        ///// <param name="productReviews">Product reviews</param>
+        //public void DeleteProductReviews([FromBody]IList<ProductReview> productReviews)
+        //{
+        //    _productService.DeleteProductReviews(productReviews);
+        //}
 
         #endregion
 
         #region Product warehouse inventory
 
-        /// <summary>
-        /// Deletes a ProductWarehouseInventory
-        /// </summary>
-        /// <param name="pwi">ProductWarehouseInventory</param>
-        public void DeleteProductWarehouseInventory([FromBody]ProductWarehouseInventory pwi)
-        {
-            _productService.DeleteProductWarehouseInventory(pwi);
-        }
+        ///// <summary>
+        ///// Deletes a ProductWarehouseInventory
+        ///// </summary>
+        ///// <param name="pwi">ProductWarehouseInventory</param>
+        //public void DeleteProductWarehouseInventory([FromBody]ProductWarehouseInventory pwi)
+        //{
+        //    _productService.DeleteProductWarehouseInventory(pwi);
+        //}
 
         #endregion
 
         #region Stock quantity history
 
-        /// <summary>
-        /// Add stock quantity change entry
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="quantityAdjustment">Quantity adjustment</param>
-        /// <param name="stockQuantity">Current stock quantity</param>
-        /// <param name="warehouseId">Warehouse identifier</param>
-        /// <param name="message">Message</param>
-        /// <param name="combinationId">Product attribute combination identifier</param>
-        public void AddStockQuantityHistoryEntry(Product product, int quantityAdjustment, int stockQuantity,
-            int warehouseId = 0, string message = "", int? combinationId = null)
-        {
-            _productService.AddStockQuantityHistoryEntry(product, quantityAdjustment, stockQuantity, warehouseId, message, combinationId);
-        }
+        ///// <summary>
+        ///// Add stock quantity change entry
+        ///// </summary>
+        ///// <param name="product">Product</param>
+        ///// <param name="quantityAdjustment">Quantity adjustment</param>
+        ///// <param name="stockQuantity">Current stock quantity</param>
+        ///// <param name="warehouseId">Warehouse identifier</param>
+        ///// <param name="message">Message</param>
+        ///// <param name="combinationId">Product attribute combination identifier</param>
+        //public void AddStockQuantityHistoryEntry(Product product, int quantityAdjustment, int stockQuantity,
+        //    int warehouseId = 0, string message = "", int? combinationId = null)
+        //{
+        //    _productService.AddStockQuantityHistoryEntry(product, quantityAdjustment, stockQuantity, warehouseId, message, combinationId);
+        //}
 
         /// <summary>
         /// Get the history of the product stock quantity changes
@@ -1720,66 +1703,66 @@ namespace Nop.Api.Controllers
 
         #endregion
 
-        #region ProductTemplates
+        //#region ProductTemplates
 
-        /// <summary>
-        /// Delete product template
-        /// </summary>
-        /// <param name="productTemplate">Product template</param>
-        public void DeleteProductTemplate([FromBody]ProductTemplate productTemplate)
-        {
-            _productTemplateService.DeleteProductTemplate(productTemplate);
-        }
+        ///// <summary>
+        ///// Delete product template
+        ///// </summary>
+        ///// <param name="productTemplate">Product template</param>
+        //public void DeleteProductTemplate([FromBody]ProductTemplate productTemplate)
+        //{
+        //    _productTemplateService.DeleteProductTemplate(productTemplate);
+        //}
 
-        /// <summary>
-        /// Gets all product templates
-        /// </summary>
-        /// <returns>Product templates</returns>
-        public IList<ProductTemplate> GetAllProductTemplates()
-        {
-            return _productTemplateService.GetAllProductTemplates();
-        }
+        ///// <summary>
+        ///// Gets all product templates
+        ///// </summary>
+        ///// <returns>Product templates</returns>
+        //public IList<ProductTemplate> GetAllProductTemplates()
+        //{
+        //    return _productTemplateService.GetAllProductTemplates();
+        //}
 
-        /// <summary>
-        /// Gets a product template
-        /// </summary>
-        /// <param name="productTemplateId">Product template identifier</param>
-        /// <returns>Product template</returns>
-        public ProductTemplate GetProductTemplateById(int productTemplateId)
-        {
-            return _productTemplateService.GetProductTemplateById(productTemplateId);
-        }
+        ///// <summary>
+        ///// Gets a product template
+        ///// </summary>
+        ///// <param name="productTemplateId">Product template identifier</param>
+        ///// <returns>Product template</returns>
+        //public ProductTemplate GetProductTemplateById(int productTemplateId)
+        //{
+        //    return _productTemplateService.GetProductTemplateById(productTemplateId);
+        //}
 
-        /// <summary>
-        /// Inserts product template
-        /// </summary>
-        /// <param name="productTemplate">Product template</param>
-        public void InsertProductTemplate([FromBody]ProductTemplate productTemplate)
-        {
-            _productTemplateService.InsertProductTemplate(productTemplate);
-        }
+        ///// <summary>
+        ///// Inserts product template
+        ///// </summary>
+        ///// <param name="productTemplate">Product template</param>
+        //public void InsertProductTemplate([FromBody]ProductTemplate productTemplate)
+        //{
+        //    _productTemplateService.InsertProductTemplate(productTemplate);
+        //}
 
-        /// <summary>
-        /// Updates the product template
-        /// </summary>
-        /// <param name="productTemplate">Product template</param>
-        public void UpdateProductTemplate([FromBody]ProductTemplate productTemplate)
-        {
-            _productTemplateService.UpdateProductTemplate(productTemplate);
-        }
+        ///// <summary>
+        ///// Updates the product template
+        ///// </summary>
+        ///// <param name="productTemplate">Product template</param>
+        //public void UpdateProductTemplate([FromBody]ProductTemplate productTemplate)
+        //{
+        //    _productTemplateService.UpdateProductTemplate(productTemplate);
+        //}
 
-        #endregion
+        //#endregion
 
         #region ProductTags
 
-        /// <summary>
-        /// Delete a product tag
-        /// </summary>
-        /// <param name="productTag">Product tag</param>
-        public void DeleteProductTag([FromBody]ProductTag productTag)
-        {
-            _productTagService.DeleteProductTag(productTag);
-        }
+        ///// <summary>
+        ///// Delete a product tag
+        ///// </summary>
+        ///// <param name="productTag">Product tag</param>
+        //public void DeleteProductTag([FromBody]ProductTag productTag)
+        //{
+        //    _productTagService.DeleteProductTag(productTag);
+        //}
 
         /// <summary>
         /// Gets all product tags
@@ -1810,23 +1793,23 @@ namespace Nop.Api.Controllers
             return _productTagService.GetProductTagByName(name);
         }
 
-        /// <summary>
-        /// Inserts a product tag
-        /// </summary>
-        /// <param name="productTag">Product tag</param>
-        public void InsertProductTag([FromBody]ProductTag productTag)
-        {
-            _productTagService.InsertProductTag(productTag);
-        }
+        ///// <summary>
+        ///// Inserts a product tag
+        ///// </summary>
+        ///// <param name="productTag">Product tag</param>
+        //public void InsertProductTag([FromBody]ProductTag productTag)
+        //{
+        //    _productTagService.InsertProductTag(productTag);
+        //}
 
-        /// <summary>
-        /// Updates the product tag
-        /// </summary>
-        /// <param name="productTag">Product tag</param>
-        public void UpdateProductTag([FromBody]ProductTag productTag)
-        {
-            _productTagService.UpdateProductTag(productTag);
-        }
+        ///// <summary>
+        ///// Updates the product tag
+        ///// </summary>
+        ///// <param name="productTag">Product tag</param>
+        //public void UpdateProductTag([FromBody]ProductTag productTag)
+        //{
+        //    _productTagService.UpdateProductTag(productTag);
+        //}
 
         /// <summary>
         /// Get number of products
@@ -1839,15 +1822,15 @@ namespace Nop.Api.Controllers
             return _productTagService.GetProductCount(productTagId, storeId);
         }
 
-        /// <summary>
-        /// Update product tags
-        /// </summary>
-        /// <param name="product">Product for update</param>
-        /// <param name="productTags">Product tags</param>
-        public void UpdateProductTags([FromBody]Product product, [FromBody]string[] productTags)
-        {
-            _productTagService.UpdateProductTags(product, productTags);
-        }
+        ///// <summary>
+        ///// Update product tags
+        ///// </summary>
+        ///// <param name="product">Product for update</param>
+        ///// <param name="productTags">Product tags</param>
+        //public void UpdateProductTags([FromBody]Product product, [FromBody]string[] productTags)
+        //{
+        //    _productTagService.UpdateProductTags(product, productTags);
+        //}
 
         #endregion
 
@@ -1863,14 +1846,14 @@ namespace Nop.Api.Controllers
             return _recentlyViewedProductsService.GetRecentlyViewedProducts(number);
         }
 
-        /// <summary>
-        /// Adds a product to a recently viewed products list
-        /// </summary>
-        /// <param name="productId">Product identifier</param>
-        public void AddProductToRecentlyViewedList([FromBody]int productId)
-        {
-            _recentlyViewedProductsService.AddProductToRecentlyViewedList(productId);
-        }
+        ///// <summary>
+        ///// Adds a product to a recently viewed products list
+        ///// </summary>
+        ///// <param name="productId">Product identifier</param>
+        //public void AddProductToRecentlyViewedList([FromBody]int productId)
+        //{
+        //    _recentlyViewedProductsService.AddProductToRecentlyViewedList(productId);
+        //}
 
         #endregion
 
@@ -1899,32 +1882,32 @@ namespace Nop.Api.Controllers
             return _specificationAttributeService.GetSpecificationAttributes(pageIndex, pageSize).ConvertPagedListToAPIPagedList();
         }
 
-        /// <summary>
-        /// Deletes a specification attribute
-        /// </summary>
-        /// <param name="specificationAttribute">The specification attribute</param>
-        public void DeleteSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
-        {
-            _specificationAttributeService.DeleteSpecificationAttribute(specificationAttribute);
-        }
+        ///// <summary>
+        ///// Deletes a specification attribute
+        ///// </summary>
+        ///// <param name="specificationAttribute">The specification attribute</param>
+        //public void DeleteSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
+        //{
+        //    _specificationAttributeService.DeleteSpecificationAttribute(specificationAttribute);
+        //}
 
-        /// <summary>
-        /// Inserts a specification attribute
-        /// </summary>
-        /// <param name="specificationAttribute">The specification attribute</param>
-        public void InsertSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
-        {
-            _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
-        }
+        ///// <summary>
+        ///// Inserts a specification attribute
+        ///// </summary>
+        ///// <param name="specificationAttribute">The specification attribute</param>
+        //public void InsertSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
+        //{
+        //    _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
+        //}
 
-        /// <summary>
-        /// Updates the specification attribute
-        /// </summary>
-        /// <param name="specificationAttribute">The specification attribute</param>
-        public void UpdateSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
-        {
-            _specificationAttributeService.UpdateSpecificationAttribute(specificationAttribute);
-        }
+        ///// <summary>
+        ///// Updates the specification attribute
+        ///// </summary>
+        ///// <param name="specificationAttribute">The specification attribute</param>
+        //public void UpdateSpecificationAttribute([FromBody]SpecificationAttribute specificationAttribute)
+        //{
+        //    _specificationAttributeService.UpdateSpecificationAttribute(specificationAttribute);
+        //}
 
         #endregion
 
@@ -1960,45 +1943,45 @@ namespace Nop.Api.Controllers
             return _specificationAttributeService.GetSpecificationAttributeOptionsBySpecificationAttribute(specificationAttributeId);
         }
 
-        /// <summary>
-        /// Deletes a specification attribute option
-        /// </summary>
-        /// <param name="specificationAttributeOption">The specification attribute option</param>
-        public void DeleteSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
-        {
-            _specificationAttributeService.DeleteSpecificationAttributeOption(specificationAttributeOption);
-        }
+        ///// <summary>
+        ///// Deletes a specification attribute option
+        ///// </summary>
+        ///// <param name="specificationAttributeOption">The specification attribute option</param>
+        //public void DeleteSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
+        //{
+        //    _specificationAttributeService.DeleteSpecificationAttributeOption(specificationAttributeOption);
+        //}
 
-        /// <summary>
-        /// Inserts a specification attribute option
-        /// </summary>
-        /// <param name="specificationAttributeOption">The specification attribute option</param>
-        public void InsertSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
-        {
-            _specificationAttributeService.InsertSpecificationAttributeOption(specificationAttributeOption);
-        }
+        ///// <summary>
+        ///// Inserts a specification attribute option
+        ///// </summary>
+        ///// <param name="specificationAttributeOption">The specification attribute option</param>
+        //public void InsertSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
+        //{
+        //    _specificationAttributeService.InsertSpecificationAttributeOption(specificationAttributeOption);
+        //}
 
-        /// <summary>
-        /// Updates the specification attribute
-        /// </summary>
-        /// <param name="specificationAttributeOption">The specification attribute option</param>
-        public void UpdateSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
-        {
-            _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttributeOption);
-        }
+        ///// <summary>
+        ///// Updates the specification attribute
+        ///// </summary>
+        ///// <param name="specificationAttributeOption">The specification attribute option</param>
+        //public void UpdateSpecificationAttributeOption([FromBody]SpecificationAttributeOption specificationAttributeOption)
+        //{
+        //    _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttributeOption);
+        //}
 
-        #endregion
+        //#endregion
 
-        #region Product specification attribute
+        //#region Product specification attribute
 
-        /// <summary>
-        /// Deletes a product specification attribute mapping
-        /// </summary>
-        /// <param name="productSpecificationAttribute">Product specification attribute</param>
-        public void DeleteProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
-        {
-            _specificationAttributeService.DeleteProductSpecificationAttribute(productSpecificationAttribute);
-        }
+        ///// <summary>
+        ///// Deletes a product specification attribute mapping
+        ///// </summary>
+        ///// <param name="productSpecificationAttribute">Product specification attribute</param>
+        //public void DeleteProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
+        //{
+        //    _specificationAttributeService.DeleteProductSpecificationAttribute(productSpecificationAttribute);
+        //}
 
         /// <summary>
         /// Gets a product specification attribute mapping collection
@@ -2024,23 +2007,23 @@ namespace Nop.Api.Controllers
             return _specificationAttributeService.GetProductSpecificationAttributeById(productSpecificationAttributeId);
         }
 
-        /// <summary>
-        /// Inserts a product specification attribute mapping
-        /// </summary>
-        /// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
-        public void InsertProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
-        {
-            _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
-        }
+        ///// <summary>
+        ///// Inserts a product specification attribute mapping
+        ///// </summary>
+        ///// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
+        //public void InsertProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
+        //{
+        //    _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
+        //}
 
-        /// <summary>
-        /// Updates the product specification attribute mapping
-        /// </summary>
-        /// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
-        public void UpdateProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
-        {
-            _specificationAttributeService.UpdateProductSpecificationAttribute(productSpecificationAttribute);
-        }
+        ///// <summary>
+        ///// Updates the product specification attribute mapping
+        ///// </summary>
+        ///// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
+        //public void UpdateProductSpecificationAttribute([FromBody]ProductSpecificationAttribute productSpecificationAttribute)
+        //{
+        //    _specificationAttributeService.UpdateProductSpecificationAttribute(productSpecificationAttribute);
+        //}
 
         /// <summary>
         /// Gets a count of product specification attribute mapping records

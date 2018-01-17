@@ -1,0 +1,9 @@
+﻿Group: WorldBuy
+FriendlyName: One Page Checkout
+SystemName: OnePageCheckout
+Version: 1.00
+SupportedVersions: 3.90
+Author: World Buy
+DisplayOrder: 1
+FileName: Nop.Plugin.Worldbuy.OnePageCheckout.dll
+Description: One Page CheckOut

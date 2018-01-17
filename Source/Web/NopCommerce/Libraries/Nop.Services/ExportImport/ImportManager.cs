@@ -319,6 +319,108 @@ namespace Nop.Services.ExportImport
         /// Import products from XLSX file
         /// </summary>
         /// <param name="stream">Stream</param>
+        public virtual void ImportPriceProductsFromXlsx(Stream stream)
+        {
+            using (var xlPackage = new ExcelPackage(stream))
+            {
+                // get the first worksheet in the workbook
+                var worksheet = xlPackage.Workbook.Worksheets.FirstOrDefault();
+                if (worksheet == null)
+                    throw new NopException("No worksheet found");
+
+                //the columns
+                var properties = GetPropertiesByExcelCells<Product>(worksheet);
+
+                var manager = new PropertyManager<Product>(properties);
+
+                var endRow = 2;
+                var allSku = new List<string>();
+
+                var tempProperty = manager.GetProperty("Categories");
+                tempProperty = manager.GetProperty("SKU");
+                var skuCellNum = tempProperty.Return(p => p.PropertyOrderPosition, -1);
+
+                var countProductsInFile = 0;
+
+                //find end of data
+                while (true)
+                {
+                    var allColumnsAreEmpty = manager.GetProperties
+                        .Select(property => worksheet.Cells[endRow, property.PropertyOrderPosition])
+                        .All(cell => cell == null || cell.Value == null || String.IsNullOrEmpty(cell.Value.ToString()));
+
+                    if (allColumnsAreEmpty)
+                        break;
+
+                    if (skuCellNum > 0)
+                    {
+                        var sku = worksheet.Cells[endRow, skuCellNum].Value.Return(p => p.ToString(), string.Empty);
+
+                        if (!sku.IsEmpty())
+                            allSku.Add(sku);
+                    }
+
+                    //counting the number of products
+                    countProductsInFile += 1;
+
+                    endRow++;
+                }
+
+                //performance optimization, load all products by SKU in one SQL request
+                var allProductsBySku = _productService.GetProductsBySku(allSku.ToArray(), _workContext.CurrentVendor.Return(v => v.Id, 0));
+
+                Product lastLoadedProduct = null;
+
+                for (var iRow = 2; iRow < endRow; iRow++)
+                {
+                    manager.ReadFromXlsx(worksheet, iRow);
+
+                    var product = skuCellNum > 0 ? allProductsBySku.FirstOrDefault(p => p.Sku == manager.GetProperty("SKU").StringValue) : null;
+                    if (product != null)
+                    {
+                        foreach (var property in manager.GetProperties)
+                        {
+                            switch (property.PropertyName)
+                            {
+                                case "Published":
+                                    product.Published = property.BooleanValue;
+                                    break;
+                                case "SKU":
+                                    product.Sku = property.StringValue;
+                                    break;
+                                case "DisableBuyButton":
+                                    product.DisableBuyButton = property.BooleanValue;
+                                    break;
+                                case "CallForPrice":
+                                    product.CallForPrice = property.BooleanValue;
+                                    break;
+                                case "Price":
+                                    product.Price = property.DecimalValue;
+                                    break;
+                                case "OldPrice":
+                                    product.OldPrice = property.DecimalValue;
+                                    break;
+                                case "ProductCost":
+                                    product.ProductCost = property.DecimalValue;
+                                    break;
+                            }
+                        }
+                        product.UpdatedOnUtc = DateTime.UtcNow;
+
+                        _productService.UpdateProduct(product);
+                        lastLoadedProduct = product;
+                    }
+                }
+
+                //activity log
+                _customerActivityService.InsertActivity("ImportProducts", _localizationService.GetResource("ActivityLog.ImportProducts"), countProductsInFile);
+            }
+        }
+
+        /// <summary>
+        /// Import products from XLSX file
+        /// </summary>
+        /// <param name="stream">Stream</param>
         public virtual void ImportProductsFromXlsx(Stream stream)
         {
             using (var xlPackage = new ExcelPackage(stream))
@@ -330,7 +432,7 @@ namespace Nop.Services.ExportImport
 
                 //the columns
                 var properties = GetPropertiesByExcelCells<Product>(worksheet);
-                
+
                 var manager = new PropertyManager<Product>(properties);
 
                 var attributProperties = new[]
@@ -343,7 +445,7 @@ namespace Nop.Services.ExportImport
                         {
                             DropDownElements = AttributeControlType.TextBox.ToSelectList(useLocalization: false)
                         },
-                        new PropertyByName<ExportProductAttribute>("AttributeDisplayOrder"), 
+                        new PropertyByName<ExportProductAttribute>("AttributeDisplayOrder"),
                         new PropertyByName<ExportProductAttribute>("ProductAttributeValueId"),
                         new PropertyByName<ExportProductAttribute>("ValueName"),
                         new PropertyByName<ExportProductAttribute>("AttributeValueType")
@@ -371,7 +473,7 @@ namespace Nop.Services.ExportImport
 
                 var tempProperty = manager.GetProperty("Categories");
                 var categoryCellNum = tempProperty.Return(p => p.PropertyOrderPosition, -1);
-                
+
                 tempProperty = manager.GetProperty("SKU");
                 var skuCellNum = tempProperty.Return(p => p.PropertyOrderPosition, -1);
 
@@ -393,7 +495,7 @@ namespace Nop.Services.ExportImport
                 manager.SetSelectList("DeliveryDate", _dateRangeService.GetAllDeliveryDates().Select(dd => dd as BaseEntity).ToSelectList(p => (p as DeliveryDate).Return(dd => dd.Name, String.Empty)));
                 manager.SetSelectList("ProductAvailabilityRange", _dateRangeService.GetAllProductAvailabilityRanges().Select(range => range as BaseEntity).ToSelectList(p => (p as ProductAvailabilityRange).Return(range => range.Name, String.Empty)));
                 manager.SetSelectList("TaxCategory", _taxCategoryService.GetAllTaxCategories().Select(tc => tc as BaseEntity).ToSelectList(p => (p as TaxCategory).Return(tc => tc.Name, String.Empty)));
-                manager.SetSelectList("BasepriceUnit", _measureService.GetAllMeasureWeights().Select(mw => mw as BaseEntity).ToSelectList(p =>(p as MeasureWeight).Return(mw => mw.Name, String.Empty)));
+                manager.SetSelectList("BasepriceUnit", _measureService.GetAllMeasureWeights().Select(mw => mw as BaseEntity).ToSelectList(p => (p as MeasureWeight).Return(mw => mw.Name, String.Empty)));
                 manager.SetSelectList("BasepriceBaseUnit", _measureService.GetAllMeasureWeights().Select(mw => mw as BaseEntity).ToSelectList(p => (p as MeasureWeight).Return(mw => mw.Name, String.Empty)));
 
                 var allAttributeIds = new List<int>();
@@ -444,7 +546,7 @@ namespace Nop.Services.ExportImport
                     }
 
                     if (categoryCellNum > 0)
-                    { 
+                    {
                         var categoryIds = worksheet.Cells[endRow, categoryCellNum].Value.Return(p => p.ToString(), string.Empty);
 
                         if (!categoryIds.IsEmpty())
@@ -460,7 +562,7 @@ namespace Nop.Services.ExportImport
                     }
 
                     if (manufacturerCellNum > 0)
-                    { 
+                    {
                         var manufacturerIds = worksheet.Cells[endRow, manufacturerCellNum].Value.Return(p => p.ToString(), string.Empty);
                         if (!manufacturerIds.IsEmpty())
                             allManufacturersNames.AddRange(manufacturerIds.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()));
@@ -494,14 +596,14 @@ namespace Nop.Services.ExportImport
                 }
 
                 //performance optimization, load all products by SKU in one SQL request
-                var allProductsBySku = _productService.GetProductsBySku(allSku.ToArray(), _workContext.CurrentVendor.Return(v=>v.Id, 0));
+                var allProductsBySku = _productService.GetProductsBySku(allSku.ToArray(), _workContext.CurrentVendor.Return(v => v.Id, 0));
 
                 //validate maximum number of products per vendor
                 if (_vendorSettings.MaximumProductNumber > 0 &&
                     _workContext.CurrentVendor != null)
                 {
                     var newProductsCount = countProductsInFile - allProductsBySku.Count;
-                    if(_productService.GetNumberOfProductsByVendorId(_workContext.CurrentVendor.Id) + newProductsCount > _vendorSettings.MaximumProductNumber)
+                    if (_productService.GetNumberOfProductsByVendorId(_workContext.CurrentVendor.Id) + newProductsCount > _vendorSettings.MaximumProductNumber)
                         throw new ArgumentException(string.Format(_localizationService.GetResource("Admin.Catalog.Products.ExceededMaximumNumber"), _vendorSettings.MaximumProductNumber));
                 }
 
@@ -536,7 +638,7 @@ namespace Nop.Services.ExportImport
 
                             var productAttributeId = managerProductAttribute.GetProperty("AttributeId").IntValue;
                             var attributeControlTypeId = managerProductAttribute.GetProperty("AttributeControlType").IntValue;
-                            
+
                             var productAttributeValueId = managerProductAttribute.GetProperty("ProductAttributeValueId").IntValue;
                             var associatedProductId = managerProductAttribute.GetProperty("AssociatedProductId").IntValue;
                             var valueName = managerProductAttribute.GetProperty("ValueName").StringValue;
@@ -556,7 +658,7 @@ namespace Nop.Services.ExportImport
                             var attributeDisplayOrder = managerProductAttribute.GetProperty("AttributeDisplayOrder").IntValue;
 
                             var productAttributeMapping = lastLoadedProduct.ProductAttributeMappings.FirstOrDefault(pam => pam.ProductAttributeId == productAttributeId);
-                            
+
                             if (productAttributeMapping == null)
                             {
                                 //insert mapping
@@ -582,7 +684,7 @@ namespace Nop.Services.ExportImport
 
                             var pav = _productAttributeService.GetProductAttributeValueById(productAttributeValueId);
 
-                            var attributeControlType = (AttributeControlType) attributeControlTypeId;
+                            var attributeControlType = (AttributeControlType)attributeControlTypeId;
 
                             if (pav == null)
                             {
@@ -598,7 +700,7 @@ namespace Nop.Services.ExportImport
                                 pav = new ProductAttributeValue
                                 {
                                     ProductAttributeMappingId = productAttributeMapping.Id,
-                                    AttributeValueType = (AttributeValueType) attributeValueTypeId,
+                                    AttributeValueType = (AttributeValueType)attributeValueTypeId,
                                     AssociatedProductId = associatedProductId,
                                     Name = valueName,
                                     PriceAdjustment = priceAdjustment,
@@ -935,7 +1037,7 @@ namespace Nop.Services.ExportImport
                     //sets the current vendor for the new product
                     if (isNew && _workContext.CurrentVendor != null)
                         product.VendorId = _workContext.CurrentVendor.Id;
-                    
+
                     product.UpdatedOnUtc = DateTime.UtcNow;
 
                     if (isNew)
@@ -989,7 +1091,7 @@ namespace Nop.Services.ExportImport
                     tempProperty = manager.GetProperty("Categories");
 
                     if (tempProperty != null)
-                    { 
+                    {
                         var categoryNames = tempProperty.StringValue;
 
                         //category mappings
@@ -999,7 +1101,7 @@ namespace Nop.Services.ExportImport
                         {
                             if (categories.Any(c => c == categoryId))
                                 continue;
-                       
+
                             var productCategory = new ProductCategory
                             {
                                 ProductId = product.Id,
@@ -1079,7 +1181,7 @@ namespace Nop.Services.ExportImport
                     //_productService.UpdateHasTierPricesProperty(product);
                     //_productService.UpdateHasDiscountsApplied(product);
                 }
-               
+
                 if (_mediaSettings.ImportProductImagesUsingHash && _pictureService.StoreInDb && _dataProvider.SupportedLengthOfBinaryHash() > 0)
                     ImportProductImagesUsingHash(productPictureMetadata, allProductsBySku);
                 else
@@ -1089,7 +1191,7 @@ namespace Nop.Services.ExportImport
                 _customerActivityService.InsertActivity("ImportProducts", _localizationService.GetResource("ActivityLog.ImportProducts"), countProductsInFile);
             }
         }
-        
+
         /// <summary>
         /// Import newsletter subscribers from TXT file
         /// </summary>
@@ -1301,7 +1403,7 @@ namespace Nop.Services.ExportImport
                                 break;
                             case "Picture":
                                 var picture = LoadPicture(manager.GetProperty("Picture").StringValue, manufacturer.Name,
-                                    isNew ? null : (int?) manufacturer.PictureId);
+                                    isNew ? null : (int?)manufacturer.PictureId);
 
                                 if (picture != null)
                                     manufacturer.PictureId = picture.Id;

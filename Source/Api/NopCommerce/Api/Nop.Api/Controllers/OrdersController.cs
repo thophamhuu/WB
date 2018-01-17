@@ -1,9 +1,14 @@
-﻿using Nop.Core;
+﻿using Nop.Api.Models.Requests;
+using Nop.Api.Models.Responses;
+using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
 using Nop.Core.Domain.Shipping;
+using Nop.Core.Infrastructure;
+using Nop.Services.Catalog;
+using Nop.Services.Customers;
 using Nop.Services.Discounts;
 using Nop.Services.Orders;
 using System;
@@ -885,13 +890,28 @@ namespace Nop.Api.Controllers
         /// <param name="quantity">Quantity</param>
         /// <param name="automaticallyAddRequiredProductsIfEnabled">Automatically add required products if enabled</param>
         /// <returns>Warnings</returns>
-        public IList<string> AddToCart(Customer customer, Product product,
-            ShoppingCartType shoppingCartType, int storeId, string attributesXml = null,
-            decimal customerEnteredPrice = decimal.Zero,
-            DateTime? rentalStartDate = null, DateTime? rentalEndDate = null,
-            int quantity = 1, bool automaticallyAddRequiredProductsIfEnabled = true)
+        public HttpResponseMessage AddToCart([FromBody]AddToCartRequest model)
         {
-            return _shoppingCartService.AddToCart(customer, product, shoppingCartType, storeId, attributesXml, customerEnteredPrice, rentalStartDate, rentalEndDate, quantity, automaticallyAddRequiredProductsIfEnabled);
+            try
+            {
+                var _customerService = EngineContext.Current.Resolve<ICustomerService>();
+                var customer = _customerService.GetCustomerById(model.customerId);
+                var _productService = EngineContext.Current.Resolve<IProductService>();
+                var product = _productService.GetProductById(model.productId);
+                var result = _shoppingCartService.AddToCart(customer, product, model.shoppingCartType, model.storeId, model.attributesXml, model.customerEnteredPrice, model.rentalStartDate, model.rentalEndDate, model.quantity, model.automaticallyAddRequiredProductsIfEnabled);
+                customer = _customerService.GetCustomerById(model.customerId);
+                var response = new AddToCartResponse
+                {
+                    warnings = result,
+                    ShoppingCartItems = customer.ShoppingCartItems.ToList()
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
         }
 
         /// <summary>

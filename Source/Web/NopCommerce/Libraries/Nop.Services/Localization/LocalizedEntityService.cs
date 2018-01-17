@@ -97,10 +97,11 @@ namespace Nop.Services.Localization
             string key = string.Format(LOCALIZEDPROPERTY_ALL_KEY);
             return _cacheManager.Get(key, () =>
             {
+                var list = new List<LocalizedPropertyForCaching>();
                 var query = from lp in _localizedPropertyRepository.Table
                             select lp;
                 var localizedProperties = query.ToList();
-                var list = new List<LocalizedPropertyForCaching>();
+
                 foreach (var lp in localizedProperties)
                 {
                     var localizedPropertyForCaching = new LocalizedPropertyForCaching
@@ -114,6 +115,7 @@ namespace Nop.Services.Localization
                     };
                     list.Add(localizedPropertyForCaching);
                 }
+
                 return list;
             });
         }
@@ -180,7 +182,6 @@ namespace Nop.Services.Localization
                 string key = string.Format(LOCALIZEDPROPERTY_KEY, languageId, entityId, localeKeyGroup, localeKey);
                 return _cacheManager.Get(key, () =>
                 {
-                    //load all records (we know they are cached)
                     var source = GetAllLocalizedPropertiesCached();
                     var query = from lp in source
                                 where lp.LanguageId == languageId &&
@@ -192,7 +193,10 @@ namespace Nop.Services.Localization
                     //little hack here. nulls aren't cacheable so set it to ""
                     if (localeValue == null)
                         localeValue = "";
+                    //load all records (we know they are cached)
+
                     return localeValue;
+
                 });
 
             }
@@ -299,7 +303,7 @@ namespace Nop.Services.Localization
                 lp.LocaleKey.Equals(localeKey, StringComparison.InvariantCultureIgnoreCase)); //should be culture invariant
 
             var localeValueStr = CommonHelper.To<string>(localeValue);
-            
+
             if (prop != null)
             {
                 if (string.IsNullOrWhiteSpace(localeValueStr))

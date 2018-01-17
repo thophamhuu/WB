@@ -105,12 +105,6 @@ namespace Nop.Services.Customers
         Customer GetCustomerByUsername(string username);
 
         /// <summary>
-        /// Get Customer Roles By customerId
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        ICollection<CustomerRole> GetCustomerRolesByCustomerId(int customerId);
-        /// <summary>
         /// Insert a guest customer
         /// </summary>
         /// <returns>Customer</returns>

@@ -37,7 +37,7 @@
 }
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         @* wooncherk contribution *@
         function RoxyFileBrowser@(random)(field_name, url, type, win) {
             var roxyFileman = '@Url.Content("~/Administration/Content/Roxy_Fileman/index.html")';
@@ -79,21 +79,21 @@
             {
                 <text>
             valid_elements: "*[*]",
-                </text>
+            </text>
             }
             @if (allowRoxyFileman)
             {
                 <text>
             //picture manager
             file_browser_callback: RoxyFileBrowser@(random),
-                </text>
+            </text>
             }
             @if (!string.IsNullOrEmpty(language))
             {
                 <text>
             //language
             language: "@language",
-                </text>
+            </text>
             }
             //we should set "convert_urls" set to "false" (because of "relative_urls" requirement)
             //otherwise, it'll break existing links when editing message template

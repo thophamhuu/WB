@@ -35,57 +35,57 @@ namespace Nop.Api.Controllers
 
         #region Method
 
-        #region Language
+        //#region Language
 
-        /// <summary>
-        /// Deletes a language
-        /// </summary>
-        /// <param name="language">Language</param>
-        public void DeleteLanguage(Language language)
-        {
-            _languageService.DeleteLanguage(language);
-        }
+        ///// <summary>
+        ///// Deletes a language
+        ///// </summary>
+        ///// <param name="language">Language</param>
+        //public void DeleteLanguage(Language language)
+        //{
+        //    _languageService.DeleteLanguage(language);
+        //}
 
-        /// <summary>
-        /// Gets all languages
-        /// </summary>
-        /// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <returns>Languages</returns>
-        public IList<Language> GetAllLanguages(bool showHidden = false, int storeId = 0)
-        {
-            return _languageService.GetAllLanguages(showHidden, storeId);
-        }
+        ///// <summary>
+        ///// Gets all languages
+        ///// </summary>
+        ///// <param name="storeId">Load records allowed only in a specified store; pass 0 to load all records</param>
+        ///// <param name="showHidden">A value indicating whether to show hidden records</param>
+        ///// <returns>Languages</returns>
+        //public IList<Language> GetAllLanguages(bool showHidden = false, int storeId = 0)
+        //{
+        //    return _languageService.GetAllLanguages(showHidden, storeId);
+        //}
 
-        /// <summary>
-        /// Gets a language
-        /// </summary>
-        /// <param name="languageId">Language identifier</param>
-        /// <returns>Language</returns>
-        public Language GetLanguageById(int languageId)
-        {
-            return _languageService.GetLanguageById(languageId);
-        }
+        ///// <summary>
+        ///// Gets a language
+        ///// </summary>
+        ///// <param name="languageId">Language identifier</param>
+        ///// <returns>Language</returns>
+        //public Language GetLanguageById(int languageId)
+        //{
+        //    return _languageService.GetLanguageById(languageId);
+        //}
 
-        /// <summary>
-        /// Inserts a language
-        /// </summary>
-        /// <param name="language">Language</param>
-        public void InsertLanguage(Language language)
-        {
-            _languageService.InsertLanguage(language);
-        }
+        ///// <summary>
+        ///// Inserts a language
+        ///// </summary>
+        ///// <param name="language">Language</param>
+        //public void InsertLanguage(Language language)
+        //{
+        //    _languageService.InsertLanguage(language);
+        //}
 
-        /// <summary>
-        /// Updates a language
-        /// </summary>
-        /// <param name="language">Language</param>
-        public void UpdateLanguage(Language language)
-        {
-            _languageService.UpdateLanguage(language);
-        }
+        ///// <summary>
+        ///// Updates a language
+        ///// </summary>
+        ///// <param name="language">Language</param>
+        //public void UpdateLanguage(Language language)
+        //{
+        //    _languageService.UpdateLanguage(language);
+        //}
 
-        #endregion
+        //#endregion
 
         #region Localization
 
